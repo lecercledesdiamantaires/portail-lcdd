@@ -1,15 +1,15 @@
-import express from 'express'
-import cors from 'cors'
-import router from './router.js'
-import bodyParser from 'body-parser'
+// 📄 server.js
+import express from 'express';
+import router from './router.js';
+import { PORT } from './config/env.js';
 
+const app = express();
+app.use(express.json());
 
-const app = express()
-app.use(cors())
-app.use(router)
+// Utilisation du routeur global
+app.use('/api', router);
 
-
-
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
-})
+// Démarrage du serveur
+app.listen(PORT, () => {
+    console.log(`Serveur démarré sur le port ${PORT}`);
+});
