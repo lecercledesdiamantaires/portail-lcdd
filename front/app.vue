@@ -1,6 +1,11 @@
+<script setup>
+ const qrCode = useQrCode('test');
+ provide('qrCode', qrCode);
+</script>
+
+
 <template>
   <div>
-    <NuxtRouteAnnouncer />
-    <NuxtWelcome />
+    <NuxtPage />
   </div>
 </template>
