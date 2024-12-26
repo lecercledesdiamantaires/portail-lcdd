@@ -6,7 +6,11 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export const register = async (req, res) => {
-    const { email, password, firstName, lastName, phoneNumber } = req.body;
+    const { email, password, firstName, lastName, phoneNumber, whitelistEmail } = req.body;
+
+    if (!firstName || !lastName || !email || !password || !phoneNumber || !whitelistEmail) {
+        return res.status(400).json({ error: 'Tous les champs doivent être remplis.' });
+    }
 
     try {
         // Vérifier si l'email est dans la whitelist
@@ -44,6 +48,8 @@ export const register = async (req, res) => {
         res.status(500).json({ error: 'Erreur serveur' });
     }
 };
+
+
 export const login = async (req, res) => {
     const { email, password } = req.body;
 
@@ -59,7 +65,7 @@ export const login = async (req, res) => {
         }
 
         const token = jwt.sign(
-            { id: user.id, email: user.email },
+            { id: user.id, email: user.email, role: user.role },
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );
