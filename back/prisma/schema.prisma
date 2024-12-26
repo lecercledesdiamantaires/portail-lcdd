@@ -12,3 +12,80 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id            Int         @id @default(autoincrement())
+  firstName     String
+  lastName      String
+  email         String      @unique
+  phoneNumber   Int         @unique
+  password      String
+  role          Role        @default(VENDEUR)
+
+  vendor        Vendor?
+  whitelist     Whitelist?
+
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model Whitelist {
+  id      Int     @id @default(autoincrement())
+  email   String  @unique
+  user    User?   @relation(fields: [userId], references: [id])
+  userId  Int?    @unique
+}
+
+model Vendor {
+  id            Int         @id @default(autoincrement())
+  userId        Int         @unique
+  promoCode     String      @unique
+  streetName    String
+  zipCode       Int
+  streetNumber  Int
+  city          String
+  country       String
+
+  user          User        @relation(fields: [userId], references: [id])
+  sales         Sale[]
+  payouts       Payout[]
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+enum Role {
+  ADMIN
+  VENDEUR
+}
+
+model Sale {
+  id          Int           @id @default(autoincrement())
+  vendorId    Int
+  amount      Float
+  date        DateTime      
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  vendor      Vendor        @relation(fields: [vendorId], references: [id])
+}
+
+model Payout {
+  id          Int           @id @default(autoincrement())
+  vendorId    Int
+  amount      Float
+  status      PayoutStatus  @default(PENDING)
+  date        DateTime      @default(now())
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  vendor      Vendor        @relation(fields: [vendorId], references: [id])
+}
+
+enum PayoutStatus {
+  PENDING
+  PAID
+}
