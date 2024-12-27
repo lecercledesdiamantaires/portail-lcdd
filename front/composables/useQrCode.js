@@ -23,8 +23,6 @@ export default function (url) {
         alert('QR code has been downloaded');
     }
 
-    console.log(data.value);
-
     return {
         data,
         download,
