@@ -18,7 +18,7 @@
   </template>
   
   <script setup>
-  const { login } = useAuth()
+  const { login, isAuthenticated } = useAuth()
   
   const form = reactive({
     email: '',
@@ -28,7 +28,9 @@
   const loginUser = async () => {
     await login(form.email, form.password)
     // Redirection après la connexion réussie
-    useRouter().push('/')
+    if (isAuthenticated.value) {
+      useRouter().push('/')
+    }
   }
   </script>
   

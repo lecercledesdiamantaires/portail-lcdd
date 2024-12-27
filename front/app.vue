@@ -1,6 +1,6 @@
 <script setup>
- const qrCode = useQrCode('test');
- provide('qrCode', qrCode);
+  const qrCode = useQrCode('test');
+  provide('qrCode', qrCode);
 </script>
 
 

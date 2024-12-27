@@ -1,28 +1,30 @@
 import axios from 'axios'
 
+const user = ref(null)
+const isAuthenticated = ref(false)
+const token = ref(null)
+
 export const useAuth = () => {
-  const user = useState('user', () => null)
-  const token = useState('token', () => null)
 
   // Méthode pour se connecter
   const login = async (email, password) => {
-    console.log(email, password)
     try {
 
         if (typeof email !== 'string') {
-            throw new Error('L\'email doit être une chaîne de caractères.');
-            }
+          throw new Error('L\'email doit être une chaîne de caractères.');
+        }
         const response = await axios.post('http://localhost:4000/api/auth/login', {
-            email: email,  // Assurez-vous que l'email est une chaîne
+            email: email,  
             password: password
         });
         user.value = response.data.user
         token.value = response.data.token
+        isAuthenticated.value = true
         localStorage.setItem('token', token.value)
-        } catch (error) {
+      } catch (error) {
         console.error('Login failed:', error)
-        }
-    }
+      }
+  }
 
   // Méthode pour s'inscrire
   const register = async (userData) => {
@@ -41,6 +43,8 @@ export const useAuth = () => {
     user.value = null
     token.value = null
     localStorage.removeItem('token')
+    isAuthenticated.value = false
+
   }
 
   return {
@@ -49,5 +53,6 @@ export const useAuth = () => {
     login,
     register,
     logout,
+    isAuthenticated,
   }
 }
