@@ -7,6 +7,7 @@ const prisma = new PrismaClient();
 
 export const register = async (req, res) => {
     const { email, password, firstName, lastName, phoneNumber, whitelistEmail } = req.body;
+    console.log(req.body);
 
     if (!firstName || !lastName || !email || !password || !phoneNumber || !whitelistEmail) {
         return res.status(400).json({ error: 'Tous les champs doivent être remplis.' });
