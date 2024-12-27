@@ -38,6 +38,7 @@ export const useAuth = () => {
       user.value = response.data.user
       token.value = response.data.token
       localStorage.setItem('token', token.value)
+      return true
     } catch (error) {
       console.error('Registration failed:', error)
     }

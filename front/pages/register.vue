@@ -43,10 +43,8 @@
   const registerUser = async () => {
   try {
     const response = await register(form) // Attend la réponse de l'inscription
-    
     if (response) { // ✅ Vérifie si la réponse est réussie
-      console.log('Inscription réussie, redirection...')
-      router.push('/login') // ✅ Redirige l'utilisateur vers la page de connexion
+      navigateTo('/login') // ✅ Redirige l'utilisateur vers la page de connexion
     } else {
       console.error('Inscription échouée.')
     }
