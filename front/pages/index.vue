@@ -1,4 +1,7 @@
 <script setup>
+   definePageMeta({
+   middleware: ['auth']
+   })
    const qrCode = inject('qrCode');
 </script>
 

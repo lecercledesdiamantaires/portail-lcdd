@@ -1,12 +1,15 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
-export default ({
-  axios: {
-    baseURL: 'http://localhost:4000/api', // URL de votre API backend
-  },
-  buildModules: [
-    '@nuxtjs/axios',
+export default defineNuxtConfig({
+  modules: ['@nuxtjs/tailwindcss'],
+
+  plugins: [
+    '~/plugins/axios.js'
   ],
-  compatibilityDate: '2024-11-01',
-  modules: ["@nuxtjs/tailwindcss"],
-  devtools: { enabled: true }
+
+  runtimeConfig: {
+    public: {
+      apiBase: 'http://localhost:4000'
+    }
+  },
+
+  compatibilityDate: '2024-12-27'
 })

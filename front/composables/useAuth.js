@@ -29,6 +29,11 @@ export const useAuth = () => {
   // Méthode pour s'inscrire
   const register = async (userData) => {
     try {
+      userData.phoneNumber = parseInt(userData.phoneNumber, 10);
+
+      if (isNaN(userData.phoneNumber)) {
+          throw new Error('Le numéro de téléphone doit être un nombre entier valide.');
+      }
       const response = await axios.post('http://localhost:4000/api/auth/register', userData)
       user.value = response.data.user
       token.value = response.data.token

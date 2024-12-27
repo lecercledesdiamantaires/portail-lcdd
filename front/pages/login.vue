@@ -1,3 +1,22 @@
+
+<script setup>
+
+const { login, isAuthenticated } = useAuth()
+const form = reactive({
+  email: '',
+  password: '',
+})
+
+const loginUser = async () => {
+  await login(form.email, form.password)
+  // Redirection après la connexion réussie
+  if (isAuthenticated.value) {
+    useRouter().push('/')
+  }
+}
+</script>
+
+
 <template>
     <div class="flex justify-center items-center h-screen">
       <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
@@ -16,21 +35,4 @@
       </div>
     </div>
   </template>
-  
-  <script setup>
-  const { login, isAuthenticated } = useAuth()
-  
-  const form = reactive({
-    email: '',
-    password: '',
-  })
-  
-  const loginUser = async () => {
-    await login(form.email, form.password)
-    // Redirection après la connexion réussie
-    if (isAuthenticated.value) {
-      useRouter().push('/')
-    }
-  }
-  </script>
   
