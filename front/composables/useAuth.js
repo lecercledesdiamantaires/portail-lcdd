@@ -1,15 +1,23 @@
 import axios from 'axios'
 
-const user = ref(null)
-const isAuthenticated = ref(false)
-const token = ref(null)
-
-export const useAuth = () => {
-
+export default function () {
+  const user = ref(null)
+  const isAuthenticated = ref(false)
+  const token = ref(null)
+  const loginForm = reactive({
+    email: '',
+    password: '',
+  })
+  const registerForm = reactive({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    phoneNumber: '',
+  })
   // Méthode pour se connecter
   const login = async (email, password) => {
     try {
-
         if (typeof email !== 'string') {
           throw new Error('L\'email doit être une chaîne de caractères.');
         }
@@ -51,12 +59,37 @@ export const useAuth = () => {
     isAuthenticated.value = false
   }
 
+  const loginUser = async () => {
+    console.log(loginForm)
+    await login(loginForm.email, loginForm.password)
+    // Redirection après la connexion réussie
+    if (isAuthenticated.value) {
+      useRouter().push('/')
+    }
+  }
+  const registerUser = async () => {
+    try {
+      const response = await register(registerForm) // Attend la réponse de l'inscription
+      if (response) { // ✅ Vérifie si la réponse est réussie
+        navigateTo('/login') // ✅ Redirige l'utilisateur vers la page de connexion
+      } else {
+        console.error('Inscription échouée.')
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'inscription :', error)
+    }
+  }
+
   return {
     user,
     token,
     login,
     register,
     logout,
+    loginUser,
+    loginForm,
+    registerForm,
+    registerUser,
     isAuthenticated,
   }
 }

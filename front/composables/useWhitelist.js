@@ -1,14 +1,10 @@
 import axios from 'axios'
-import { ref } from 'vue'
-import { useAuth } from './useAuth'
 
-const whitelist = ref([])
+export default function () {
+    const whitelist = ref([])
+    const newEmail = ref('')
 
-export const useWhitelist = () => {
-  const { token } = useAuth()
-
-  // ✅ Ajouter un email à la whitelist
-  const addEmailToWhitelist = async (email) => {
+  const addEmailToWhitelist = async (email, token) => {
     try {
       if (typeof email !== 'string') {
         throw new Error('L\'email doit être une chaîne de caractères.')
@@ -17,31 +13,29 @@ export const useWhitelist = () => {
       await axios.post(
         'http://localhost:4000/api/whitelist/add',
         { email },
-        { headers: { Authorization: `Bearer ${token.value}` } }
+        { headers: { Authorization: `Bearer ${token}` } }
       )
     } catch (error) {
       console.error('Erreur lors de l\'ajout de l\'email :', error.response?.data || error.message)
     }
   }
 
-  // ✅ Supprimer un email de la whitelist
-  const deleteEmailFromWhitelist = async (email) => {
+  const deleteEmailFromWhitelist = async (email, token) => {
     try {
       await axios.delete(
         `http://localhost:4000/api/whitelist/delete/${email}`,
-        { headers: { Authorization: `Bearer ${token.value}` } }
+        { headers: { Authorization: `Bearer ${token}` } }
       )
     } catch (error) {
       console.error('Erreur lors de la suppression de l\'email :', error.response?.data || error.message)
     }
   }
 
-  // ✅ Récupérer la whitelist
-  const getWhitelist = async () => {
+  const getWhitelist = async (token) => {
     try {
       const response = await axios.get(
         'http://localhost:4000/api/whitelist/all',
-        { headers: { Authorization: `Bearer ${token.value}` } }
+        { headers: { Authorization: `Bearer ${token}` } }
       )
       whitelist.value = response.data.whitelist || []
       console.log('Whitelist:', whitelist.value)
@@ -50,10 +44,27 @@ export const useWhitelist = () => {
     }
   }
 
+  const addEmail = async (token) => {
+    if (newEmail.value) {
+      await addEmailToWhitelist(newEmail.value, token)
+      newEmail.value = ''
+      await getWhitelist(token)
+    }
+
+  }
+  
+  const deleteEmail = async (email) => {
+    await deleteEmailFromWhitelist(email)
+    await getWhitelist()
+  }
+
   return {
     addEmailToWhitelist,
     deleteEmailFromWhitelist,
     getWhitelist,
+    deleteEmail,
+    addEmail,
+    newEmail,
     whitelist
   }
 }
