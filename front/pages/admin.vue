@@ -8,6 +8,7 @@
   onMounted(() => {
     whitelist.getWhitelist(auth.token.value)
   })
+  // console.log(whitelist.users.value.find(user => user.id == 1))
 
 </script>
 
@@ -34,6 +35,11 @@
       <ul>
         <li v-for="user in whitelist.whitelist.value" :key="user" class="flex justify-between items-center mb-2">
           <span>{{ user.id }}</span>
+          <span v-if="user.userId">{{ whitelist.users.value.find(users => users.id == parseInt(user.userId, 10))['firstName'] }}</span> 
+          <span v-else>Pas connecté</span>
+
+          <span v-if="user.userId">{{ whitelist.users.value.find(users => users.id == parseInt(user.userId, 10))['lastName'] }}</span> 
+          <span v-else>Pas connecté</span>
           <span>{{ user.email }}</span>
           <button 
             @click="whitelist.deleteEmail(user.email, auth.token.value)" 
