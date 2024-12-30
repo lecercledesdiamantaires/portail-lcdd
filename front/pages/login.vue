@@ -18,7 +18,7 @@
             <label for="password" class="block text-sm font-medium">Mot de passe</label>
             <input v-model="auth.loginForm.password" id="password" type="password" class="mt-1 p-2 w-full border border-gray-300 rounded" />
           </div>
-          <button type="submit" class="w-full bg-primary text-white py-2 rounded">Se connecter</button>
+          <Button type="submit" class="w-full">Se connecter</Button>
         </form>
       </div>
     </div>

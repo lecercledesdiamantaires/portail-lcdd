@@ -1,3 +1,9 @@
+
+<script setup>
+const auth = inject('auth')   
+
+</script>
+
 <template>
     <div class="flex justify-center items-center h-screen">
       <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
@@ -23,14 +29,8 @@
             <label for="phoneNumber" class="block text-sm font-medium">Numéro de téléphone</label>
             <input v-model="auth.registerUser.phoneNumber" id="phoneNumber" type="text" class="mt-1 p-2 w-full border border-gray-300 rounded" />
           </div>
-          <button type="submit" class="w-full bg-primary text-white py-2 rounded">S'inscrire</button>
+          <Button type="submit" class="w-full">S'inscrire</Button>
         </form>
       </div>
     </div>
-  </template>
-  
-  <script setup>
-  const auth = inject('auth') 
-  
-  </script>
-  
+</template>

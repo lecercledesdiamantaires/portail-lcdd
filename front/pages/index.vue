@@ -8,7 +8,7 @@
 <template>
     <div class="prose">
        <img src="" alt="qr code">
-       <button @click="qrCode.download()">Télécharger mon Qr Code</button>
+       <Button @click="qrCode.download()">Télécharger mon Qr Code</Button>
        <NuxtLink to="/admin" class="text-primary underline">Admin</NuxtLink>
     </div>
 </template>

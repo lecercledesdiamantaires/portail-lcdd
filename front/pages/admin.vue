@@ -24,11 +24,7 @@
         placeholder="Ajouter un email à la whitelist" 
         class="p-2 border border-gray-300 rounded w-full" 
       />
-      <button 
-        @click="whitelist.addEmail(auth.token.value)"
-        class="bg-primary text-white px-4 py-2 rounded">
-        Ajouter
-      </button>
+      <Button @click="whitelist.addEmail(auth.token.value)">Ajouter</Button>
     </div>
 
     <div>
