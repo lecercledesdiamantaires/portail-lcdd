@@ -7,7 +7,7 @@ const router = Router();
 
 // Route protégée pour ajouter un email à la whitelist (Admin uniquement)
 router.post('/add', authenticateToken, authorizeRoles(['ADMIN']), addEmailToWhitelist);
-router.get('/all',authenticateToken, authorizeRoles(['ADMIN']), getWhitelist);
-router.delete('/delete/:email',authenticateToken, authorizeRoles(['ADMIN']), deleteEmailFromWhitelist);
+router.get('/all', authenticateToken, authorizeRoles(['ADMIN']), getWhitelist);
+router.delete('/delete/:email', authenticateToken, authorizeRoles(['ADMIN']), deleteEmailFromWhitelist);
 
 export default router;
