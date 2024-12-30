@@ -30,7 +30,7 @@ const loginUser = async () => {
             <label for="password" class="block text-sm font-medium">Mot de passe</label>
             <input v-model="form.password" id="password" type="password" class="mt-1 p-2 w-full border border-gray-300 rounded" />
           </div>
-          <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded">Se connecter</button>
+          <button type="submit" class="w-full bg-primary text-white py-2 rounded">Se connecter</button>
         </form>
       </div>
     </div>

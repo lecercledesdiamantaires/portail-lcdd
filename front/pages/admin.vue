@@ -39,7 +39,7 @@ onMounted(() => {
       />
       <button 
         @click="addEmail"
-        class="bg-blue-500 text-white px-4 py-2 rounded">
+        class="bg-primary text-white px-4 py-2 rounded">
         Ajouter
       </button>
     </div>
@@ -51,7 +51,7 @@ onMounted(() => {
           <span>{{ user.email }}</span>
           <button 
             @click="deleteEmail(user.email)" 
-            class="bg-red-500 text-white px-3 py-1 rounded">
+            class="bg-error text-white px-3 py-1 rounded">
             Supprimer
           </button>
         </li>

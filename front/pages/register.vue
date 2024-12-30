@@ -23,7 +23,7 @@
             <label for="phoneNumber" class="block text-sm font-medium">Numéro de téléphone</label>
             <input v-model="form.phoneNumber" id="phoneNumber" type="text" class="mt-1 p-2 w-full border border-gray-300 rounded" />
           </div>
-          <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded">S'inscrire</button>
+          <button type="submit" class="w-full bg-primary text-white py-2 rounded">S'inscrire</button>
         </form>
       </div>
     </div>

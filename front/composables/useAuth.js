@@ -44,13 +44,11 @@ export const useAuth = () => {
     }
   }
 
-  // Méthode pour se déconnecter
   const logout = () => {
     user.value = null
     token.value = null
     localStorage.removeItem('token')
     isAuthenticated.value = false
-
   }
 
   return {
