@@ -1,28 +1,15 @@
 <script setup>
- definePageMeta({
-    middleware: ['auth', 'admin']
+  // definePageMeta({
+  //     middleware: ['auth', 'admin']
+  //   })
+  const whitelist = inject('whitelist')
+  const auth = inject('auth')
+
+  onMounted(() => {
+    whitelist.getWhitelist(auth.token.value)
   })
+  // console.log(whitelist.users.value.find(user => user.id == 1))
 
-const { addEmailToWhitelist, deleteEmailFromWhitelist, getWhitelist, whitelist } = useWhitelist()
-const newEmail = ref('')
-
-
-const addEmail = async () => {
-  if (newEmail.value) {
-    await addEmailToWhitelist(newEmail.value)
-    newEmail.value = ''
-    await getWhitelist()
-  }
-}
-
-const deleteEmail = async (email) => {
-  await deleteEmailFromWhitelist(email)
-  await getWhitelist()
-}
-
-onMounted(() => {
-  getWhitelist()
-})
 </script>
 
 
@@ -32,26 +19,27 @@ onMounted(() => {
 
     <div class="mb-6 flex gap-4 ">
       <input 
-        v-model="newEmail" 
+        v-model="whitelist.newEmail.value" 
         type="email" 
         placeholder="Ajouter un email à la whitelist" 
         class="p-2 border border-gray-300 rounded w-full" 
       />
-      <button 
-        @click="addEmail"
-        class="bg-blue-500 text-white px-4 py-2 rounded">
-        Ajouter
-      </button>
+      <Button @click="whitelist.addEmail(auth.token.value)">Ajouter</Button>
     </div>
 
     <div>
       <ul>
-        <li v-for="user in whitelist" :key="user" class="flex justify-between items-center mb-2">
+        <li v-for="user in whitelist.whitelist.value" :key="user" class="flex justify-between items-center mb-2">
           <span>{{ user.id }}</span>
+          <span v-if="user.userId">{{ whitelist.users.value.find(users => users.id == parseInt(user.userId, 10))['firstName'] }}</span> 
+          <span v-else>Pas connecté</span>
+
+          <span v-if="user.userId">{{ whitelist.users.value.find(users => users.id == parseInt(user.userId, 10))['lastName'] }}</span> 
+          <span v-else>Pas connecté</span>
           <span>{{ user.email }}</span>
           <button 
-            @click="deleteEmail(user.email)" 
-            class="bg-red-500 text-white px-3 py-1 rounded">
+            @click="whitelist.deleteEmail(user.email, auth.token.value)" 
+            class="bg-danger text-white px-3 py-1 rounded">
             Supprimer
           </button>
         </li>
