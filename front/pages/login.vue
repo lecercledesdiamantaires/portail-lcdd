@@ -1,3 +1,24 @@
+<script setup>
+
+const { login, isAuthenticated } = useAuth()
+const form = reactive({
+  email: '',
+  password: '',
+})
+
+const loginUser = async () => {
+  await login(form.email, form.password)
+  // Redirection après la connexion réussie
+  if (isAuthenticated.value) {
+    useRouter().push('/')
+  }
+}
+
+const shopifyApi = inject('shopifyApi')
+
+</script>
+
+
 <template>
     <div class="flex justify-center items-center h-screen">
       <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
@@ -14,21 +35,7 @@
           <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded">Se connecter</button>
         </form>
       </div>
+      <button @click="shopifyApi.createPromoCode()">test</button>
     </div>
   </template>
-  
-  <script setup>
-  const { login } = useAuth()
-  
-  const form = reactive({
-    email: '',
-    password: '',
-  })
-  
-  const loginUser = async () => {
-    await login(form.email, form.password)
-    // Redirection après la connexion réussie
-    useRouter().push('/')
-  }
-  </script>
   

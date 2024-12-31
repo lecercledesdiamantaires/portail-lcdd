@@ -10,8 +10,13 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/tailwindcss": "^6.12.2",
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
     "nuxt": "^3.14.1592",
+    "os": "^0.1.2",
+    "require": "^2.4.20",
     "vue": "latest",
     "vue-router": "latest"
   }

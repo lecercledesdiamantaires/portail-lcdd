@@ -1,6 +1,8 @@
 <script setup>
- const qrCode = useQrCode('le monde ');
- provide('qrCode', qrCode);
+  const qrCode = useQrCode('test');
+  provide('qrCode', qrCode);
+  const shopifyApi = useShopifyApi();
+  provide('shopifyApi', shopifyApi);
 </script>
 
 

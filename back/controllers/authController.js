@@ -6,11 +6,16 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export const register = async (req, res) => {
-    const { email, password, firstName, lastName, phoneNumber, whitelistEmail } = req.body;
+    const { email, password, firstName, lastName, phoneNumber } = req.body;
     console.log(req.body);
 
-    if (!firstName || !lastName || !email || !password || !phoneNumber || !whitelistEmail) {
+    if (!firstName || !lastName || !email || !password || !phoneNumber) {
         return res.status(400).json({ error: 'Tous les champs doivent être remplis.' });
+    }
+
+    const phoneNumberInt = parseInt(phoneNumber, 10);
+    if (isNaN(phoneNumberInt)) {
+        return res.status(400).json({ error: 'Le numéro de téléphone doit être un nombre entier valide.' });
     }
 
     try {
@@ -26,6 +31,12 @@ export const register = async (req, res) => {
             return res.status(400).json({ error: 'Utilisateur déjà existant' });
         }
 
+        const existingPhoneNumber = await prisma.user.findUnique({ where: { phoneNumber } });
+        if (existingPhoneNumber) {
+            return res.status(400).json({ error: 'Numéro de téléphone déjà utilisé.' });
+        }
+
+
         // Hasher le mot de passe
         const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -36,7 +47,7 @@ export const register = async (req, res) => {
                 password: hashedPassword,
                 firstName,
                 lastName,
-                phoneNumber,
+                phoneNumber : phoneNumberInt,
                 whitelist: {
                     connect: { email }
                 }
@@ -75,7 +86,7 @@ export const login = async (req, res) => {
             { expiresIn: '1h' }
         );
 
-        res.json({ message: 'Connexion réussie', token });
+        res.json({ message: 'Connexion réussie', token, user });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Erreur serveur' });

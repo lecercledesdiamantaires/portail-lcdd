@@ -1,4 +1,7 @@
 <script setup>
+   definePageMeta({
+   middleware: ['auth']
+   })
    const qrCode = inject('qrCode');
 </script>
 
@@ -7,5 +10,6 @@
        <h1>je suis là</h1>
        <img src="" alt="qr code">
        <button @click="qrCode.download()">Télécharger mon Qr Code</button>
+       <NuxtLink to="/admin" class="text-blue-500 underline">Admin</NuxtLink>
     </div>
 </template>
