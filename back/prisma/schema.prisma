@@ -18,7 +18,7 @@ model User {
   firstName     String
   lastName      String
   email         String      @unique
-  phoneNumber   Int         @unique
+  phoneNumber   String      @unique
   password      String
   role          Role        @default(VENDEUR)
 
@@ -39,12 +39,13 @@ model Whitelist {
 
 model Vendor {
   id            Int         @id @default(autoincrement())
-  userId        Int         @unique
   promoCode     String      @unique
   iban          String      @default("")
 
 
-  user          User        @relation(fields: [userId], references: [id])
+  user          User?        @relation(fields: [userId], references: [id])
+  userId        Int?          @unique
+
   sales         Sale[]
   payouts       Payout[]
 

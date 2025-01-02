@@ -9,7 +9,6 @@
 
   onMounted(() => {
     whitelist.getWhitelist()
-    
   })
 
 </script>
@@ -29,7 +28,6 @@
         Déconnexion
       </Button>
     </div>
-   
 
     <div class="mb-6 flex gap-4 ">
       <input 
@@ -42,35 +40,33 @@
     </div>
 
     <div>
-    <div class="grid grid-cols-5 gap-4 mb-4 font-bold">
-      <div>ID</div>
-      <div>Nom</div>
-      <div>Prénom</div>
-      <div>Email</div>
-      <div></div>
-    </div>
-    <ul>
-      <li v-for="user in whitelist.whitelist.value" :key="user.id" class="grid grid-cols-5 gap-4 items-center mb-2">
-        <span>{{ user.id }}</span>
-        <span v-if="user.userId">
-          {{ whitelist.users.value ? whitelist.users.value.find(users => users.id == parseInt(user.userId, 10))?.lastName : 'Utilisateur inconnu' }}
-        </span> 
-        <span v-else>Inconnu</span>
-        <span v-if="user.userId">
-          {{ whitelist.users.value ? whitelist.users.value.find(users => users.id == parseInt(user.userId, 10))?.firstName : 'Utilisateur inconnu' }}
-        </span> 
-        <span v-else>Inconnu</span>
-        <span>{{ user.email }}</span>
-        <Button 
-          @click="whitelist.deleteEmail(user.email, user.userId)" 
-          class="!bg-danger"
-        >
-          <Trash2 />
-        </Button>
-      </li> 
-    </ul>
-  
-
+      <div class="grid grid-cols-5 gap-4 mb-4 font-bold">
+        <div>ID</div>
+        <div>Nom</div>
+        <div>Prénom</div>
+        <div>Email</div>
+        <div></div>
+      </div>
+      <ul>
+        <li v-for="user in whitelist.whitelist.value" :key="user.id" class="grid grid-cols-5 gap-4 items-center mb-2">
+          <span>{{ user.id }}</span>
+          <span v-if="user.userId">
+            {{ whitelist.users.value ? whitelist.users.value.find(users => users.id == parseInt(user.userId, 10))?.lastName : 'Utilisateur inconnu' }}
+          </span> 
+          <span v-else>Inconnu</span>
+          <span v-if="user.userId">
+            {{ whitelist.users.value ? whitelist.users.value.find(users => users.id == parseInt(user.userId, 10))?.firstName : 'Utilisateur inconnu' }}
+          </span> 
+          <span v-else>Inconnu</span>
+          <span>{{ user.email }}</span>
+          <Button 
+            @click="whitelist.deleteEmail(user.email, user.userId)" 
+            class="!bg-danger"
+          >
+            <Trash2 />
+          </Button>
+        </li> 
+      </ul> 
     </div>
   </div>
 </template>

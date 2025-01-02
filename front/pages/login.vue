@@ -21,7 +21,12 @@
             <label for="password" class="block text-sm font-medium">Mot de passe</label>
             <input v-model="auth.loginForm.password" id="password" type="password" class="mt-1 p-2 w-full border border-gray-300 rounded" />
           </div>
-          <Button type="submit" class="w-full">Se connecter</Button>
+          <div class="flex flex-col gap-2">
+            <Button type="submit" class="w-full">Se connecter</Button>
+            <Button class="w-full">
+              <NuxtLink class="w-full block" to="/register">S'inscrire</NuxtLink>
+            </Button>
+          </div>
         </form>
       </div>
       <button @click="shopifyApi.createPromoCode()">test</button>

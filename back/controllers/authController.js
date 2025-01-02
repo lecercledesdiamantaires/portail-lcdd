@@ -12,11 +12,6 @@ export const register = async (req, res) => {
         return res.status(400).json({ error: 'Tous les champs doivent être remplis.' });
     }
 
-    const phoneNumberInt = parseInt(phoneNumber, 10);
-    if (isNaN(phoneNumberInt)) {
-        return res.status(400).json({ error: 'Le numéro de téléphone doit être un nombre entier valide.' });
-    }
-
     try {
         // Vérifier si l'email est dans la whitelist
         const whitelisted = await prisma.whitelist.findUnique({ where: { email } });
@@ -46,7 +41,7 @@ export const register = async (req, res) => {
                 password: hashedPassword,
                 firstName,
                 lastName,
-                phoneNumber : phoneNumberInt,
+                phoneNumber,
                 whitelist: {
                     connect: { email }
                 }
