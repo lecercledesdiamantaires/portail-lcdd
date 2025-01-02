@@ -1,9 +1,11 @@
 import axios from 'axios'
+import useShopifyApi from './useShopifyApi'
 
 export default function () {
   const user = ref(null)
   const isAuthenticated = ref(false)
   const token = ref(null)
+  const code = ref(null)
   const loginForm = reactive({
     email: '',
     password: '',
@@ -14,7 +16,9 @@ export default function () {
     email: '',
     password: '',
     phoneNumber: '',
+    promoCode: '',
   })
+  
   // Méthode pour se connecter
   const login = async (email, password) => {
     try {
@@ -36,12 +40,13 @@ export default function () {
 
   // Méthode pour s'inscrire
   const register = async (userData) => {
-    console.log(userData)
     try {
       userData.phoneNumber = parseInt(userData.phoneNumber, 10);
       if (isNaN(userData.phoneNumber)) {
           throw new Error('Le numéro de téléphone doit être un nombre entier valide.');
       }
+      code.value = await useShopifyApi().createPromoCode()
+      registerForm.promoCode = code.value.code
       const response = await axios.post('http://localhost:4000/api/auth/register', userData)
       user.value = response.data.user
       token.value = response.data.token

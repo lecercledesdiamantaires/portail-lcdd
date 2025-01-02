@@ -6,7 +6,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export const register = async (req, res) => {
-    const { email, password, firstName, lastName, phoneNumber } = req.body;
+    const { email, password, firstName, lastName, phoneNumber, promoCode } = req.body;
 
     if (!firstName || !lastName || !email || !password || !phoneNumber) {
         return res.status(400).json({ error: 'Tous les champs doivent être remplis.' });
@@ -38,7 +38,7 @@ export const register = async (req, res) => {
 
         // Hasher le mot de passe
         const hashedPassword = await bcrypt.hash(password, 10);
-
+        
         // Créer l'utilisateur
         const user = await prisma.user.create({
             data: {
@@ -52,6 +52,17 @@ export const register = async (req, res) => {
                 }
             }
         });
+
+        const role = user.role;
+        if (role === 'VENDEUR') {
+            await prisma.vendor.create({
+              data: {
+                userId: user.id,
+                promoCode: promoCode,
+                iban: '',
+              },
+            });
+          }
 
         res.status(201).json({ message: 'Inscription réussie', user });
     } catch (err) {

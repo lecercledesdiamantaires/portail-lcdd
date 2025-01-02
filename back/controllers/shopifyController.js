@@ -8,6 +8,7 @@ export const createDiscountCode = async (req, res) => {
         // Appel au service pour créer le code promo
         const discountCode = await createShopifyDiscountCode(priceRuleId, code);
         res.status(201).json(discountCode);
+        return discountCode;
     } catch (error) {
         console.error('Erreur lors de la création du code promo :', error);
         res.status(500).json({ error: 'Erreur lors de la création du code promo.' });
