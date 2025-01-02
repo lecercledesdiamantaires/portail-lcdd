@@ -36,6 +36,7 @@ export default function () {
 
   // Méthode pour s'inscrire
   const register = async (userData) => {
+    console.log(userData)
     try {
       userData.phoneNumber = parseInt(userData.phoneNumber, 10);
 
@@ -60,7 +61,6 @@ export default function () {
   }
 
   const loginUser = async () => {
-    console.log(loginForm)
     await login(loginForm.email, loginForm.password)
     // Redirection après la connexion réussie
     if (isAuthenticated.value) {
@@ -79,6 +79,18 @@ export default function () {
       console.error('Erreur lors de l\'inscription :', error)
     }
   }
+
+  const loadToken = () => {
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+        token.value = storedToken;
+        isAuthenticated.value = true;
+    }
+};
+
+onMounted(() => {
+    loadToken(); 
+});
 
   return {
     user,

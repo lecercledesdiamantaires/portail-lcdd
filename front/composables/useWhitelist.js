@@ -34,12 +34,13 @@ export default function () {
 
     const getWhitelist = async (token) => {
         try {
-        const response = await axios.get(
-            'http://localhost:4000/api/whitelist/all',
-            { headers: { Authorization: `Bearer ${token}` } }
-        )
-        whitelist.value = response.data.whitelist || []
-        await getUsers(token)
+            console.log(token)
+            const response = await axios.get(
+                'http://localhost:4000/api/whitelist/all',
+                { headers: { Authorization: `Bearer ${token}` } }
+            )
+            whitelist.value = response.data.whitelist || []
+            await getUsers(token)
         } catch (error) {
         console.error('Erreur lors de la récupération de la whitelist :', error.response?.data || error.message)
         }
@@ -66,9 +67,9 @@ export default function () {
 
     }
     
-    const deleteEmail = async (email) => {
-        await deleteEmailFromWhitelist(email)
-        await getWhitelist()
+    const deleteEmail = async (email, token) => {
+        await deleteEmailFromWhitelist(email, token)
+        await getWhitelist(token)
     }
 
     return {

@@ -1,14 +1,13 @@
 <script setup>
-  // definePageMeta({
-  //     middleware: ['auth', 'admin']
-  //   })
+  definePageMeta({
+      middleware: ['auth', 'admin']
+    })
   const whitelist = inject('whitelist')
   const auth = inject('auth')
 
   onMounted(() => {
     whitelist.getWhitelist(auth.token.value)
   })
-  // console.log(whitelist.users.value.find(user => user.id == 1))
 
 </script>
 
