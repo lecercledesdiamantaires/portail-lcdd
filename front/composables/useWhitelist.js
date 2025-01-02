@@ -4,8 +4,12 @@ export default function () {
     const whitelist = ref([])
     const newEmail = ref('')
     const users = ref(null)
-
-    const addEmailToWhitelist = async (email, token) => {
+    
+    let token = null
+    if (typeof window !== 'undefined' && window.localStorage) {
+        token = localStorage.getItem('token')
+    }
+    const addEmailToWhitelist = async (email) => {
         try {
             if (typeof email !== 'string') {
             throw new Error('L\'email doit être une chaîne de caractères.')
@@ -21,20 +25,35 @@ export default function () {
         }
     }
 
-    const deleteEmailFromWhitelist = async (email, token) => {
+    const deleteEmailFromWhitelist = async (id, userId = null) => {
         try {
             await axios.delete(
-                `http://localhost:4000/api/whitelist/delete/${email}`,
+                `http://localhost:4000/api/whitelist/delete/${id}`,
                 { headers: { Authorization: `Bearer ${token}` } }
             )
         } catch (error) {
             console.error('Erreur lors de la suppression de l\'email :', error.response?.data || error.message)
         }
+        if (userId) {
+           deleteUser(userId, token)
+        }
+       
     }
 
-    const getWhitelist = async (token) => {
+    const deleteUser = async (id) => {
         try {
-            console.log(token)
+            await axios.delete(
+                `http://localhost:4000/api/user/delete/${id}`,
+                { headers: { Authorization: `Bearer ${token}` } }
+            )
+        }
+        catch (error) {
+            console.error('Erreur lors de la suppression de l\'utilisateur :', error.response?.data || error.message)
+        }
+    }
+
+    const getWhitelist = async () => {
+        try {
             const response = await axios.get(
                 'http://localhost:4000/api/whitelist/all',
                 { headers: { Authorization: `Bearer ${token}` } }
@@ -46,7 +65,7 @@ export default function () {
         }
     }
 
-    const getUsers = async (token) => {
+    const getUsers = async () => {
         try {
             const response = await axios.get(
                 `http://localhost:4000/api/user/all`, 
@@ -58,7 +77,7 @@ export default function () {
         }
     }
 
-    const addEmail = async (token) => {
+    const addEmail = async () => {
         if (newEmail.value) {
         await addEmailToWhitelist(newEmail.value, token)
         newEmail.value = ''
@@ -67,8 +86,8 @@ export default function () {
 
     }
     
-    const deleteEmail = async (email, token) => {
-        await deleteEmailFromWhitelist(email, token)
+    const deleteEmail = async (email, userId) => {
+        await deleteEmailFromWhitelist(email, userId)
         await getWhitelist(token)
     }
 

@@ -4,6 +4,7 @@
         <h1 class="text-4xl font-bold text-error">403 - Accès Refusé</h1>
         <p>Vous n'avez pas les permissions nécessaires pour accéder à cette page.</p>
         <NuxtLink to="/" class="text-primary underline">Retour à l'accueil</NuxtLink>
+        <NuxtLink to="/login" class="text-primary underline">Connectez vous</NuxtLink>
       </div>
     </div>
   </template>

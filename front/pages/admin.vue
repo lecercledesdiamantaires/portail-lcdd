@@ -1,14 +1,12 @@
 <script setup>
-  definePageMeta({
-      middleware: ['auth', 'admin']
-    })
+  // definePageMeta({
+  //     middleware: ['auth', 'admin']
+  //   })
   const whitelist = inject('whitelist')
-  const auth = inject('auth')
 
   onMounted(() => {
-    whitelist.getWhitelist(auth.token.value)
+    whitelist.getWhitelist()
   })
-
 </script>
 
 
@@ -23,7 +21,7 @@
         placeholder="Ajouter un email à la whitelist" 
         class="p-2 border border-gray-300 rounded w-full" 
       />
-      <Button @click="whitelist.addEmail(auth.token.value)">Ajouter</Button>
+      <Button @click="whitelist.addEmail()">Ajouter</Button>
     </div>
 
     <div>
@@ -37,7 +35,7 @@
           <span v-else>Pas connecté</span>
           <span>{{ user.email }}</span>
           <button 
-            @click="whitelist.deleteEmail(user.email, auth.token.value)" 
+            @click="whitelist.deleteEmail(user.email, user.userId)" 
             class="bg-danger text-white px-3 py-1 rounded">
             Supprimer
           </button>

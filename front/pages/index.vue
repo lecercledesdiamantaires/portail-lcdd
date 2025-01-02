@@ -3,6 +3,8 @@
       middleware: ['auth']
    })
    const qrCode = inject('qrCode');
+
+
 </script>
 
 <template>

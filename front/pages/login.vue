@@ -1,7 +1,10 @@
 <script setup>
+    definePageMeta({
+        middleware: ['auth']
+    })
+
     const auth = inject('auth')
     const shopifyApi = inject('shopifyApi')
-
 </script>
 
 
