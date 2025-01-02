@@ -1,7 +1,6 @@
 <script setup>
     const auth = inject('auth')
     const shopifyApi = inject('shopifyApi')
-
 </script>
 
 

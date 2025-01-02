@@ -46,6 +46,8 @@ model Vendor {
   streetNumber  Int
   city          String
   country       String
+  iban          String      @default("")
+
 
   user          User        @relation(fields: [userId], references: [id])
   sales         Sale[]

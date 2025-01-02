@@ -1,8 +1,8 @@
-export default function (url) {
+export default function ( promoCode) {
     const data = ref(null);
 
     onMounted(function generateQrCode () {
-        fetch(`https://quickchart.io/qr?text=${url}`)
+        fetch(`https://quickchart.io/qr?text=${promoCode}`)
         .then(response => response.blob())
         .then(blob => {
             const url = URL.createObjectURL(blob); 

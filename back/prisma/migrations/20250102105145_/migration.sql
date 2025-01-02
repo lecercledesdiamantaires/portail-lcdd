@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Vendor` ADD COLUMN `iban` VARCHAR(191) NOT NULL DEFAULT '';

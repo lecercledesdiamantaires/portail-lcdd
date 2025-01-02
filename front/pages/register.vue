@@ -1,7 +1,5 @@
-
 <script setup>
 const auth = inject('auth')   
-
 </script>
 
 <template>
@@ -33,38 +31,4 @@ const auth = inject('auth')
         </form>
       </div>
     </div>
-<<<<<<< HEAD
-  </template>
-  
-  <script setup>
-  const { register } = useAuth()
-  
-  const form = reactive({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    phoneNumber: '',
-  })
-  
-  const registerUser = async () => {
-  try {
-    const response =  register(form) // Attend la réponse de l'inscription
-    console.log(response)
-    console.log(response.value)
-    
-    if (response) { // ✅ Vérifie si la réponse est réussie
-      console.log('Inscription réussie, redirection...')
-      router.push('/login') // ✅ Redirige l'utilisateur vers la page de connexion
-    } else {
-      console.error('Inscription échouée.')
-    }
-  } catch (error) {
-    console.error('Erreur lors de l\'inscription :', error)
-  }
-}
-  </script>
-  
-=======
 </template>
->>>>>>> e9248c0e5ce51d5601463a76b65285eafc1ffe96
