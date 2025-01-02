@@ -6,10 +6,15 @@ export default defineNuxtConfig({
   ],
 
   runtimeConfig: {
+    // apiBase: 'http://localhost:4000',
     public: {
-      apiBase: 'http://localhost:4000'
+      apiKey: process.env.API_KEY,
+      shopUrl: process.env.SHOP_URL,
+      apiSecret: process.env.API_SECRET,
     }
   },
 
   compatibilityDate: '2024-12-27'
+
+    
 })

@@ -1,6 +1,6 @@
-
 <script setup>
     const auth = inject('auth')
+    const shopifyApi = inject('shopifyApi')
 
 </script>
 
@@ -21,6 +21,7 @@
           <Button type="submit" class="w-full">Se connecter</Button>
         </form>
       </div>
+      <button @click="shopifyApi.createPromoCode()">test</button>
     </div>
   </template>
   

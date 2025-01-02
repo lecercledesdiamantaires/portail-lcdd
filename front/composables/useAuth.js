@@ -39,7 +39,6 @@ export default function () {
     console.log(userData)
     try {
       userData.phoneNumber = parseInt(userData.phoneNumber, 10);
-
       if (isNaN(userData.phoneNumber)) {
           throw new Error('Le numéro de téléphone doit être un nombre entier valide.');
       }
@@ -49,7 +48,14 @@ export default function () {
       localStorage.setItem('token', token.value)
       return true
     } catch (error) {
-      console.error('Registration failed:', error)
+      console.error('Registration failed:', error);
+      if (error.response) {
+        console.error('Erreur de réponse de l\'API:', error.response.data);
+      } else if (error.request) {
+        console.error('Aucune réponse reçue:', error.request);
+      } else {
+        console.error('Erreur lors de la configuration de la requête:', error.message);
+      }
     }
   }
 
