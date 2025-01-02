@@ -1,13 +1,18 @@
 import axios from 'axios'
+import { errorMessages } from 'vue/compiler-sfc'
 
 export default function () {
   const user = ref(null)
   const isAuthenticated = ref(false)
   const token = ref(null)
+  const responseMessage = ref(null)
+  const errorMessage = ref(null)
+
   const loginForm = reactive({
     email: '',
     password: '',
   })
+
   const registerForm = reactive({
     firstName: '',
     lastName: '',
@@ -36,25 +41,17 @@ export default function () {
 
   // Méthode pour s'inscrire
   const register = async (userData) => {
-    console.log(userData)
     try {
-      userData.phoneNumber = parseInt(userData.phoneNumber, 10);
-      if (isNaN(userData.phoneNumber)) {
-          throw new Error('Le numéro de téléphone doit être un nombre entier valide.');
-      }
       const response = await axios.post('http://localhost:4000/api/auth/register', userData)
       user.value = response.data.user
-      token.value = response.data.token
-      localStorage.setItem('token', token.value)
-      return true
+      responseMessage.value = true
     } catch (error) {
-      console.error('Registration failed:', error);
       if (error.response) {
-        console.error('Erreur de réponse de l\'API:', error.response.data);
+        errorMessage.value = error.response.data.error
       } else if (error.request) {
-        console.error('Aucune réponse reçue:', error.request);
+        errorMessage.value = error.request
       } else {
-        console.error('Erreur lors de la configuration de la requête:', error.message);
+        errorMessage.value = error.message
       }
     }
   }
@@ -74,14 +71,17 @@ export default function () {
       useRouter().push('/')
     }
   }
+
   const registerUser = async () => {
+    errorMessage.value = null
+    console.log(registerForm)
     try {
-      const response = await register(registerForm) // Attend la réponse de l'inscription
-      if (response) { // ✅ Vérifie si la réponse est réussie
-        navigateTo('/login') // ✅ Redirige l'utilisateur vers la page de connexion
-      } else {
-        console.error('Inscription échouée.')
-      }
+      await register(registerForm) // Attend la réponse de l'inscription
+      // if (response) { // ✅ Vérifie si la réponse est réussie
+      //   navigateTo('/login') // ✅ Redirige l'utilisateur vers la page de connexion
+      // } else {
+      //   console.error('Inscription échouée.')
+      // }
     } catch (error) {
       console.error('Erreur lors de l\'inscription :', error)
     }
@@ -110,5 +110,7 @@ onMounted(() => {
     registerForm,
     registerUser,
     isAuthenticated,
+    errorMessage,
+    responseMessage,
   }
 }
