@@ -64,6 +64,7 @@ export default function () {
     token.value = null
     localStorage.removeItem('token')
     isAuthenticated.value = false
+    navigateTo('/login')
   }
 
   const loginUser = async () => {
