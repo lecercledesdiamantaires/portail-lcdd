@@ -3,6 +3,8 @@ import { Eye, EyeOff } from 'lucide-vue-next'
 import countryCodes from '~/assets/country-codes.json'
 import { useField, useForm } from 'vee-validate'
 import * as yup from 'yup'
+import Swal from "sweetalert2";
+
 
 const auth = inject('auth')
 const showPassword = ref(false)
@@ -53,12 +55,23 @@ const onSubmit = handleSubmit(async(values) => {
   
   try {
     await auth.registerUser()
-    console.log(auth.responseMessage.value)
     if (auth.responseMessage.value) {
-      navigateTo('/login')
+      navigateTo("/login");
+    } else {
+      // Erreur gérée par l'API
+      Swal.fire({
+        icon: "error",
+        title: "Erreur d'inscription",
+        text: auth.errorMessage.value || "Une erreur s'est produite lors de l'inscription.",
+      });
     }
   } catch (error) {
-    alert(auth.errorMessage.value || "Vous n'êtes pas autorisé à effectuer cette action.");
+    // Erreur inattendue
+    Swal.fire({
+      icon: "error",
+      title: "Action non autorisée",
+      text: auth.errorMessage.value || "Vous n'êtes pas autorisé à effectuer cette action.",
+    });
   }
 })
 </script>

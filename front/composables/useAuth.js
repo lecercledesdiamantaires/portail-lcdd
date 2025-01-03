@@ -23,6 +23,7 @@ export default function () {
   // Méthode pour se connecter
   const login = async (email, password) => {
     try {
+        console.log(email)
         if (typeof email !== 'string') {
           throw new Error('L\'email doit être une chaîne de caractères.');
         }
@@ -33,19 +34,21 @@ export default function () {
         user.value = response.data.user
         token.value = response.data.token
         isAuthenticated.value = true
+        responseMessage.value = true
+        localStorage.setItem('user', JSON.stringify(user.value))
         localStorage.setItem('token', token.value)
       } catch (error) {
-        console.error('Login failed:', error)
+        errorMessage.value = error.response.data.error
       }
   }
 
   // Méthode pour s'inscrire
   const register = async (userData) => {
     try {
-      const response = await axios.post('http://localhost:4000/api/auth/register', userData)
-      user.value = response.data.user
+      await axios.post('http://localhost:4000/api/auth/register', userData)
       responseMessage.value = true
     } catch (error) {
+      console.error('Erreur lors de l\'inscription :', error)
       if (error.response) {
         errorMessage.value = error.response.data.error
       } else if (error.request) {
@@ -65,39 +68,35 @@ export default function () {
   }
 
   const loginUser = async () => {
+    errorMessage.value = null
     await login(loginForm.email, loginForm.password)
     // Redirection après la connexion réussie
-    if (isAuthenticated.value) {
-      useRouter().push('/')
-    }
+    // if (isAuthenticated.value) {
+    //   useRouter().push('/')
+    // }
   }
 
   const registerUser = async () => {
     errorMessage.value = null
-    console.log(registerForm)
     try {
-      await register(registerForm) // Attend la réponse de l'inscription
-      // if (response) { // ✅ Vérifie si la réponse est réussie
-      //   navigateTo('/login') // ✅ Redirige l'utilisateur vers la page de connexion
-      // } else {
-      //   console.error('Inscription échouée.')
-      // }
+      await register(registerForm)
     } catch (error) {
       console.error('Erreur lors de l\'inscription :', error)
     }
   }
 
-  const loadToken = () => {
+  const load = () => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
         token.value = storedToken;
+        user.value = JSON.parse(localStorage.getItem('user'));
         isAuthenticated.value = true;
     }
-};
+  };
 
-onMounted(() => {
-    loadToken(); 
-});
+  onMounted(() => {
+      load(); 
+  });
 
   return {
     user,

@@ -6,7 +6,6 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export const register = async (req, res) => {
-    console.log(req.body)
     const { email, password, firstName, lastName, phoneNumber } = req.body;
 
     if (!firstName || !lastName || !email || !password || !phoneNumber) {
