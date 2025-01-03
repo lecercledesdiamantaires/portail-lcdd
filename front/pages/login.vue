@@ -34,7 +34,12 @@
       try {
         await auth.loginUser()
         if (auth.responseMessage.value) {
-          navigateTo("/");
+          if (auth.user.value?.role === 'ADMIN') {
+            navigateTo("/admin");
+          }
+          else {
+            navigateTo("/");
+          }
         } else {
           // Erreur gérée par l'API
           Swal.fire({

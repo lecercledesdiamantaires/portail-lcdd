@@ -27,7 +27,6 @@ export default function () {
   // Méthode pour se connecter
   const login = async (email, password) => {
     try {
-        console.log(email)
         if (typeof email !== 'string') {
           throw new Error('L\'email doit être une chaîne de caractères.');
         }

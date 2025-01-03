@@ -17,16 +17,15 @@
 <template>
   <div class="max-w-4xl mx-auto p-6">
     <div class="w-full flex items-center justify-between mb-6">
-      <Button >
-        <NuxtLink to="/" class="w-full"><Home /></NuxtLink>
-      </Button>
+      <ButtonPrimary >
+        <NuxtLink to="/" class="w-full h-full block"><Home /></NuxtLink>
+      </ButtonPrimary>
       <h1 class="text-3xl font-bold mb-4">Admin</h1>
-      <Button
+      <ButtonDanger
         @click="auth.logout()"
-        class="!bg-danger"
       >
         Déconnexion
-      </Button>
+      </ButtonDanger>
     </div>
 
     <div class="mb-6 flex gap-4 ">
@@ -36,7 +35,7 @@
         placeholder="Ajouter un email à la whitelist" 
         class="p-2 border border-gray-300 rounded w-full" 
       />
-      <Button @click="whitelist.addEmail()">Ajouter</Button>
+      <ButtonSecondary @click="whitelist.addEmail()">Ajouter</ButtonSecondary>
     </div>
 
     <div>
@@ -59,12 +58,11 @@
           </span> 
           <span v-else>Inconnu</span>
           <span>{{ user.email }}</span>
-          <Button 
+          <ButtonDanger 
             @click="whitelist.deleteEmail(user.email, user.userId)" 
-            class="!bg-danger"
           >
             <Trash2 />
-          </Button>
+          </ButtonDanger>
         </li> 
       </ul> 
     </div>
