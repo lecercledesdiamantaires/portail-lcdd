@@ -47,18 +47,20 @@ export default function () {
   const register = async (userData) => {
     try {
       code.value = await useShopifyApi().createPromoCode()
-      registerForm.promoCode = code.value.code
+      userData.promoCode = code.value.code
       const response = await axios.post('http://localhost:4000/api/auth/register', userData)
       user.value = response.data.user
       responseMessage.value = true
     } catch (error) {
+      console.error('Registration failed:', error)
       if (error.response) {
-        errorMessage.value = error.response.data.error
+        console.error('Erreur de réponse de l\'API:', error.response.data)
       } else if (error.request) {
-        errorMessage.value = error.request
+        console.error('Aucune réponse reçue:', error.request)
       } else {
-        errorMessage.value = error.message
+        console.error('Erreur lors de la configuration de la requête:', error.message)
       }
+      errorMessage.value = error.message
     }
   }
 
@@ -83,11 +85,11 @@ export default function () {
     console.log(registerForm)
     try {
       await register(registerForm) // Attend la réponse de l'inscription
-      // if (response) { // ✅ Vérifie si la réponse est réussie
-      //   navigateTo('/login') // ✅ Redirige l'utilisateur vers la page de connexion
-      // } else {
-      //   console.error('Inscription échouée.')
-      // }
+      if (response) { // ✅ Vérifie si la réponse est réussie
+        navigateTo('/login') // ✅ Redirige l'utilisateur vers la page de connexion
+      } else {
+        console.error('Inscription échouée.')
+      }
     } catch (error) {
       console.error('Erreur lors de l\'inscription :', error)
     }
