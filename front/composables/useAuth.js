@@ -1,10 +1,12 @@
 import axios from 'axios'
+import useShopifyApi from './useShopifyApi'
 import { errorMessages } from 'vue/compiler-sfc'
 
 export default function () {
   const user = ref(null)
   const isAuthenticated = ref(false)
   const token = ref(null)
+  const code = ref(null)
   const responseMessage = ref(null)
   const errorMessage = ref(null)
 
@@ -19,7 +21,9 @@ export default function () {
     email: '',
     password: '',
     phoneNumber: '',
+    promoCode: '',
   })
+  
   // Méthode pour se connecter
   const login = async (email, password) => {
     try {
@@ -46,6 +50,10 @@ export default function () {
   const register = async (userData) => {
     try {
       await axios.post('http://localhost:4000/api/auth/register', userData)
+      code.value = await useShopifyApi().createPromoCode()
+      registerForm.promoCode = code.value.code
+      const response = await axios.post('http://localhost:4000/api/auth/register', userData)
+      user.value = response.data.user
       responseMessage.value = true
     } catch (error) {
       console.error('Erreur lors de l\'inscription :', error)

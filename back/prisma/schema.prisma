@@ -40,11 +40,6 @@ model Whitelist {
 model Vendor {
   id            Int         @id @default(autoincrement())
   promoCode     String      @unique
-  streetName    String
-  zipCode       Int
-  streetNumber  Int
-  city          String
-  country       String
   iban          String      @default("")
 
 
