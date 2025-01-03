@@ -48,9 +48,9 @@ export default function () {
   // Méthode pour s'inscrire
   const register = async (userData) => {
     try {
-      await axios.post('http://localhost:4000/api/auth/register', userData)
       code.value = await useShopifyApi().createPromoCode()
-      registerForm.promoCode = code.value.code
+      userData.promoCode = code.value.code
+      console.log(userData)
       const response = await axios.post('http://localhost:4000/api/auth/register', userData)
       user.value = response.data.user
       responseMessage.value = true
