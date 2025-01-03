@@ -2,14 +2,15 @@
   import { Trash2, Home } from 'lucide-vue-next';
 
   definePageMeta({
-      middleware: ['auth']
+      middleware: ['auth', 'admin']
     })
   const whitelist = inject('whitelist')
   const auth = inject('auth')
-
-  onMounted(() => {
+  
+  if (process.client){
     whitelist.getWhitelist()
-  })
+  }
+  
 
 </script>
 

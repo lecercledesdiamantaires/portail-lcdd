@@ -48,6 +48,7 @@ export default function () {
   // Méthode pour s'inscrire
   const register = async (userData) => {
     try {
+      console.log(userData)
       code.value = await useShopifyApi().createPromoCode()
       userData.promoCode = code.value.code
       console.log(userData)

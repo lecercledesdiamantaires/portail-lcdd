@@ -1,8 +1,13 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-    const { user, isAuthenticated } = useAuth()
+    if (process.client) {
+        const user = JSON.parse(localStorage.getItem('user'))
+        const token = localStorage.getItem('token')
 
-    if (!isAuthenticated.value || user.value?.role !== 'ADMIN') {
-        console.log('Redirection vers /unauthorized')
-        return navigateTo('/unauthorized')
+        if (!token || user['role'] !== 'ADMIN') {
+            console.log('Redirection vers /unauthorized')
+            return navigateTo('/unauthorized')
+        }
     }
+
+   
 })
