@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export default function () {
+    const discountCode = ref(null);
 
     function generateRandomCode(length = 8) {
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -26,7 +27,8 @@ export default function () {
 
 
     return {
-        createPromoCode
+        createPromoCode,
+        discountCode
     }
 
  }

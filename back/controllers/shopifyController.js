@@ -1,5 +1,6 @@
 import { createShopifyDiscountCode } from '../services/shopifyService.js';
 
+
 export const createDiscountCode = async (req, res) => {
     try {
         const { code } = req.body; // Récupère le code promo depuis la requête
