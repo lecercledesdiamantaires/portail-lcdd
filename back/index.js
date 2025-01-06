@@ -18,6 +18,7 @@ app.use('/shopify', shopifyRoutes);
 // Utilisation du routeur global
 app.use('/api', router);
 
+
 // Démarrage du serveur
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur le port ${PORT}`);

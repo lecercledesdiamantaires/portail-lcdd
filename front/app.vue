@@ -1,5 +1,5 @@
 <script setup>
-  const qrCode = useQrCode('test');
+  const qrCode = useQrCode();
   provide('qrCode', qrCode);
   const shopifyApi = useShopifyApi();
   provide('shopifyApi', shopifyApi);

@@ -5,6 +5,12 @@
    })
    const qrCode = inject('qrCode');
    const auth = inject('auth');
+   if (process.client){
+      const user = JSON.parse(localStorage.getItem('user'));
+      qrCode.generateQrCode(user.promoCode) 
+  }
+  
+  
 </script>
 
 <template>
@@ -12,6 +18,7 @@
       <NuxtLink to="/admin" class="text-primary underline">Admin</NuxtLink>
 
       <h1 class="text-2xl font-semibold">Bonjour {{ auth?.user?.value?.firstName || '' }}</h1>
+    
       <img src="" alt="qr code">
       <ButtonPrimary @click="qrCode.download()">Télécharger mon Qr Code</ButtonPrimary>
       

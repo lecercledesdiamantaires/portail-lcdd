@@ -69,13 +69,12 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
     const { email, password } = req.body;
-
     if (typeof email !== 'string') {
         return res.status(400).json({ error: 'L\'email doit être une chaîne de caractères.' });
     }
-
     try {
         const user = await prisma.user.findUnique({ where: { email } });
+
         if (!user) {
             return res.status(401).json({ error: 'Email ou mot de passe incorrect' });
         }

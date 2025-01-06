@@ -1,8 +1,8 @@
-export default function ( promoCode) {
+export default function () {
     const data = ref(null);
 
-    onMounted(function generateQrCode () {
-        fetch(`https://quickchart.io/qr?text=${promoCode}`)
+   const generateQrCode = async ( promoCode) => {
+        fetch(`https://quickchart.io/qr?text=https://lecercledesdiamantaires.com/?discount=${promoCode}`)
         .then(response => response.blob())
         .then(blob => {
             const url = URL.createObjectURL(blob); 
@@ -11,7 +11,7 @@ export default function ( promoCode) {
             data.value = blob;
         });
         return data;
-    })
+    }
 
     const download = () => {
         const url = URL.createObjectURL(data.value); 
@@ -24,7 +24,8 @@ export default function ( promoCode) {
     }
 
     return {
-        data,
         download,
+        generateQrCode,
+        data
     }
 }

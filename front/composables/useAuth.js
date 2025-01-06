@@ -35,6 +35,7 @@ export default function () {
             password: password
         });
         user.value = response.data.user
+        user.value.promoCode = code.value.code
         token.value = response.data.token
         isAuthenticated.value = true
         responseMessage.value = true
