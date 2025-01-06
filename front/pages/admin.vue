@@ -6,7 +6,6 @@
     })
   const whitelist = inject('whitelist')
   const auth = inject('auth')
-  
   if (process.client){
     whitelist.getWhitelist()
   }
@@ -18,17 +17,16 @@
 <template>
   <div class="max-w-4xl mx-auto p-6">
     <div class="w-full flex items-center justify-between mb-6">
-      <ButtonPrimary >
-        <NuxtLink to="/" class="w-full h-full block"><Home /></NuxtLink>
-      </ButtonPrimary>
-      <h1 class="text-3xl font-bold mb-4">Admin</h1>
-      <ButtonDanger
-        @click="auth.logout()"
-      >
-        Déconnexion
-      </ButtonDanger>
+        <ButtonPrimary >
+            <NuxtLink to="/" class="w-full h-full block"><Home /></NuxtLink>
+        </ButtonPrimary>
+        <h1 class="text-3xl font-bold mb-4">Admin</h1>
+        <ButtonDanger
+            @click="auth.logout()"
+        >
+            Déconnexion
+        </ButtonDanger>
     </div>
-
     <div class="mb-6 flex gap-4 ">
       <input 
         v-model="whitelist.newEmail.value" 

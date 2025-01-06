@@ -3,6 +3,7 @@
    definePageMeta({
       middleware: ['auth']
    })
+   
    const qrCode = inject('qrCode');
    const auth = inject('auth');
 </script>
@@ -18,7 +19,7 @@
       <div class="flex flex-col md:flex-row gap-2 w-full justify-between">
          <ButtonPrimary class="w-full">Récupérer l'argent</ButtonPrimary>
          <ButtonPrimary class="w-full">
-            <NuxtLink to="/profile" class="w-full">Mon profil</NuxtLink>
+            <NuxtLink to="/profil" class="w-full">Mon profil</NuxtLink>
          </ButtonPrimary>
 
          <ButtonDanger
@@ -28,6 +29,5 @@
             Déconnexion
          </ButtonDanger>
       </div>
-     
     </div>
 </template>

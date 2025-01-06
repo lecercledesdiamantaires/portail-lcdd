@@ -121,7 +121,7 @@ const onSubmit = handleSubmit(async(values) => {
         </div>
 
               <!-- Mot de passe -->
-              <div class="mb-4">
+        <div class="mb-4">
           <label for="password" class="block text-sm font-medium">Mot de passe *</label>
           <div class="relative">
             <input 
