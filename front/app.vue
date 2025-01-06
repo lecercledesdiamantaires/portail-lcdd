@@ -7,6 +7,8 @@
   provide('whitelist', whitelist);
   const auth = useAuth();
   provide('auth', auth);
+  const profil = useProfil();
+  provide('profil', profil);
 </script>
 
 
