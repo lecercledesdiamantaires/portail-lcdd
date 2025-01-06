@@ -57,6 +57,8 @@ enum Role {
   VENDEUR
 }
 
+
+
 model Payout {
   id          Int           @id @default(autoincrement())
   vendorId    Int
