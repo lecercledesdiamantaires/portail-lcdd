@@ -89,9 +89,20 @@ export const login = async (req, res) => {
             { expiresIn: '1h' }
         );
 
-        res.json({ message: 'Connexion réussie', token, user });
+        let promoCode = null;
+        if (user.role === 'VENDEUR') {
+            const vendor = await prisma.vendor.findUnique({ where: { userId: user.id } });
+            if (vendor) {
+                promoCode = vendor.promoCode;
+            }
+        }
+
+        res.json({ message: 'Connexion réussie', token, user, promoCode });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Erreur serveur' });
     }
 };
+
+
+
