@@ -15,3 +15,4 @@ export const createDiscountCode = async (req, res) => {
         res.status(500).json({ error: 'Erreur lors de la création du code promo.' });
     }
 };
+

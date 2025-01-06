@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-export default function (id) {
+export default function () {
     let token = null
     if (typeof window !== 'undefined' && window.localStorage) {
         token = localStorage.getItem('token')
     }
-    const getUser = async () => {
+    const getUser = async (id) => {
         try {
             const response = await axios.get(
                 `http://localhost:4000/api/user/all${id}`, 
