@@ -35,12 +35,15 @@ export default function () {
             password: password
         });
         user.value = response.data.user
-        user.value.promoCode = code.value.code
         token.value = response.data.token
         isAuthenticated.value = true
         responseMessage.value = true
         localStorage.setItem('user', JSON.stringify(user.value))
         localStorage.setItem('token', token.value)
+
+        if (response.data.promoCode) {
+          localStorage.setItem('promoCode', response.data.promoCode);
+        }
       } catch (error) {
         errorMessage.value = error.response.data.error
       }
@@ -69,6 +72,7 @@ export default function () {
   const logout = () => {
     user.value = null
     token.value = null
+    code.value = null
     localStorage.removeItem('token')
     isAuthenticated.value = false
     navigateTo('/login')
@@ -98,6 +102,11 @@ export default function () {
         token.value = storedToken;
         user.value = JSON.parse(localStorage.getItem('user'));
         isAuthenticated.value = true;
+
+        const storedPromoCode = localStorage.getItem('promoCode');
+        if (storedPromoCode) {
+            code.value = storedPromoCode;
+        }
     }
   };
 
