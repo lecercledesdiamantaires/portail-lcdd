@@ -8,12 +8,30 @@ export default {
     './public/index.html',
   ],
   theme: {
+    screens: {
+      'sm': '640px',
+      // => @media (min-width: 640px) { ... }
+
+      'md': '768px',
+      // => @media (min-width: 768px) { ... }
+
+      'lg': '1024px',
+      // => @media (min-width: 1024px) { ... }
+
+      'xl': '1280px',
+      // => @media (min-width: 1280px) { ... }
+
+      '2xl': '1536px',
+      // => @media (min-width: 1536px) { ... }
+    },
     colors: {
       // Primary Colors
       primary: '#006D5C', // Main Green
       offWhite: '#F9F9F9', // Off White
       white: '#FFFFFF',
       black: '#000000',
+      test: '#662C91',
+      red: "#DF2935",
 
       // Gray Scale
       gray: {

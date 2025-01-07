@@ -6,7 +6,7 @@ export default function () {
         .then(response => response.blob())
         .then(blob => {
             const url = URL.createObjectURL(blob); 
-            const img = document.querySelector('img');
+            const img = document.querySelector('.qr-code');
             img.src = url;
             data.value = blob;
         });
