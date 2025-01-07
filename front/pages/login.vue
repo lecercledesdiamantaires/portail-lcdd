@@ -30,7 +30,6 @@
     const onSubmit = handleSubmit(async(values) => {
       auth.loginForm.email = values.email;
       auth.loginForm.password = values.password;
-      console.log(values)
       try {
         await auth.loginUser()
         if (auth.responseMessage.value) {

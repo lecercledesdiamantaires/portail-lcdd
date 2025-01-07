@@ -7,12 +7,12 @@
    const qrCode = inject('qrCode');
    const auth = inject('auth');
    const promoCode = ref('');
+
    if (process.client){
       promoCode.value = localStorage.getItem('promoCode');
       qrCode.generateQrCode(promoCode.value);
-      sales.getSales('PROMO-HYADGXLR');
+      sales.getSales(promoCode.value);
    }
-  
 </script>
 
 <template>
@@ -20,10 +20,13 @@
       <NuxtLink to="/admin" class="text-primary underline">Admin</NuxtLink>
       {{ sales.data.value?.current_subtotal_price }}
       <h1 class="text-2xl font-semibold">Bonjour {{ auth?.user?.value?.firstName || '' }}</h1>
-      <div></div>
       <img src="" alt="qr code">
       <p>Mon code promo : {{ promoCode }}</p>
-      
+      <p>Nombre de ventes : {{ sales.orders.length }}</p>
+      <p>Montant total des ventes : {{ sales.totalAmount.value }}</p>
+
+      <CardChart />
+
       <div class="flex flex-col md:flex-row gap-2 w-full justify-between">
          <ButtonPrimary class="w-full">Récupérer l'argent</ButtonPrimary>
          <ButtonPrimary class="w-full">
@@ -33,9 +36,9 @@
          <ButtonDanger
             @click="auth.logout()"
             class=" w-full"
-            >
+         >
             Déconnexion
          </ButtonDanger>
       </div>
-    </div>
+   </div>
 </template>
