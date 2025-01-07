@@ -30,7 +30,7 @@
     const onSubmit = handleSubmit(async(values) => {
       auth.loginForm.email = values.email;
       auth.loginForm.password = values.password;
-      
+      console.log(values)
       try {
         await auth.loginUser()
         if (auth.responseMessage.value) {
@@ -50,6 +50,7 @@
         }
       } catch (error) {
         // Erreur inattendue
+        console.log(error);
         Swal.fire({
           icon: "error",
           title: "Action non autorisée",

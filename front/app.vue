@@ -9,6 +9,8 @@
   provide('auth', auth);
   const profil = useProfil();
   provide('profil', profil);
+  const sales = useSales();
+  provide('sales', sales);
 </script>
 
 

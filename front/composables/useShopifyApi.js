@@ -3,6 +3,16 @@ import axios from 'axios';
 export default function () {
     const discountCode = ref(null);
 
+    const getDiscountCode = async (name) => {
+        try{
+            const response = await axios.get(`http://localhost:4000/shopify/get-code/${name}`);
+            discountCode.value = response.data;
+
+        } catch (error) {
+            console.error('Erreur lors de la récupération du code promo :', error.response?.data || error.message);
+        }
+    }
+
     function generateRandomCode(length = 8) {
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         let result = '';
@@ -28,7 +38,8 @@ export default function () {
 
     return {
         createPromoCode,
-        discountCode
+        discountCode,
+        getDiscountCode
     }
 
  }

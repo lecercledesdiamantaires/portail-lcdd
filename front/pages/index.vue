@@ -1,25 +1,25 @@
 <script setup>
-import { stringify } from 'postcss';
+   import { CircleUserRound } from 'lucide-vue-next';
    definePageMeta({
       middleware: ['auth']
    })
-   
+   const sales = inject('sales');
    const qrCode = inject('qrCode');
    const auth = inject('auth');
    const promoCode = ref('');
    if (process.client){
       promoCode.value = localStorage.getItem('promoCode');
       qrCode.generateQrCode(promoCode.value);
+      sales.getSales('PROMO-HYADGXLR');
    }
 
-      // État du menu burger
+   // État du menu burger
    const isOpen = ref(false);
 
    // Fonction pour ouvrir/fermer le menu
    const toggleMenu = () => {
    isOpen.value = !isOpen.value;
    };
-  
   
 </script>
 
@@ -86,11 +86,9 @@ import { stringify } from 'postcss';
     ></div>
   </div>
 
-
-
       <div class="flex flex-col items-center gap-4 col-span-3">
          <h1 class="text-2xl font-semibold">Bonjour {{ auth?.user?.value?.firstName || '' }}</h1>
-   
+         <p>  {{ sales.data.value?.current_subtotal_price }}</p>
          <div class="grid grid-cols-3 w-full bg-test gap-4">
             <div class="flex flex-col items-start gap-4">
                <h2>My Card</h2>
