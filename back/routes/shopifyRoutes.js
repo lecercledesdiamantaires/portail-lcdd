@@ -4,6 +4,6 @@ import { createDiscountCode, getDiscountCodeByName, getSalesByDiscountCode } fro
 
 router.post('/discount-code', createDiscountCode);
 router.get('/get-code/:code', getDiscountCodeByName);
-router.get('/sales', getSalesByDiscountCode)
+router.get('/sales/:code', getSalesByDiscountCode)
 
 export default router;

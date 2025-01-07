@@ -1,26 +1,24 @@
 <script setup>
    import { CircleUserRound } from 'lucide-vue-next';
-import { stringify } from 'postcss';
    definePageMeta({
       middleware: ['auth']
    })
-   
+   const sales = inject('sales');
    const qrCode = inject('qrCode');
    const auth = inject('auth');
    const promoCode = ref('');
    if (process.client){
       promoCode.value = localStorage.getItem('promoCode');
       qrCode.generateQrCode(promoCode.value);
-
-  }
-  
+      sales.getSales('PROMO-HYADGXLR');
+   }
   
 </script>
 
 <template>
     <div class="mx-auto max-w-sm md:max-w-3xl sm:max-w-lg py-6">
       <NuxtLink to="/admin" class="text-primary underline">Admin</NuxtLink>
-
+      {{ sales.data.value?.current_subtotal_price }}
       <h1 class="text-2xl font-semibold">Bonjour {{ auth?.user?.value?.firstName || '' }}</h1>
       <div></div>
       <img src="" alt="qr code">
