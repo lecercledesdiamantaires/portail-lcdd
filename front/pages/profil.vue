@@ -33,6 +33,8 @@
 </script>
 
 <template>
+  <Sidebar />
+
   <div class="flex justify-center items-center h-screen">
     <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
       <h1 class="text-3xl font-bold mb-4">Mon profil</h1>
@@ -103,9 +105,6 @@
         </div>
         <div class="flex gap-2 flex-col">
           <ButtonPrimary type="submit" class="w-full">Mettre à jour</ButtonPrimary>
-          <ButtonSecondary class="w-full">
-              <NuxtLink to="/" class="w-full h-full block">Retour accueil</NuxtLink>
-          </ButtonSecondary>  
         </div>
       </form>
     </div>

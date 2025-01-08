@@ -14,8 +14,10 @@ defineProps({
 <template>
   <div class="flex w-full gap-12 group">
     <span
-        v-if="direction !== 'logout'"
         class="transition-all duration-300 ease-in-out bg-primary h-full w-2 rounded-r-3xl opacity-0 group-hover:opacity-100"
+        :class="{
+          'bg-red': direction === 'logout'
+        }"
     ></span>
     <div class="flex flex-col gap-4 w-full">
       <a
@@ -51,7 +53,7 @@ defineProps({
       <a
         v-if="direction === 'logout'"
         @click="auth.logout()"
-        class="group flex flex-row items-center gap-4 hover:text-red ps-12"
+        class="group flex flex-row items-center gap-4 hover:text-red"
       >
         <LogOut class="h-8 transition-colors duration-300 ease-in-out group-hover:text-red" />
         <p class="text-base transition-colors duration-300 ease-in-out group-hover:text-red">

@@ -45,8 +45,8 @@
             </div>
    
          </div>
-      </div>
-      <CardChart /> 
+         <CardChart /> 
 
+      </div>
    </div>
 </template>
