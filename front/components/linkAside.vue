@@ -23,7 +23,7 @@ defineProps({
         href="/"
         class="group flex flex-row items-center gap-4 hover:text-primary"
       >
-        <House class="h-8 transition-colors duration-300 ease-in-out group-hover:text-primary" fill="test"/>
+        <font-awesome-icon icon="house" class="transition-colors duration-300 ease-in-out" colors="red"/>
         <p class="text-xl transition-colors duration-300 ease-in-out group-hover:text-primary">
           Dashboard
         </p>
@@ -33,7 +33,7 @@ defineProps({
         href="/profil"
         class="group flex flex-row items-center gap-4 hover:text-primary"
       >
-        <User class="h-8 transition-colors duration-300 ease-in-out group-hover:text-primary" />
+        <font-awesome-icon icon="user" class="transition-colors duration-300 ease-in-out" />
         <p class="text-xl transition-colors duration-300 ease-in-out group-hover:text-primary">
           Profil
         </p>
@@ -43,7 +43,7 @@ defineProps({
         href="/transactions"
         class="group flex flex-row items-center gap-4 hover:text-primary"
       >
-        <CircleDollarSign class="h-8 transition-colors duration-300 ease-in-out group-hover:text-primary" />
+      <font-awesome-icon icon="right-left" class="transition-colors duration-300 ease-in-out" />
         <p class="text-xl transition-colors duration-300 ease-in-out group-hover:text-primary">
           Transactions
         </p>
@@ -53,7 +53,7 @@ defineProps({
         @click="auth.logout()"
         class="group flex flex-row items-center gap-4 hover:text-red ps-12"
       >
-        <LogOut class="h-8 transition-colors duration-300 ease-in-out group-hover:text-red" />
+        <font-awesome-icon icon="right-from-bracket" class="transition-colors duration-300 ease-in-out" />
         <p class="text-base transition-colors duration-300 ease-in-out group-hover:text-red">
           Déconnexion
         </p>
