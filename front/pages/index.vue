@@ -23,7 +23,7 @@
       <div class="flex flex-col gap-4 lg:col-span-3 col-span-4 py-6 pr-16">
          <h1 class="text-3xl font-semibold">Bonjour {{ auth?.user?.value?.firstName || '' }}</h1>
          <div class="grid grid-cols-4 w-full gap-8 ">
-            <div class="rounded-3xl bg-white w-full flex gap-4 p-2 px-4 flex flex items-center ">
+            <div class="rounded-3xl bg-white w-full gap-4 p-2 px-4 flex items-center ">
                <div class="h-16 w-16 bg-redLight rounded-full p-2">
                   <PiggyBank class="h-full w-full" fill="red" color="#df293566"/>
                </div>
@@ -32,7 +32,7 @@
                   <p>$12,750</p>
                </div>
             </div>
-            <div class="rounded-3xl bg-white w-full flex gap-4 p-2 px-4 flex flex items-center ">
+            <div class="rounded-3xl bg-white w-full gap-4 p-2 px-4 flex items-center ">
                <div class=" h-16 w-16 bg-test rounded-full p-2">
                   <ShoppingBasket class="h-full w-full"/>
                </div>
@@ -41,7 +41,7 @@
                   <p>12</p>
                </div>
             </div>
-            <div class="rounded-3xl bg-white w-full flex gap-4 p-2 px-4 flex flex items-center ">
+            <div class="rounded-3xl bg-white w-full gap-4 p-2 px-4 flex items-center ">
                <div class=" h-16 w-16 bg-test rounded-full p-2">
                   <PiggyBank class="h-full w-full"/>
                </div>
@@ -50,7 +50,7 @@
                   <p>$12,750</p>
                </div>
             </div>
-            <div class="rounded-3xl bg-white w-full flex gap-4 p-2 px-4 flex flex items-center ">
+            <div class="rounded-3xl bg-white w-full gap-4 p-2 px-4 flex items-center ">
                <div class=" h-16 w-16 bg-test rounded-full p-2">
                   <PiggyBank class="h-full w-full"/>
                </div>
