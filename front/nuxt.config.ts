@@ -9,6 +9,12 @@ export default defineNuxtConfig({
     '~/plugins/axios.js'
   ],
 
+  build: {
+    transpile: [
+    '@fortawesome/vue-fontawesome'
+    ]
+  },
+
   runtimeConfig: {
     // apiBase: 'http://localhost:4000',
     public: {

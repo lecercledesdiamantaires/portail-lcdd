@@ -68,6 +68,5 @@
          </div>
          <CardChart /> 
       </div>
-
    </div>
 </template>
