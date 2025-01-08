@@ -20,7 +20,7 @@
 <template>
     <div class="flex w-full bg-gray-100 h-full">
       <!-- <NuxtLink to="/admin" class="text-primary underline">Admin</NuxtLink> -->
-      <Sidebar />
+      <Sidebar/>
       <div class="flex flex-col gap-4 p-6 w-full">
          <h1 class="text-3xl font-semibold">Bonjour {{ auth?.user?.value?.firstName || '' }}</h1>
          <div class="grid grid-cols-4 w-full gap-8 ">
@@ -36,6 +36,7 @@
             <div class="rounded-3xl bg-white w-full flex gap-4 p-2 px-4 items-center ">
                <div class="h-16 w-16 bg-greenLight rounded-full p-2 flex items-center justify-center">
                   <font-awesome-icon icon="cart-shopping" class="text-2xl h-full w-full" color="#198754"/>
+                  
                </div>
                <div class="flex flex-col">
                   <h3 class="text-lg">Mes Ventes</h3>
