@@ -20,10 +20,6 @@ const props = defineProps({
     type: String,
     required: true
   },
-  label: {
-    type: String,
-    default: 'Back'
-  },
   onClick: {
     type: Function,
     required: true
