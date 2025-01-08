@@ -3,7 +3,7 @@
 
 
    definePageMeta({
-      middleware: ['auth']
+      middleware: ['auth', 'vendor']
    })
    const sales = inject('sales');
    const qrCode = inject('qrCode');
