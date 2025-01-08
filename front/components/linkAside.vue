@@ -23,7 +23,7 @@ defineProps({
         href="/"
         class="group flex flex-row items-center gap-4 hover:text-primary"
       >
-        <House class="h-8 transition-colors duration-300 ease-in-out group-hover:text-primary" />
+        <House class="h-8 transition-colors duration-300 ease-in-out group-hover:text-primary" fill="test"/>
         <p class="text-xl transition-colors duration-300 ease-in-out group-hover:text-primary">
           Dashboard
         </p>
