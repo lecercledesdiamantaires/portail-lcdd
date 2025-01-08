@@ -10,11 +10,11 @@
 
 <template>
     <div>
-         <!-- Bouton du menu burger -->
-            <ButtonToggleMenu :isOpen="isOpen" :toggleMenu="toggleMenu" />
+        <!-- Bouton du menu burger -->
+        <ButtonToggleMenu :isOpen="isOpen" :toggleMenu="toggleMenu" />
 
-         <!-- Sidebar -->
-         <aside
+        <!-- Sidebar -->
+        <aside
             :class="[
             'fixed flex flex-col h-screen w-64 bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out',
             isOpen ? 'translate-x-0' : '-translate-x-full',
@@ -33,11 +33,11 @@
                 </div>
 
                 <!-- Lien de déconnexion -->
-                <LinkAside direction="logout" />
+                <LinkAside direction="logout" class="cursor-pointer"/>
             </div>
-         </aside>
+        </aside>
 
          <!-- Overlay (pour fermer le menu en mobile) -->
-            <OverlayMenuMobile :isOpen="isOpen" :toggleMenu="toggleMenu" />
+        <OverlayMenuMobile :isOpen="isOpen" :toggleMenu="toggleMenu" />
       </div>
 </template>

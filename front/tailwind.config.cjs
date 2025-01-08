@@ -30,8 +30,11 @@ export default {
       offWhite: '#F9F9F9', // Off White
       white: '#FFFFFF',
       black: '#000000',
-      test: '#662C91',
       red: "#DF2935",
+      redLight: "rgba(223, 41, 53, 0.4)",
+      blue: "#0D6EFD",
+      green: "#198754",
+      yellow: "#FFC107",
 
       // Gray Scale
       gray: {
