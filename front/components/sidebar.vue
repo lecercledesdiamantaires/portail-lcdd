@@ -9,14 +9,14 @@
 
 
 <template>
-    <div>
+    <div class="w-64 bg-white shadow-lg h-screen">
         <!-- Bouton du menu burger -->
         <ButtonToggleMenu :isOpen="isOpen" :toggleMenu="toggleMenu" />
 
         <!-- Sidebar -->
         <aside
             :class="[
-            'fixed flex flex-col h-screen w-64 bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out',
+            ' fixed flex flex-col h-screen bg-white lg:shadow-lg z-40 transform transition-transform duration-300 ease-in-out',
             isOpen ? 'translate-x-0' : '-translate-x-full',
             'lg:translate-x-0'
             ]"

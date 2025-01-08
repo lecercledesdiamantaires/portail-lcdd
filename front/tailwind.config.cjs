@@ -31,10 +31,15 @@ export default {
       white: '#FFFFFF',
       black: '#000000',
       red: "#DF2935",
-      redLight: "rgba(223, 41, 53, 0.4)",
+      redLight: "#F2A6AB",
       blue: "#0D6EFD",
+      blueLight: "#B3D4FF",
       green: "#198754",
+      greenLight: "#D1E7DD",
       yellow: "#FFC107",
+      yellowLight: "#FFF3CD",
+      purple : "#FAA6FF",
+      purpleLight : "#F7EFFF",
 
       // Gray Scale
       gray: {

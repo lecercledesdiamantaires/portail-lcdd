@@ -1,9 +1,19 @@
 export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss'],
 
+  css: [
+    '@fortawesome/fontawesome-svg-core/styles.css'
+    ],
+
   plugins: [
     '~/plugins/axios.js'
   ],
+
+  build: {
+    transpile: [
+    '@fortawesome/vue-fontawesome'
+    ]
+  },
 
   runtimeConfig: {
     // apiBase: 'http://localhost:4000',

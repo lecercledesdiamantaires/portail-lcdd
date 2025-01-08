@@ -17,7 +17,7 @@
     </h3>
     <h3 
         v-else 
-        class="text-xl font-semibold capitalize"
+        class="text-xl font-semibold"
     >
         Toutes les ventes
     </h3>

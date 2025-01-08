@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-center items-center p-4 rounded-xl">
-      <div class="w-full max-w-4xl">
+      <div class="w-full">
         <canvas ref="salesBarChart" class="w-full h-72 md:h-96 rounded-md"></canvas>
       </div>
     </div>
@@ -104,7 +104,7 @@
                             },
                         },
                         grid: {
-                            display: false
+                            display: true
                         },
                         min: 0, // Fixer le minimum de l'échelle
                         max: maxValue, 

@@ -24,9 +24,10 @@ export default function () {
 
     const period = ref('month');
     const salesData = reactive([
-        { orderAmount: 0, orderDate: "2025-01-07T11:03:03+01:00" },
         { orderAmount: 100, orderDate: "2025-02-07T10:56:41+01:00" },
         { orderAmount: 200, orderDate: "2025-03-15T10:56:41+01:00" },
+        { orderAmount: 100, orderDate: "2023-02-07T10:56:41+01:00" },
+        { orderAmount: 200, orderDate: "2025-03-16T10:56:41+01:00" },
         { orderAmount: 200, orderDate: "2025-03-15T10:56:41+01:00" },
         { orderAmount: 300, orderDate: "2024-05-12T10:56:41+01:00" },
         { orderAmount: 150, orderDate: "2024-06-19T10:56:41+01:00" },
