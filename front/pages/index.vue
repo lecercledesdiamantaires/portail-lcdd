@@ -7,12 +7,12 @@
    const qrCode = inject('qrCode');
    const auth = inject('auth');
    const promoCode = ref('');
+
    if (process.client){
       promoCode.value = localStorage.getItem('promoCode');
       qrCode.generateQrCode(promoCode.value);
-      sales.getSales('PROMO-HYADGXLR');
+      sales.getSales(promoCode.value);
    }
-  
 </script>
 
 <template>
@@ -64,5 +64,7 @@
    
          </div>
       </div>
-    </div>
+      <CardChart /> 
+
+   </div>
 </template>
