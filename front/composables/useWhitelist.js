@@ -5,6 +5,7 @@ export default function () {
     const newEmail = ref('')
     const users = ref(null)
     const vendors = ref(null)
+    const vendorsDetails = ref(null)
     
     let token = null
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -97,15 +98,12 @@ export default function () {
         newEmail.value = ''
         await getWhitelist(token)
         }
-
     }
     
     const deleteEmail = async (email, userId) => {
         await deleteEmailFromWhitelist(email, userId)
         await getWhitelist(token)
     }
-
-
 
     const combinedData = computed(() => {
         return whitelist.value.map(item => {
@@ -121,7 +119,7 @@ export default function () {
             }
         })
     })
-      
+    
     return {
         addEmailToWhitelist,
         deleteEmailFromWhitelist,
