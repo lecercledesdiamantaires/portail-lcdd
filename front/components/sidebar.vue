@@ -24,7 +24,7 @@
             <div class="flex flex-col h-full justify-between w-full">
                 <!-- Partie supérieure -->
                 <div class="flex flex-col justify-center gap-12">
-                    <Logo />
+                    <Logo color="colored"/>
                     <div class="flex flex-col gap-4 items-center pr-8">
                         <LinkAside direction="dashboard" />
                         <LinkAside direction="transactions" />

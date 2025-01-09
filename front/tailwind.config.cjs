@@ -9,6 +9,7 @@ export default {
   ],
   theme: {
     screens: {
+      'xs': '325px',
       'sm': '640px',
       // => @media (min-width: 640px) { ... }
 
@@ -27,6 +28,7 @@ export default {
     colors: {
       // Primary Colors
       primary: '#006D5C', // Main Green
+      primaryLight: '#003D34', // Main Green
       offWhite: '#F9F9F9', // Off White
       white: '#FFFFFF',
       black: '#000000',
@@ -84,6 +86,9 @@ export default {
       48: '12rem',
       56: '14rem',
       64: '16rem',
+      72: '18rem',
+      80: '20rem',
+      96: '24rem',
     },
     extend: {},
   },
