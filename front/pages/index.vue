@@ -24,7 +24,7 @@
       <Sidebar/>
       
       <div class="flex flex-col gap-4 sm:p-6 w-full xs:px-2 xs:py-6">
-         <HelloText />   
+         <HelloText class="xs:pl-20 lg:pl-0"/>   
 
          <CardInfosContainer />
          <div class="flex gap-4">
