@@ -33,12 +33,12 @@
 </script>
 
 <template>
-  <Sidebar />
 
-  <div class="flex justify-center items-center h-screen">
-    <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
-      <h1 class="text-3xl font-bold mb-4">Mon profil</h1>
-      <form @submit.prevent="submit">
+<div class="flex w-full bg-gray-100 h-full">
+    <Sidebar />
+    <div class="w-full flex flex-col justify-center items-center p-8 bg-white rounded-lg shadow-lg">
+      <h1 class="text-3xl w-full max-w-md font-bold mb-4">Mon profil</h1>
+      <form @submit.prevent="submit" class="w-full max-w-md">
         <div class="mb-4">
           <label for="firstName" class="block text-sm font-medium">Prénom :</label>
           <input

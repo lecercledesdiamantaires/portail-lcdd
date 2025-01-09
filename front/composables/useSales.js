@@ -4,7 +4,7 @@ import { ref, reactive, computed, onMounted, watch } from 'vue';
 export default function () {
     const data = ref(null);
     const totalAmount = ref(0);
-    const orders = reactive([]);
+    const salesData = reactive([]);
 
     const isAtMinDate = ref(false);  // Indicateur si l'on est à la date minimale
     const isAtMaxDate = ref(false);  // Indicateur si l'on est à la date maximale
@@ -23,15 +23,15 @@ export default function () {
     };
 
     const period = ref('month');
-    const salesData = reactive([
-        { orderAmount: 100, orderDate: "2025-02-07T10:56:41+01:00" },
-        { orderAmount: 200, orderDate: "2025-03-15T10:56:41+01:00" },
-        { orderAmount: 100, orderDate: "2023-02-07T10:56:41+01:00" },
-        { orderAmount: 200, orderDate: "2025-03-16T10:56:41+01:00" },
-        { orderAmount: 200, orderDate: "2025-03-15T10:56:41+01:00" },
-        { orderAmount: 300, orderDate: "2024-05-12T10:56:41+01:00" },
-        { orderAmount: 150, orderDate: "2024-06-19T10:56:41+01:00" },
-    ]);
+    // const salesData = reactive([
+    //     { orderAmount: 100, orderDate: "2025-02-07T10:56:41+01:00" },
+    //     { orderAmount: 200, orderDate: "2025-03-15T10:56:41+01:00" },
+    //     { orderAmount: 100, orderDate: "2023-02-07T10:56:41+01:00" },
+    //     { orderAmount: 200, orderDate: "2025-03-16T10:56:41+01:00" },
+    //     { orderAmount: 200, orderDate: "2025-03-15T10:56:41+01:00" },
+    //     { orderAmount: 300, orderDate: "2024-05-12T10:56:41+01:00" },
+    //     { orderAmount: 150, orderDate: "2024-06-19T10:56:41+01:00" },
+    // ]);
     
     const selectedDate = ref(new Date());
 
@@ -169,8 +169,8 @@ const chartData = computed(() => {
     
         return { labels, values, maxValue };
     } else if (period.value === 'year') {
-        const labels = Object.keys(groupedSalesData.value); // Mois (ex: "Jan", "Feb", ...)
-        const values = Object.values(groupedSalesData.value); // Montants correspondants
+        const labels = Object.keys(groupedSalesData.value); 
+        const values = Object.values(groupedSalesData.value); 
     
         return { labels, values, maxValue };
     } else if (period.value === 'month') {
@@ -180,11 +180,11 @@ const chartData = computed(() => {
         const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
         const labels = Array.from(
             { length: daysInMonth },
-            (_, i) => (i + 1).toString().padStart(2, '0') // Jours du mois (01, 02, ..., 31)
+            (_, i) => (i + 1).toString().padStart(2, '0')
         );
     
         const groupedData = groupedSalesData.value;
-        const values = labels.map(day => groupedData[day] || 0); // Valeurs correspondantes pour chaque jour
+        const values = labels.map(day => groupedData[day] || 0); 
     
         return { labels, values, maxValue };
     }
@@ -274,7 +274,7 @@ const chartData = computed(() => {
             .get(`http://localhost:4000/shopify/sales/${code}`)
             .then((response) => {
                 response.data.forEach((element) => {
-                    orders.push({
+                    salesData.push({
                         orderAmount: parseFloat(element.current_subtotal_price),
                         orderDate: element.created_at,
                     });
@@ -291,7 +291,7 @@ const chartData = computed(() => {
         totalAmount,
         chartData,
         period,
-        orders,
+        salesData,
         data,
         selectedDate,
         getSales,

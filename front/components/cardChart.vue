@@ -4,7 +4,7 @@
 
 <template>
     <h2 class="text-2xl font-semibold">Vos ventes</h2>
-    <div class="rounded-xl bg-white px-8 py-6">
+    <div class="rounded-xl bg-white sm:px-8 sm:py-6 px-4 py-2 ">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <ButtonArrow
@@ -20,11 +20,11 @@
                     direction="right"
                     :onClick="sales.navigateForward"
                 />
-                <p class="text-danger" v-if="sales.clickDuringCooldown.value">Attendez avant de cliquer</p>
             </div>
             <ChartOption />
+            <Popup label="Attendez avant de cliquer" />
         </div>
-        
-        <Chart /> 
+
+        <Chart/> 
     </div>
 </template>

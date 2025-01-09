@@ -1,7 +1,13 @@
 <template>
-    <div class="flex justify-center items-center p-4 rounded-xl">
-      <div class="w-full">
-        <canvas ref="salesBarChart" class="w-full h-72 md:h-96 rounded-md"></canvas>
+    <div class="flex justify-center items-center py-2">
+      <div class="w-full flex justify-center items-center">
+        <p 
+            v-if="sales.salesData.length === 0 || sales.salesData.reduce((sum, sale) => sum + sale.orderAmount, 0) === 0" 
+            class="text-sm text-gray-500 "
+        >
+            Vous n'avez aucune ventes enregistrées.
+        </p>
+        <canvas v-else ref="salesBarChart" class="w-full h-64 rounded-md"></canvas>
       </div>
     </div>
 </template>
@@ -65,7 +71,7 @@
                 scales: {
                     x: {
                         title: {
-                            display: true,
+                            display: false,
                             text: "Période",
                             font: {
                                 family: "'Arial', sans-serif",
@@ -81,13 +87,14 @@
                                 color: '#666'
                             }
                         },
+                        
                         grid: {
                             display: false
                         }
                     },
                     y: {
                         title: {
-                            display: true,
+                            display: false,
                             text: "Montant",
                             font: {
                                 family: "'Arial', sans-serif",
@@ -102,6 +109,9 @@
                                 size: 12,
                                 color: '#666'
                             },
+                            callback: function(value) {
+                                return value.toLocaleString() + ' €'; // Ajouter le symbole €
+                            }
                         },
                         grid: {
                             display: true

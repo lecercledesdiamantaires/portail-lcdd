@@ -2,6 +2,8 @@
 import { CircleUserRound, CircleDollarSign, User, House, LogOut } from 'lucide-vue-next';
 import { inject } from 'vue';
 
+const auth = inject('auth');
+
 defineProps({
   direction: {
     type: String,
