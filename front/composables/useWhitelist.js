@@ -4,6 +4,7 @@ export default function () {
     const whitelist = ref([])
     const newEmail = ref('')
     const users = ref(null)
+    const vendors = ref(null)
     
     let token = null
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -52,7 +53,7 @@ export default function () {
         }
     }
 
-    const getWhitelist = async () => {
+    const getWhitelist = async (token) => {
         try {
             const response = await axios.get(
                 'http://localhost:4000/api/whitelist/all',
@@ -60,12 +61,13 @@ export default function () {
             )
             whitelist.value = response.data.whitelist || []
             await getUsers(token)
+            await getVendors(token)
         } catch (error) {
         console.error('Erreur lors de la récupération de la whitelist :', error.response?.data || error.message)
         }
     }
 
-    const getUsers = async () => {
+    const getUsers = async (token) => {
         try {
             const response = await axios.get(
                 `http://localhost:4000/api/user/all`, 
@@ -74,6 +76,18 @@ export default function () {
             users.value = response.data.user
         } catch (error) {
             console.error('Erreur lors de la récupération de l\'utilisateur :', error.response?.data || error.message)
+        }
+    }
+
+    const getVendors = async (token) => {
+        try {
+            const response = await axios.get(
+                `http://localhost:4000/api/vendor/all`, 
+                { headers: { Authorization: `Bearer ${token}` } }
+            )
+            vendors.value = response.data.vendor
+        } catch (error) {
+            console.error('Erreur lors de la récupération des vendors :', error.response?.data || error.message)
         }
     }
 
@@ -91,6 +105,23 @@ export default function () {
         await getWhitelist(token)
     }
 
+
+
+    const combinedData = computed(() => {
+        return whitelist.value.map(item => {
+            const user = users.value.find(user => user.id === item.userId)
+            const vendor = vendors.value.find(vendor => vendor.userId === item.userId)
+            return {
+                ...item,
+                role: user ? user.role : 'Unknown',
+                lastName: user ? user.lastName : 'Unknown',
+                firstName: user ? user.firstName : 'Unknown',
+                phoneNumber: user ? user.phoneNumber : 'Unknown',
+                promoCode: vendor ? vendor.promoCode : 'Unknown',
+            }
+        })
+    })
+      
     return {
         addEmailToWhitelist,
         deleteEmailFromWhitelist,
@@ -99,6 +130,7 @@ export default function () {
         addEmail,
         users,
         newEmail,
-        whitelist
+        whitelist,
+        combinedData
     }
 }

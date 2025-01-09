@@ -22,7 +22,7 @@
       <!-- <NuxtLink to="/admin" class="text-primary underline">Admin</NuxtLink> -->
       <Sidebar/>
       <div class="flex flex-col gap-4 p-6 w-full">
-         <h1 class="text-3xl font-semibold">Bonjour {{ auth?.user?.value?.firstName || '' }}</h1>
+         <HelloText />   
          <div class="grid grid-cols-4 w-full gap-8 ">
             <div class="rounded-3xl bg-white w-full flex gap-4 p-2 px-4 items-center">
                <div class="h-16 w-16 bg-yellowLight rounded-full p-2 flex items-center justify-center">
