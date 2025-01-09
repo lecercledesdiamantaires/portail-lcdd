@@ -33,7 +33,6 @@ export default {
       white: '#FFFFFF',
       black: '#000000',
       red: "#DF2935",
-      redLight: "#F2A6AB",
       blue: "#0D6EFD",
       blueLight: "#B3D4FF",
       green: "#198754",
@@ -55,6 +54,13 @@ export default {
         700: '#374151',
         800: '#1F2937',
         900: '#111827',
+      },
+
+      redLight: {
+        50: "#FEE2E2", // Très clair
+        100: "#FECACA", // Clair
+        200: "#FCA5A5", // Moyen clair
+        300: "#F87171", // Moyen
       },
 
       // Additional Colors

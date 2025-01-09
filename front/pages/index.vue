@@ -18,16 +18,13 @@
 
 
 </script>
-
 <template>
     <div class="flex w-full bg-gray-100 h-full">
       <!-- <NuxtLink to="/admin" class="text-primary underline">Admin</NuxtLink> -->
       <Sidebar/>
       
       <div class="flex flex-col gap-4 sm:p-6 w-full xs:px-2 xs:py-6">
-         <div class="flex justify-start items-center lg:px-0 xs:pl-16">
-            <h1 class="md:text-3xl font-semibold xs:text-2xl">Bonjour {{ auth?.user?.value?.firstName || '' }}</h1>
-         </div>
+         <HelloText />   
 
          <CardInfosContainer />
          <div class="flex gap-4">
@@ -54,15 +51,10 @@
                </div>
    
             </div>
-            <!-- <div class="flex flex-col gap-4 flex-1">
-            
-              
-   
+            <!-- <div class="flex flex-col gap-4 flex-1">    
             </div> -->
-
          </div>
-            
-         <CardChart /> 
+         <CardChart />
       </div>
    </div>
 </template>
