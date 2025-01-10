@@ -19,7 +19,7 @@
         </div>
         <div class="container-card flex flex-col rounded-3xl ">
             <div class=" flex p-6 gap-4">
-                <img src="" alt="qr code" class="qr-code rounded-3xl h-40 w-40"/>
+                <img src="" alt="qr code" class="qr-code rounded-3xl md:h-40 md:w-40 xs:h-32 xs:w-32"/>
                 <div class="flex flex-col items-end justify-between h-full flex-1">
                     <Logo color="white" height="h-full" width="w-full" class="h-16 w-16"/>
                     <div class="flex flex-col items-start w-full">
