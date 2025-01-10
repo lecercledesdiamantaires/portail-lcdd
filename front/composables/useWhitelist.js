@@ -6,6 +6,7 @@ export default function () {
     const users = ref(null)
     const vendors = ref(null)
     const vendorsDetails = ref(null)
+    const errorMessage = ref(null)
     
     let token = null
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -91,12 +92,21 @@ export default function () {
             console.error('Erreur lors de la récupération des vendors :', error.response?.data || error.message)
         }
     }
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        return emailRegex.test(email)
+    }
 
     const addEmail = async () => {
-        if (newEmail.value) {
-        await addEmailToWhitelist(newEmail.value, token)
-        newEmail.value = ''
-        await getWhitelist(token)
+        if (newEmail.value && validateEmail(newEmail.value)) {
+            await addEmailToWhitelist(newEmail.value, token)
+            newEmail.value = ''
+            await getWhitelist(token)
+        } else {
+            errorMessage.value = "Veuillez entrer une adresse e-mail valide."
+            setTimeout(() => {
+                errorMessage.value = null
+              }, 2000)  
         }
     }
     
@@ -129,6 +139,8 @@ export default function () {
         users,
         newEmail,
         whitelist,
-        combinedData
+        combinedData,
+        errorMessage,
+        validateEmail,
     }
 }
