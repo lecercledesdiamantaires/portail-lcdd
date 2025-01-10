@@ -4,6 +4,8 @@ import { ref, reactive, computed, onMounted, watch } from 'vue';
 export default function () {
     const data = ref(null);
     const totalAmount = ref(0);
+    const wallet = ref(0);
+    const incomingSales = ref(0);
     const salesData = reactive([]);
 
     const isAtMinDate = ref(false);  // Indicateur si l'on est à la date minimale
@@ -46,7 +48,7 @@ export default function () {
         maxDate.value = new Date(Math.max(...dates));
     };
 
-   const groupedSalesData = computed(() => {
+    const groupedSalesData = computed(() => {
     const grouped = {};
     updateMinMaxDates(); // Mettre à jour minDate et maxDate
 
@@ -273,19 +275,30 @@ const chartData = computed(() => {
         axios
             .get(`http://localhost:4000/shopify/sales/${code}`)
             .then((response) => {
+                salesData.splice(0, salesData.length); 
+    
+                let total = 0;
+    
                 response.data.forEach((element) => {
+                    const orderAmount = parseFloat(element.current_subtotal_price);
+                    const orderDate = element.created_at;
+    
+                    // Ajouter les éléments dans le tableau existant
                     salesData.push({
-                        orderAmount: parseFloat(element.current_subtotal_price),
-                        orderDate: element.created_at,
+                        orderAmount,
+                        orderDate,
                     });
-
-                    totalAmount.value += parseFloat(element.current_subtotal_price);
+    
+                    total += orderAmount;
                 });
+    
+                totalAmount.value = total;
             })
             .catch((error) => {
-                console.error(error);
+                console.error('Error fetching sales:', error);
             });
     };
+    
 
     return {
         totalAmount,
@@ -302,6 +315,8 @@ const chartData = computed(() => {
         clickDuringCooldown,
         isAtMaxDate,
         isAtMinDate,
-        maxSalesValue
+        maxSalesValue,
+        incomingSales,
+        wallet
     };
 }

@@ -107,15 +107,15 @@ export default function () {
 
     const combinedData = computed(() => {
         return whitelist.value.map(item => {
-            const user = users.value.find(user => user.id === item.userId)
-            const vendor = vendors.value.find(vendor => vendor.userId === item.userId)
+            const user = users?.value?.find(user => user?.id === item?.userId)
+            const vendor = vendors?.value?.find(vendor => vendor?.userId === item?.userId)
             return {
                 ...item,
                 role: user ? user.role : 'Unknown',
                 lastName: user ? user.lastName : 'Unknown',
                 firstName: user ? user.firstName : 'Unknown',
                 phoneNumber: user ? user.phoneNumber : 'Unknown',
-                promoCode: vendor ? vendor.promoCode : 'Unknown',
+                promoCode: vendor ? vendor.promoCode : null,
             }
         })
     })

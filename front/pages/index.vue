@@ -25,11 +25,10 @@
       
       <div class="flex flex-col gap-4 sm:p-6 w-full xs:px-2 xs:py-6">
          <HelloText />   
-
          <CardInfosContainer />
+
          <div class="flex gap-4">
             <div class="flex flex-col gap-4 sm:w-96 xs:w-full">
-            
                <div>
                   <h2 class="text-2xl font-semibold">Ma carte</h2>
                </div>
@@ -49,10 +48,7 @@
                      <p class="text-lg text-white">{{ promoCode }}</p>
                   </div>
                </div>
-   
             </div>
-            <!-- <div class="flex flex-col gap-4 flex-1">    
-            </div> -->
          </div>
          <CardChart />
       </div>
