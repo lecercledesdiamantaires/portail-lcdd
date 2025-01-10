@@ -27,6 +27,7 @@
             </ButtonDanger>
         </div>
         <InputWhitelist />
+        <SearchBar />
         <div class="overflow-x-auto">
             <AdminTable />   
         </div>

@@ -22,9 +22,8 @@
                 />
             </div>
             <ChartOption />
-            <Popup label="Attendez avant de cliquer" />
+            <Popup :condition="sales.clickDuringCooldown.value == true" label="Attendez avant de cliquer" />
         </div>
-
         <Chart/> 
     </div>
 </template>
