@@ -1,5 +1,12 @@
 <script setup>
     const whitelist = inject('whitelist')
+    const popup = inject('popup')
+
+    const deleteUser = (user) => {
+        whitelist.deleteEmail(user.email, user.userId) 
+        popup.closePopup()
+        console.log('User deleted')
+    }
 </script>
 
 <template>
@@ -29,10 +36,18 @@
                 <adminRow>{{ user.email }}</adminRow>
                 <adminRow>{{ user.promoCode }}</adminRow>
                 <adminRow>
-                    <ButtonDanger @click="whitelist.deleteEmail(user.email, user.userId)">
+                    <ButtonDanger @click="popup.openPopup()">
                         <font-awesome-icon icon="trash" />
                     </ButtonDanger>
+                    <Popup :condition="popup.popup.value === true" label="Êtes-vous sûr de vouloir supprimer l'utilisateur ?">    
+                        <div class="flex flex-col w-full gap-2 py-4">
+                            <ButtonSecondary @click="popup.closePopup()" >Annnuler</ButtonSecondary>
+                            <ButtonDanger @click="deleteUser(user)">Confirmer</ButtonDanger>
+                        </div>
+                    </Popup>
                 </adminRow>
+               
+              
                 <adminRow v-if="user.role === 'ADMIN' || user.role === 'Unknown'">
                     <ButtonPrimary class="cursor-not-allowed !bg-gray-600">
                         <font-awesome-icon icon="arrow-right" />

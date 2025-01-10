@@ -5,7 +5,7 @@
             v-if="sales.salesData.length === 0 || sales.salesData.reduce((sum, sale) => sum + sale.orderAmount, 0) === 0" 
             class="text-sm text-gray-500 "
         >
-            Vous n'avez aucune ventes enregistrées.
+            Vous n'avez aucune vente enregistrée.
         </p>
         <canvas v-else ref="salesBarChart" class="w-full h-64 rounded-md"></canvas>
       </div>

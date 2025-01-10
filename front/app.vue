@@ -11,6 +11,8 @@
   provide('profil', profil);
   const sales = useSales();
   provide('sales', sales);
+  const popup = usePopup();
+  provide('popup', popup);
 </script>
 
 
