@@ -13,7 +13,7 @@
 
 <template>
 
-    <div class="flex flex-col gap-4 sm:w-96 xs:w-full">
+    <div class="flex flex-col gap-4 2xl:max-w-lg xs:max-w-96 w-full">
         <div>
             <h2 class="text-2xl font-semibold">Ma carte</h2>
         </div>
@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bottom-card w-full h-full px-6 py-5 rounded-b-3xl">
+            <div class="bottom-card w-full h-full px-6 py-5  rounded-b-3xl">
                 <p class="text-xs text-white">Mon code promo :</p>
                 <p class="text-lg text-white">{{ props.promoCode }}</p>
             </div>
