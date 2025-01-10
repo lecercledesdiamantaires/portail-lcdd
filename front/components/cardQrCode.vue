@@ -17,7 +17,7 @@
         <div>
             <h2 class="text-2xl font-semibold">Ma carte</h2>
         </div>
-        <div class="container-card flex flex-col rounded-3xl ">
+        <div class="container-card flex flex-col rounded-3xl max-h-72 h-full justify-between">
             <div class=" flex p-6 gap-4">
                 <img src="" alt="qr code" class="qr-code rounded-3xl md:h-40 md:w-40 xs:h-32 xs:w-32"/>
                 <div class="flex flex-col items-end justify-between h-full flex-1">
@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bottom-card w-full h-full px-6 py-4 rounded-b-3xl">
+            <div class="bottom-card w-full h-full px-6 py-5 rounded-b-3xl">
                 <p class="text-xs text-white">Mon code promo :</p>
                 <p class="text-lg text-white">{{ props.promoCode }}</p>
             </div>
