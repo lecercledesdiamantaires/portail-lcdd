@@ -22,7 +22,7 @@
                 :key="user.id" 
                 class="hover:ring-2 hover:ring-inset hover:ring-redLight-300 hover:bg-gray-200"
                 :class="user.role === 'ADMIN' ? 'bg-redLight-100 hover:bg-redLight-200' : ''"
-            >
+            >   
                 <adminRow>{{ user.role }}</adminRow>
                 <adminRow>{{ user.firstName }}</adminRow>
                 <adminRow>{{ user.lastName }}</adminRow>
@@ -40,7 +40,9 @@
                 </adminRow>   
                 <adminRow v-else>
                     <ButtonPrimary>
-                        <font-awesome-icon icon="arrow-right" />
+                        <NuxtLink :to="{ name: 'vendorDetails-id', params: { id: user.userId } }">
+                            <font-awesome-icon icon="arrow-right" />
+                        </NuxtLink>
                     </ButtonPrimary>
                 </adminRow>   
             </tr>

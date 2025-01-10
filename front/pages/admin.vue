@@ -19,7 +19,6 @@
 
 
 <template>
-    {{ whitelist.combinedData.value.find(item => item.userId === 8) }}
     <div class="flex-1 p-2 sm:p-8">
         <div class="flex items-center justify-between mb-2 sm:mb-6">
             <HelloText />   
