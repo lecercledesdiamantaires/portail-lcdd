@@ -1,11 +1,9 @@
 import axios from 'axios';
+import { differenceInDays } from 'date-fns';
 import { ref, reactive, computed, onMounted, watch } from 'vue';
 
 export default function () {
     const data = ref(null);
-    const totalAmount = ref(0);
-    const wallet = ref(0);
-    const incomingSales = ref(0);
     const salesData = reactive([]);
 
     const isAtMinDate = ref(false);  // Indicateur si l'on est à la date minimale
@@ -271,37 +269,76 @@ const chartData = computed(() => {
         updateDateStatus();
     });
 
+    const getStatus = (confirmed, cancelled, financialStatus, orderDate) => {
+        const currentDate = new Date();
+        const orderDateObj = new Date(orderDate);
+        
+        if (cancelled) {
+            return 'cancelled';
+        } else if (confirmed && financialStatus === 'paid' && !cancelled && differenceInDays(currentDate, orderDateObj) >= 15){
+            return 'confirmed';
+        } else {
+            return 'pending'; 
+        }
+    };
+
     const getSales = (code) => {
         axios
             .get(`http://localhost:4000/shopify/sales/${code}`)
             .then((response) => {
                 salesData.splice(0, salesData.length); 
     
-                let total = 0;
-    
                 response.data.forEach((element) => {
                     const orderAmount = parseFloat(element.current_subtotal_price);
                     const orderDate = element.created_at;
-    
-                    // Ajouter les éléments dans le tableau existant
+                    const firstName = element.customer.first_name;
+                    const lastName = element.customer.last_name;
+                    const email = element.customer.email;
+                    const isConfirmed = element.confirmed ;
+                    const isCancelled = element.cancelled_at !== null;
+                    const financialStatus = element.financial_status;
+                    const status = getStatus(isConfirmed, isCancelled, financialStatus, orderDate);
+
                     salesData.push({
                         orderAmount,
                         orderDate,
+                        firstName,
+                        lastName,
+                        email,
+                        status
                     });
-    
-                    total += orderAmount;
                 });
-    
-                totalAmount.value = total;
+                console.log('Sales data:', salesData);
             })
             .catch((error) => {
                 console.error('Error fetching sales:', error);
             });
     };
     
+    const totalAmountConfirmed = computed(() => {
+        return salesData.reduce((total, data) => {
+            if (data.status === 'confirmed') {
+                total += data.orderAmount;
+            }
+            return total;
+        }, 0);
+    });
+
+    const wallet = computed(() => {
+        const withdraw = 0;
+        return totalAmountConfirmed.value * 0.04 - withdraw;
+    })
+
+    const totalOrderConfirmed = computed(() => {
+        return salesData.filter(data => data.status === 'confirmed').length;
+    })
+
+    const totalOdrerPending = computed(() => {
+        return salesData.filter(data => data.status === 'pending').length;
+    });
 
     return {
-        totalAmount,
+        totalAmountConfirmed,
         chartData,
         period,
         salesData,
@@ -316,7 +353,8 @@ const chartData = computed(() => {
         isAtMaxDate,
         isAtMinDate,
         maxSalesValue,
-        incomingSales,
-        wallet
+        wallet,
+        totalOrderConfirmed, 
+        totalOdrerPending
     };
 }

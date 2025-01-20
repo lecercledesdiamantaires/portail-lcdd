@@ -5,9 +5,6 @@
             required: true
         }
     })
-
-    console.log(props.promoCode)
-
 </script>
 
 
