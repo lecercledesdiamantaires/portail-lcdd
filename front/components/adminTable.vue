@@ -10,7 +10,7 @@
         popup.closePopup()
     }
     if (process.client) {
-        myProfil.value = localStorage.getItem('user')
+        myProfil.value = JSON.parse(localStorage.getItem('user'))
     }
 
     const filteredUsers = computed(() => {
@@ -41,13 +41,14 @@
                     <adminHead>Voir plus</adminHead>
                 </tr>
             </thead>
-
             <tbody>
                 <tr 
                     v-for="user in filteredUsers" 
                     :key="user.id" 
                     class="hover:ring-2 hover:ring-inset hover:ring-redLight-300 hover:bg-gray-200"
-                    :class="user.role === 'ADMIN' ? 'bg-blueLight' : ''"
+                    :class="{
+                        'bg-blueLight': user.role === 'ADMIN'
+                    }"
                 >
                     <adminRow>
                         <select class="p-2 outline-none" v-model="user.role" @change="profil.updateUserRole(user.userId, user.role)">
@@ -59,8 +60,9 @@
                     <adminRow>{{ user.lastName }}</adminRow>
                     <adminRow>{{ user.email }}</adminRow>
                     <adminRow>{{ user.promoCode }}</adminRow>
+
                     <adminRow>
-                        <ButtonDanger @click="popup.openPopup()">
+                        <ButtonDanger v-if="myProfil.email !== user.email" @click="popup.openPopup()">
                             <font-awesome-icon icon="trash" />
                         </ButtonDanger>
                         <Popup :condition="popup.popup.value === true" label="Êtes-vous sûr de vouloir supprimer l'utilisateur ?">    
