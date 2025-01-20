@@ -129,6 +129,19 @@ export default function () {
             }
         })
     })
+
+
+    const deleteVendor = async (id) => {
+        try {
+            const findVendor = vendors.value.find(vendor => vendor.userId === id)
+            await axios.delete(
+                `http://localhost:4000/api/vendor/delete/${findVendor.id}`,
+                { headers: { Authorization: `Bearer ${token}` } }
+            )
+        } catch (error) {
+            console.error('Erreur lors de la suppression du vendor :', error.response?.data || error.message)
+        }
+    }
     
     return {
         addEmailToWhitelist,
@@ -142,5 +155,6 @@ export default function () {
         combinedData,
         errorMessage,
         validateEmail,
+        deleteVendor
     }
 }

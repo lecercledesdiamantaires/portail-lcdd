@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { isFunctionExpression } from 'typescript';
 
 export default function () {
     const discountCode = ref(null);
@@ -7,6 +8,7 @@ export default function () {
         try{
             const response = await axios.get(`http://localhost:4000/shopify/get-code/${name}`);
             discountCode.value = response.data;
+            return response.data;
 
         } catch (error) {
             console.error('Erreur lors de la récupération du code promo :', error.response?.data || error.message);
@@ -33,13 +35,28 @@ export default function () {
         }
     };
 
+
+    const deletePromoCode = async (code) => {
+        try {
+            const discountCode = await getDiscountCode(code);
+            if (!discountCode) {
+                throw new Error('Code promo introuvable');
+              }
+              const response = await axios.delete(`http://localhost:4000/shopify/delete-code/${discountCode.id}.json`);
+              alert('Code promo supprimé');
+              return response.data;
+        } catch (error) {
+            console.error('Erreur lors de la suppression du code promo :', error.response?.data || error.message);
+        }
+    };
     
 
 
     return {
         createPromoCode,
         discountCode,
-        getDiscountCode
+        getDiscountCode,
+        deletePromoCode
     }
 
  }
