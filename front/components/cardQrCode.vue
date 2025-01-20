@@ -3,6 +3,10 @@
         promoCode: {
             type: String,
             required: true
+        },
+        owner: {
+            type: String,
+            required: true
         }
     })
 </script>
@@ -21,7 +25,7 @@
                     <Logo color="white" height="h-full" width="w-full" class="h-16 w-16"/>
                     <div class="flex flex-col items-start w-full">
                         <h4 class="md:text-sm uppercase font-extralight text-gray-200 tracking-wider xs:text-xs" >Propriétaire</h4>
-                        <p class="md:text-lg text-white xs:text-md">Pierre Dupont</p>
+                        <p class="md:text-lg text-white xs:text-md capitalize">{{owner.firstName}} {{owner.lastName}}</p>
                     </div>
                 </div>
             </div>
