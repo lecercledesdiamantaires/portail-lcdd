@@ -80,3 +80,22 @@ export const getSales = async (req, res) => {
         res.status(500).json({ error: 'Erreur serveur lors de la récupération des ventes.' });
     }
 }
+
+
+export const deleteShopifyDiscountCode = async (code, res) => {
+    try {
+        const priceRuleId = '2140950135119';
+        const response = await axios.delete( `https://${SHOPIFY_BASE_URL}/admin/api/2023-01/price_rules/${priceRuleId}/discount_codes/${code}`,
+            {
+                auth: {
+                    username: SHOPIFY_API_KEY,
+                    password: SHOPIFY_PASSWORD,
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        console.error('Erreur lors de la suppression du code promo :', error);
+        res.status(500).json({ error: 'Erreur lors de la suppression du code promo.' });
+    }
+}

@@ -1,5 +1,4 @@
-import { createShopifyDiscountCode, getShopifyDiscountCodes, getSales } from '../services/shopifyService.js';
-
+import { createShopifyDiscountCode, getShopifyDiscountCodes, getSales, deleteShopifyDiscountCode } from '../services/shopifyService.js';
 
 export const createDiscountCode = async (req, res) => {
     try {
@@ -37,7 +36,6 @@ export const getSalesByDiscountCode = async (req, res) => {
     try{
         const { code } = req.params;
         const sales = await getSales()
-
         const salesWithDiscountCode = sales.filter(sale => sale.discount_codes.some(discountCode => discountCode.code === code));
         if (salesWithDiscountCode.length === 0) {
             res.status(404).json({ error: 'Aucune vente trouvée avec ce code promo.' });
@@ -47,5 +45,23 @@ export const getSalesByDiscountCode = async (req, res) => {
     } catch (error) {
         console.error('Erreur lors de la récupération des ventes par code promo :', error);
         res.status(500).json({ error: 'Erreur lors de la récupération des ventes par code promo.' });
+    }
+}
+
+
+export const deleteDiscountCode = async (req, res) => {
+    try {
+        console.log(req.params.code);
+        const code = await deleteShopifyDiscountCode(req.params.code);
+        console.log("test", code);
+
+        if (code) {
+            res.status(204).end();
+        } else {
+            res.status(404).json({ error: 'Code promo introuvable.' });
+        }
+    } catch (error) {
+        console.error('Erreur lors de la suppression du code promo :', error);
+        res.status(500).json({ error: 'Erreur lors de la suppression du code promo.' });
     }
 }

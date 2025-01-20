@@ -3,9 +3,12 @@
     const popup = inject('popup')
     const profil = inject('profil')
     const searchBar = inject('searchBar')
+    const shopifyApi = inject('shopifyApi')
     const myProfil = ref(null)
 
     const deleteUser = (user) => {
+        shopifyApi.deletePromoCode(user.promoCode)
+        whitelist.deleteVendor(user.userId)
         whitelist.deleteEmail(user.email, user.userId) 
         popup.closePopup()
     }
@@ -69,6 +72,7 @@
                             <div class="flex flex-col w-full gap-2 py-4">
                                 <ButtonSecondary @click="popup.closePopup()">Annuler</ButtonSecondary>
                                 <ButtonDanger @click="deleteUser(user)">Confirmer</ButtonDanger>
+                               
                             </div>
                         </Popup>
                     </adminRow>

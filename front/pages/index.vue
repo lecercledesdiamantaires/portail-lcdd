@@ -8,6 +8,7 @@ definePageMeta({
    const sales = inject('sales');
    const qrCode = inject('qrCode');
    const auth = inject('auth');
+   const shopifyApi = inject('shopifyApi');
    const promoCode = ref('');
    const user = ref(null);
    const canShowCardValue = ref(false);
