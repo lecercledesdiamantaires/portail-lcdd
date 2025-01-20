@@ -17,7 +17,7 @@
             'bg-gray-200': status === 'pending'
         }"
     >
-        <p class="text-gray-600"
+        <p class="text-gray-600 capit"
             :class="{
                 'text-green': status === 'confirmed',
                 'text-red': status === 'cancelled',
