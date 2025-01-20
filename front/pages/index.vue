@@ -1,6 +1,8 @@
 <script setup>
+import { format } from 'date-fns'
+import { fr } from 'date-fns/locale'
 
-   definePageMeta({
+definePageMeta({
       middleware: ['auth', 'vendor']
    })
    const sales = inject('sales');
@@ -8,13 +10,23 @@
    const auth = inject('auth');
    const shopifyApi = inject('shopifyApi');
    const promoCode = ref('');
+   const user = ref(null);
+   const canShowCardValue = ref(false);
 
    if (process.client){
       promoCode.value = localStorage.getItem('promoCode');
+      user.value = JSON.parse(localStorage.getItem('user'));
       qrCode.generateQrCode(promoCode.value);
       sales.getSales(promoCode.value);
+      setTimeout(() => {
+         canShowCardValue.value = true
+      }, 500)
    }
 
+   const formatDate = (dateString) => {
+      const date = new Date(dateString)
+      return format(date, 'dd / MM / yyyy', { locale: fr })
+   }  
 
 </script>
 <template>
@@ -26,70 +38,41 @@
          <HelloText class="xs:pl-20 lg:pl-0"/>   
          <CardInfosContainer />
          <div class="flex gap-4 xl:flex-row xs:flex-col">
-            <CardQrCode :promoCode=" promoCode"/>
+            <CardQrCode :promoCode="promoCode" :owner="user"/>
             <div class="flex flex-col gap-4 w-full flex-1">
                <div class="flex justify-between items-center">
-                  <h2 class="text-2xl font-semibold">Dernière transactions</h2>
+                  <h2 class="text-2xl font-semibold">Dernières transactions</h2>
                   <a href="" class="text-sm">Voir plus</a>
                </div>
                <div class="flex flex-col bg-white rounded-3xl p-6 h-full items-center justify-center max-h-72">
                   <table class="bg-white rounded-3xl w-full h-full table-auto flex flex-col justify-between items-center"> 
                      <thead class="border-b border-gray-100 w-full pb-4 md:block xs:hidden">
                         <tr class="flex justify-between items-center w-full h-full gap-4">
-                           <th class="text-center w-full">Type</th>
-                           <th class="text-start w-full">Prénom Nom</th>
+                           <th class="text-start w-full">Client</th>
                            <th class="text-start w-full">Date</th>
                            <th class="text-start w-full">Montant</th>
                            <th class="text-start w-full">État</th>
                         </tr>
                      </thead>
                      <tbody class="flex flex-col gap-4 justify-between items-center w-full h-wull">
-                        <tr class="flex justify-between items-center w-full h-full gap-4">
-                           <td class="text-center w-full flex justify-center">
-                               <Icones icon="sack-dollar" color="yellow"/>
-                           </td>
-                           <td class="text-start w-full">Nikolo Kimpembe</td>
-                           <td class="text-start w-full">25 Jan 2025</td>
-                           <td class="text-start w-full text-green">+50€</td>
+                        <tr 
+                           v-for="(sale, index) in sales.salesData.slice(0, 3)" 
+                           :key="index" 
+                           class="flex justify-between items-center w-full h-full gap-4"
+                        >
+                           <td class="text-start w-full">{{ sale.firstName + ' ' +sale.lastName }}</td>
+                           <td class="text-start w-full">{{ formatDate(sale.orderDate) }}</td>
+                           <td class="text-start w-full text-green">+ {{ sale.orderAmount }} €</td>
                            <td class="text-start w-full md:block xs:hidden">
-                              <div class="p-2 bg-gray-200 rounded-xl max-w-max">
-                                 <p class="text-gray-600">En cours</p>
-                              </div>
+                              <StatusTag :status="sale.status" />
                            </td>
                         </tr>
-                        <tr class="flex justify-between items-center w-full h-full gap-4">
-                           <td class="w-full flex justify-center">
-                                 <Icones icon="hand-holding-dollar" color="green"/>                    
-                           </td>
-                           <td class="text-start w-full">Nikolo Kimpembe</td>
-                           <td class="text-start w-full">25 Jan 2025</td>
-                           <td class="text-start w-full text-green">+50€</td>
-                           <td class="text-start w-full md:block xs:hidden">
-                              <div class="p-2 bg-greenLight rounded-xl max-w-max">
-                                 <p class="text-green">Validé</p>
-                              </div>
-                           </td>
-                        </tr>
-                        <tr class="flex justify-between items-center w-full h-full gap-4">
-                           <td class="w-full flex justify-center">
-                                 <Icones icon="hand-holding-dollar" color="green"/>                             
-                           </td>
-                           <td class="text-start w-full">Nikolo Kimpembe</td>
-                           <td class="text-start w-full">25 Jan 2025</td>
-                           <td class="text-start w-full text-green">+50€</td>
-                           <td class="text-start w-full md:block xs:hidden">
-                              <div class="p-2 bg-gray-200 rounded-xl max-w-max">
-                                 <p class="text-gray-600">En cours</p>
-                              </div>
-                           </td>
-                        </tr>
-                        
                      </tbody>
                   </table>
                </div>
             </div>
          </div>
-         <CardChart />
+         <CardChart v-if="canShowCardValue" />
       </div>
    </div>
 </template>
