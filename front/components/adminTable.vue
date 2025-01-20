@@ -1,12 +1,18 @@
 <script setup>
     const whitelist = inject('whitelist')
     const popup = inject('popup')
+    const profil = inject('profil')
     const searchBar = inject('searchBar')
+    const myProfil = ref(null)
 
     const deleteUser = (user) => {
         whitelist.deleteEmail(user.email, user.userId) 
         popup.closePopup()
     }
+    if (process.client) {
+        myProfil.value = localStorage.getItem('user')
+    }
+
     const filteredUsers = computed(() => {
         return whitelist.combinedData.value.filter(user => {
             const query = searchBar.searchQuery.value.toLowerCase()
@@ -43,7 +49,12 @@
                     class="hover:ring-2 hover:ring-inset hover:ring-redLight-300 hover:bg-gray-200"
                     :class="user.role === 'ADMIN' ? 'bg-blueLight' : ''"
                 >
-                    <adminRow>{{ user.role }}</adminRow>
+                    <adminRow>
+                        <select class="p-2 outline-none" v-model="user.role" @change="profil.updateUserRole(user.userId, user.role)">
+                            <option value="ADMIN">ADMIN</option>
+                            <option value="VENDEUR">VENDEUR</option>
+                        </select>
+                    </adminRow>  
                     <adminRow>{{ user.firstName }}</adminRow>
                     <adminRow>{{ user.lastName }}</adminRow>
                     <adminRow>{{ user.email }}</adminRow>

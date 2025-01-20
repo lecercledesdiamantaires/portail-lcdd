@@ -105,6 +105,7 @@
               <NuxtLink class="w-full block" to="/register">S'inscrire</NuxtLink>
             </ButtonSecondary>
           </div>
+          <NuxtLink to="/forgotpassword" class="text-sm text-primary mt-4 block text-center">Mot de passe oublié ?</NuxtLink>
         </form>
       </div>
     </div>

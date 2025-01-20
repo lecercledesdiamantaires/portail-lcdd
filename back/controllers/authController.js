@@ -1,9 +1,20 @@
 // 📄 controllers/authController.js
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
 import { PrismaClient } from '@prisma/client';
+import { sendResetPasswordEmail } from '../services/emailService.js';
+import userModel from '../models/userModel.js';
+
 
 const prisma = new PrismaClient();
+
+prisma.user.generateResetToken = function() {
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+    this.resetPasswordExpires = Date.now() + 10 * 60 * 1000; // Token valide pendant 10 minutes
+    return resetToken;
+};
 
 export const register = async (req, res) => {
     const { email, password, firstName, lastName, phoneNumber, promoCode } = req.body;
@@ -106,3 +117,54 @@ export const login = async (req, res) => {
 
 
 
+export const forgotPassword = async (req, res) => {
+    const { email } = req.body;
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (!user) {
+        return res.status(404).json({ error: 'Utilisateur non trouvé' });
+    }
+
+    const resetToken = userModel.generateResetToken.call(user);
+    await prisma.user.update({
+        where: { email },
+        data: {
+            resetPasswordToken: user.resetPasswordToken,
+            resetPasswordExpires: new Date(user.resetPasswordExpires),
+        },
+    });
+
+    await sendResetPasswordEmail(user.email, resetToken);
+
+    res.json({ message: 'Un lien de réinitialisation de mot de passe a été envoyé à votre adresse email.' });
+};
+
+export const resetPassword = async (req, res) => {
+    const { token, password } = req.body;
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
+    const user = await prisma.user.findFirst({
+        where: {
+            resetPasswordToken: hashedToken,
+            resetPasswordExpires: { gt: new Date() },
+        },
+    });
+
+    if (!user) {
+        return res.status(400).json({ error: 'Le lien de réinitialisation est invalide ou a expiré' });
+    }
+
+    user.password = await bcrypt.hash(password, 10);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await prisma.user.update({
+        where: { id: user.id },
+        data: {
+            password: user.password,
+            resetPasswordToken: user.resetPasswordToken,
+            resetPasswordExpires: user.resetPasswordExpires,
+        },
+    });
+
+    res.json({ message: 'Votre mot de passe a été réinitialisé avec succès' });
+};
