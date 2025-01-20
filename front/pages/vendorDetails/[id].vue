@@ -8,14 +8,12 @@ definePageMeta({
 })
 
 const whitelist = inject('whitelist')
-const auth = inject('auth')
 const sales = inject('sales')
 const user = ref(null)
 
 const canShowCardChart = ref(false)
 
 
-// Fetch whitelist data when the token is available
   if (process.client) {
     watchEffect(() => {
       const token = localStorage.getItem('token')
@@ -47,8 +45,7 @@ const canShowCardChart = ref(false)
 
 <template>
     <div class="flex flex-col gap-4 sm:p-6 w-full h-screen xs:px-2 xs:py-6 bg-gray-100">
-
-        <NuxtLink to="/admin" class="text-primary underline">Admin</NuxtLink>
+        <NuxtLink to="/admin" class="text-primary underline">Retour</NuxtLink>
         <h1 class="text-3xl font-bold">Vue de {{user?.firstName}}</h1>
         <CardInfosContainer />
         <CardChart v-if="canShowCardChart" />

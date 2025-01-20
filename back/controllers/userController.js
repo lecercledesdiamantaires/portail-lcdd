@@ -84,3 +84,26 @@ export const updateUser = async (req, res) => {
         res.status(500).json({ error: 'Erreur serveur lors de la mise à jour de l\'utilisateur.' });
     }
 }
+
+export const updateUserRole = async (req, res) => {
+    const { id } = req.params;
+    const { role } = req.body;
+
+    if (!id) {
+        return res.status(400).json({ error: 'ID requis.' });
+    }
+
+    try {
+        const user = await prisma.user.update({
+            where: { id: parseInt(id, 10) },
+            data: {
+                role,
+            },
+        });
+
+        res.status(200).json({ message: 'Rôle utilisateur mis à jour avec succès.', user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erreur serveur lors de la mise à jour du rôle utilisateur.' });
+    }
+}
