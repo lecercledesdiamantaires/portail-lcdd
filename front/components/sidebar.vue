@@ -9,14 +9,14 @@
 
 
 <template>
-    <div class="lg:w-64 lg:bg-white lg:shadow-lg h-screen lg:transform lg:transition-transform lg:duration-300 lg:ease-in-out lg:pr-32">
+    <div class="lg:sticky top-0 lg:bg-white lg:shadow-lg h-screen lg:transform lg:transition-transform lg:duration-300 lg:ease-in-out ">
         <!-- Bouton du menu burger -->
         <ButtonToggleMenu :isOpen="isOpen" :toggleMenu="toggleMenu" />
 
         <!-- Sidebar -->
         <aside
             :class="[
-            'fixed flex flex-col h-screen w-64 bg-white z-40 transform transition-transform duration-300 ease-in-out py-8',
+            'xs:fixed lg:relative flex flex-col h-screen w-64 bg-white xs:z-40 transform transition-transform duration-300 ease-in-out py-8',
             isOpen ? 'translate-x-0' : '-translate-x-full',
             'lg:translate-x-0 lg:w-auto'
             ]"

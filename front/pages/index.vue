@@ -20,6 +20,7 @@
 <template>
     <div class="flex w-full bg-gray-100 h-full">
       <Sidebar />
+  
       
       <div class="flex flex-col gap-4 sm:p-6 w-full xs:px-2 xs:py-6">
          <HelloText class="xs:pl-20 lg:pl-0"/>   
