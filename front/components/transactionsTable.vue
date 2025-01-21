@@ -33,18 +33,21 @@
             </tr>
         </thead>
         <tbody class="flex flex-col gap-4 justify-between items-center w-full h-wull">
-            <tr 
+            <tr v-if="sales.salesData.length < 0"
                 v-for="(sale, index) in sales.salesData.slice(0, 3)" 
                 :key="index" 
                 class="flex justify-between items-center w-full h-full gap-4"
             >
-            <TransactionsRow class="text-start w-full">{{ sale.firstName + ' ' +sale.lastName }} </TransactionsRow>
-            <TransactionsRow class="text-start w-full">{{ formatDate(sale.orderDate) }}</TransactionsRow>
-            <TransactionsRow class="text-start w-full text-green">+ {{ sale.orderAmount }} €</TransactionsRow>
-            <TransactionsRow class="text-start w-full md:block xs:hidden">
-                <StatusTag :status="sale.status" />
-            </TransactionsRow>
+                <TransactionsRow class="text-start w-full">{{ sale.firstName + ' ' +sale.lastName }} </TransactionsRow>
+                <TransactionsRow class="text-start w-full">{{ formatDate(sale.orderDate) }}</TransactionsRow>
+                <TransactionsRow class="text-start w-full text-green">+ {{ sale.orderAmount }} €</TransactionsRow>
+                <TransactionsRow class="text-start w-full md:block xs:hidden">
+                    <StatusTag :status="sale.status" />
+                </TransactionsRow>
             </tr>
+            <div v-else>
+                <p class="text-center">Aucune transaction</p>
+            </div>
         </tbody>
     </table>
 </div>  

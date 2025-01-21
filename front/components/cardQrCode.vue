@@ -5,7 +5,7 @@
             type: String,
             required: true
         },
-        owner: {
+        user: {
             type: Object,
             required: true
         }
@@ -34,13 +34,13 @@
                     <Logo color="white" height="h-full" width="w-full" class="h-16 w-16"/>
                     <div class="flex flex-col items-start w-full">
                         <h4 class="md:text-sm uppercase font-extralight text-gray-200 tracking-wider xs:text-xs" >Propriétaire</h4>
-                        <p class="md:text-lg text-white xs:text-md capitalize">{{owner.firstName}} {{owner.lastName}}</p>
+                        <p class="md:text-lg text-white xs:text-md capitalize">{{ user?.firstName }} {{ user?.lastName }}</p>
                     </div>
                 </div>
             </div>
             <div class="bottom-card w-full h-full px-6 py-5  rounded-b-3xl">
                 <p class="text-xs text-white">Mon code promo :</p>
-                <p class="text-lg text-white">{{ props.promoCode }}</p>
+                <p class="text-lg text-white">{{ promoCode }}</p>
             </div>
         </div>
     </div>
