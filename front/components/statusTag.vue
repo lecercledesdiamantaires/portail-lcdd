@@ -5,6 +5,16 @@
                 type: String,
                 required: true
             }
+        },
+        computed: {
+            statusInFrench() {
+                const statusMap = {
+                    confirmed: 'Confirmé',
+                    cancelled: 'Annulé',
+                    pending: 'En attente'
+                };
+                return statusMap[this.status] || this.status;
+            }
         }
     }
 </script>
@@ -23,6 +33,6 @@
                 'text-red': status === 'cancelled',
                 'text-gray-600': status === 'pending'
             }"
-        >{{ status }}</p>
+        >{{ statusInFrench }}</p>
     </div>
 </template>
