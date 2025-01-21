@@ -5,7 +5,7 @@
 <template>
 
     <h1 
-        class="text-3xl font-semibold"
+        class="text-3xl font-semibold capitalize"
     >
         Bonjour {{ auth?.user?.value?.firstName || '' }}
     </h1>

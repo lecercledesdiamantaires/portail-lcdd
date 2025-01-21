@@ -25,7 +25,6 @@ model User {
   vendor        Vendor?
   whitelist     Whitelist?
 
-
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 
@@ -44,11 +43,11 @@ model Whitelist {
 model Vendor {
   id            Int         @id @default(autoincrement())
   promoCode     String      @unique
-  iban          String      @default("")
+  iban          String      @default("") @unique
 
 
   user          User?        @relation(fields: [userId], references: [id])
-  userId        Int?          @unique
+  userId        Int?         @unique
 
   payouts       Payout[]
 

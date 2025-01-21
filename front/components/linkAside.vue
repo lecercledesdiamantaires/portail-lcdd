@@ -43,8 +43,8 @@ defineProps({
         </p>
       </a>
       <a
-        v-if="direction === 'transactions'"
-        href="/transactions"
+        v-if="direction === 'transaction'"
+        href="/transaction"
         class="group flex flex-row items-center gap-4 hover:text-primary"
       >
       <font-awesome-icon icon="right-left" class="transition-colors duration-300 ease-in-out" />

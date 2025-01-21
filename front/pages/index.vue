@@ -42,7 +42,7 @@ definePageMeta({
             <div class="flex flex-col gap-4 w-full flex-1">
                <div class="flex justify-between items-center">
                   <h2 class="text-2xl font-semibold">Dernières transactions</h2>
-                  <a href="" class="text-sm">Voir plus</a>
+                  <NuxtLink to='/transaction' class="text-primary">Voir plus</NuxtLink>
                </div>
                <div class="flex flex-col bg-white rounded-3xl p-6 h-full items-center justify-center max-h-72">
                   <table class="bg-white rounded-3xl w-full h-full table-auto flex flex-col justify-between items-center"> 
