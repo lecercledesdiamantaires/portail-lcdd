@@ -27,7 +27,7 @@
                     <Logo color="colored"/>
                     <div class="flex flex-col gap-4 items-center pr-8">
                         <LinkAside direction="dashboard" />
-                        <LinkAside direction="transaction" />
+                        <LinkAside direction="transactions" />
                         <LinkAside direction="profil" />
                     </div>
                 </div>
