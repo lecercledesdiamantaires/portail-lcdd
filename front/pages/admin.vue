@@ -1,7 +1,4 @@
 <script setup>
-  import { Trash2, Home, ArrowRight } from 'lucide-vue-next';
-  import { onMounted } from 'vue';
-
   definePageMeta({
       middleware: ['auth', 'admin']
     })

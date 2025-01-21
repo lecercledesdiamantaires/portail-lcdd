@@ -308,7 +308,6 @@ const chartData = computed(() => {
                         status
                     });
                 });
-                console.log('Sales data:', salesData);
             })
             .catch((error) => {
                 console.error('Error fetching sales:', error);

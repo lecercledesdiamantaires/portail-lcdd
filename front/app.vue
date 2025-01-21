@@ -15,6 +15,8 @@
   provide('popup', popup);
   const searchBar = useSearchbar();
   provide('searchBar', searchBar);
+  const transaction = useTransaction();
+  provide('transaction', transaction);
 </script>
 
 

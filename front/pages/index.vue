@@ -2,6 +2,7 @@
    definePageMeta({
          middleware: ['auth', 'vendor']
    })
+   
    const sales = inject('sales');
    const qrCode = inject('qrCode');
    const promoCode = ref('');
@@ -18,7 +19,7 @@
    } 
 
 </script>
-<template>
+<template>  
       <NuxtLayout name="default">
          <div class="flex flex-col gap-4 sm:p-6 w-full xs:px-2 xs:py-6">
             <HelloText class="xs:pl-20 lg:pl-0"/>   
