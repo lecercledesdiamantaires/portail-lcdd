@@ -1,18 +1,5 @@
-<script setup>  
-    const route = useRoute()
-    const onSubmit = handleSubmit(async (values) => {
-        try {
-            const response = await axios.post('http://localhost:4000/api/auth/reset-password', {
-            token: route.query.token,
-            password: values.password
-            })
-            message.value = response.data.message
-        } catch (error) {
-            errorMessage.value = error.response?.data?.error || 'Une erreur s\'est produite'
-        }
-    })
+<script setup>
 
-    const { value: password, errorMessage: passwordError } = useField('password')
 </script>
 
 <template>

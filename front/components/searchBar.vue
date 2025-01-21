@@ -8,7 +8,7 @@
             type="text" 
             v-model="searchBar.searchQuery.value" 
             placeholder="Rechercher..." 
-            class="w-full p-2 border rounded"
+            class="w-full p-2 border rounded-3xl "
         />
     </div>
 </template>

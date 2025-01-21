@@ -23,10 +23,10 @@
             <TransactionsHead class="text-start w-full">État</TransactionsHead>
             </tr>
         </thead>
-        <tbody class="flex flex-col gap-4 justify-between items-center w-full h-wull">
+        <tbody class="flex flex-col gap-4 justify-between items-center w-full h-full">
             <div 
                 v-if="sales.salesData.length > 0"
-                class="flex flex-col gap-4 w-full h-full"
+                class="flex flex-col gap-4 w-full h-full pt-6"
             >
                 <tr
                     v-for="(sale, index) in sales.salesData.slice(0, 3)" 
@@ -41,8 +41,8 @@
                     </TransactionsRow>
                 </tr>
             </div>
-            <div v-else class="flex flex-1 h-full">
-                <p class="text-center">Aucune transaction</p>
+            <div v-else class="flex flex-1 h-full pt-6">
+                <p class="text-sm text-gray-500 text-center">Aucune transaction</p>
             </div>
         </tbody>
     </table>
