@@ -55,7 +55,7 @@ const capitalize = (str) => {
   <div class="flex w-full gap-12 group">
     <span
       class="transition-all duration-300 ease-in-out bg-primary h-full w-2 rounded-r-3xl opacity-0 group-hover:opacity-100"
-      :class="{ 'group-hover:opacity-0': direction === 'logout' ,'active': isActive(direction)}"
+      :class="{ 'group-hover:opacity-0': direction === 'logout' ,'active': isActive(direction),'group-hover:bg-red': direction === 'logout' }"
     ></span>
     <div class="flex flex-col gap-4 w-full">
       <NuxtLink
