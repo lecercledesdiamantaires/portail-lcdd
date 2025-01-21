@@ -71,7 +71,7 @@ definePageMeta({
                   </table>
                </div>
             </div>
-         </div>
+         </div> 
          <CardChart v-if="canShowCardValue" />
       </div>
    </div>
