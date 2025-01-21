@@ -1,7 +1,4 @@
 <script setup>
-    import { format } from 'date-fns'
-    import { fr } from 'date-fns/locale'
-    
     const sales = inject('sales');
 
     const props = defineProps({
@@ -26,8 +23,8 @@
             <TransactionsHead class="text-start w-full">État</TransactionsHead>
             </tr>
         </thead>
-        <tbody class="flex flex-col gap-4 justify-between items-center w-full h-wull">
-            <tr v-if="sales.salesData.length < 0"
+        <tbody class="flex flex-col gap-4 justify-between items-center w-full h-full">
+            <tr v-if="sales.salesData.length > 0"
                 v-for="(sale, index) in sales.salesData.slice(0, 3)" 
                 :key="index" 
                 class="flex justify-between items-center w-full h-full gap-4"

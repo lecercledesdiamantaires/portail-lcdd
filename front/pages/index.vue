@@ -15,7 +15,7 @@
       sales.getSales(promoCode.value);
       setTimeout(() => {
          canShowCardValue.value = true
-      }, 500)
+      }, 700)
    } 
 
 </script>

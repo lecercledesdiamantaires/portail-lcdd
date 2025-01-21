@@ -1,0 +1,35 @@
+<script setup>  
+    const route = useRoute()
+    const onSubmit = handleSubmit(async (values) => {
+        try {
+            const response = await axios.post('http://localhost:4000/api/auth/reset-password', {
+            token: route.query.token,
+            password: values.password
+            })
+            message.value = response.data.message
+        } catch (error) {
+            errorMessage.value = error.response?.data?.error || 'Une erreur s\'est produite'
+        }
+    })
+
+    const { value: password, errorMessage: passwordError } = useField('password')
+</script>
+
+<template>
+
+    <form @submit.prevent="onSubmit">
+        <div class="mb-4">
+            <label for="password" class="block text-sm font-medium">Nouveau mot de passe *</label>
+            <input 
+            v-model="password"
+            id="password" 
+            type="password" 
+            class="mt-1 p-2 w-full border rounded focus:ring-2 focus:ring-blue-500"
+            placeholder="Entrez un nouveau mot de passe"
+            required
+            />
+            <p v-if="passwordError" class="text-sm text-danger mt-1">{{ passwordError }}</p>
+        </div>
+        <ButtonSecondary type="submit" class="w-full">Réinitialiser</ButtonSecondary>
+    </form>
+</template>
