@@ -1,12 +1,10 @@
-<script>
-    export default {
-        props: {
-            status: {
-                type: String,
-                required: true
-            }
+<script setup>
+    const props = defineProps({
+        status: {
+            type: String,
+            required: true
         }
-    }
+    })
 </script>
 
 <template>
