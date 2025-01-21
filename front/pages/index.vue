@@ -2,7 +2,7 @@
    definePageMeta({
          middleware: ['auth', 'vendor']
    })
-   
+
    const sales = inject('sales');
    const qrCode = inject('qrCode');
    const promoCode = ref('');
@@ -15,7 +15,7 @@
       sales.getSales(promoCode.value);
       setTimeout(() => {
          canShowCardValue.value = true
-      }, 500)
+      }, 700)
    } 
 
 </script>
