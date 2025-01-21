@@ -10,10 +10,9 @@
 
 <template>
     <div class="lg:sticky top-0 lg:bg-white lg:shadow-lg h-screen lg:transform lg:transition-transform lg:duration-300 lg:ease-in-out ">
-        <!-- Bouton du menu burger -->
+       
         <ButtonToggleMenu :isOpen="isOpen" :toggleMenu="toggleMenu" />
-
-        <!-- Sidebar -->
+      
         <aside
             :class="[
             'xs:fixed lg:relative flex flex-col h-screen w-64 bg-white xs:z-40 transform transition-transform duration-300 ease-in-out py-8',
@@ -22,7 +21,6 @@
             ]"
             >
             <div class="flex flex-col h-full justify-between w-full">
-                <!-- Partie supérieure -->
                 <div class="flex flex-col justify-center gap-12">
                     <Logo color="colored"/>
                     <div class="flex flex-col gap-4 items-center pr-8">
@@ -32,12 +30,10 @@
                     </div>
                 </div>
 
-                <!-- Lien de déconnexion -->
                 <LinkAside direction="logout" class="cursor-pointer"/>
             </div>
         </aside>
 
-         <!-- Overlay (pour fermer le menu en mobile) -->
         <OverlayMenuMobile :isOpen="isOpen" :toggleMenu="toggleMenu" />
       </div>
 </template>
