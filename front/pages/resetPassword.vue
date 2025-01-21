@@ -1,4 +1,6 @@
 <template>
+    <NuxtLayout name="unauthorized">
+
   <div class="flex justify-center items-center h-screen">
     <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
       <h2 class="text-2xl font-bold text-center mb-6">Réinitialiser le mot de passe</h2>
@@ -25,6 +27,8 @@
     
     </div>
   </div>
+</NuxtLayout>
+
 </template>
 
 <script setup>

@@ -3,10 +3,6 @@
     import { fr } from 'date-fns/locale'
     
     const sales = inject('sales');
-    const formatDate = (dateString) => {
-        const date = new Date(dateString)
-        return format(date, 'dd / MM / yyyy', { locale: fr })
-    } 
 
     const props = defineProps({
         sales: {
@@ -14,8 +10,6 @@
             required: true
         }
     })
-
-
 </script>
 
 

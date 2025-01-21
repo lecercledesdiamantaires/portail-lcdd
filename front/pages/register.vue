@@ -77,7 +77,9 @@ const onSubmit = handleSubmit(async(values) => {
 </script>
 
 <template>
-  <div class="flex justify-center items-center h-screen">
+    <NuxtLayout name="unauthorized">
+      <div class="flex w-full bg-gray-100 h-screen items-center justify-center">
+
     <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
       <h2 class="text-2xl font-bold text-center mb-6">S'inscrire</h2>
       <form @submit.prevent="onSubmit">
@@ -190,5 +192,7 @@ const onSubmit = handleSubmit(async(values) => {
         <button type="submit" class="w-full bg-primary text-white p-2 rounded">S'inscrire</button>
       </form>
     </div>
-  </div>
+    </div>
+</NuxtLayout>
+
 </template>

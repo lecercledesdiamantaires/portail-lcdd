@@ -1,14 +1,7 @@
 <script setup>
-  import { Eye, EyeOff, Home } from 'lucide-vue-next'
     definePageMeta({
         middleware: ['auth']
     })
-    const showPassword = ref(false)
-
-    const togglePasswordVisibility = () => {
-      showPassword.value = !showPassword.value
-    }
-
     const profil = inject('profil')
     const user = ref({
         id : '',
@@ -70,26 +63,6 @@
             class="p-2 border border-gray-300 rounded w-full" 
             required
           />
-        </div>
-        <div class="mb-4">
-          <label for="password" class="block text-sm font-medium">Mot de passe *</label>
-          <div class="relative">
-            <input 
-              v-model="user.password"
-              id="password" 
-              :type="showPassword ? 'text' : 'password'" 
-              class="mt-1 p-2 w-full border rounded focus:ring-2 focus:ring-blue-500"
-              placeholder="Entrez un mot de passe sécurisé"
-            />
-            <button 
-              type="button"
-              @click="togglePasswordVisibility"
-              class="absolute inset-y-0 right-3 flex items-center text-gray-500"
-            >
-              <component :is="showPassword ? Eye : EyeOff" />
-            </button>
-          </div>
-          <p v-if="passwordError" class="text-sm text-danger mt-1">{{ passwordError }}</p>
         </div>
         <div class="mb-4">
           <label for="email" class="block text-sm font-medium">Numéro de téléphone :</label>
