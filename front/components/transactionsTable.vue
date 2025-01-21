@@ -23,20 +23,25 @@
             <TransactionsHead class="text-start w-full">État</TransactionsHead>
             </tr>
         </thead>
-        <tbody class="flex flex-col gap-4 justify-between items-center w-full h-full">
-            <tr v-if="sales.salesData.length > 0"
-                v-for="(sale, index) in sales.salesData.slice(0, 3)" 
-                :key="index" 
-                class="flex justify-between items-center w-full h-full gap-4"
+        <tbody class="flex flex-col gap-4 justify-between items-center w-full h-wull">
+            <div 
+                v-if="sales.salesData.length > 0"
+                class="flex flex-col gap-4 w-full h-full"
             >
-                <TransactionsRow class="text-start w-full">{{ sale.firstName + ' ' +sale.lastName }} </TransactionsRow>
-                <TransactionsRow class="text-start w-full">{{ formatDate(sale.orderDate) }}</TransactionsRow>
-                <TransactionsRow class="text-start w-full text-green">+ {{ sale.orderAmount }} €</TransactionsRow>
-                <TransactionsRow class="text-start w-full md:block xs:hidden">
-                    <StatusTag :status="sale.status" />
-                </TransactionsRow>
-            </tr>
-            <div v-else>
+                <tr
+                    v-for="(sale, index) in sales.salesData.slice(0, 3)" 
+                    :key="index" 
+                    class="flex justify-between items-center w-full h-full gap-4"
+                >
+                    <TransactionsRow class="text-start w-full">{{ sale.firstName + ' ' +sale.lastName }} </TransactionsRow>
+                    <TransactionsRow class="text-start w-full">{{ formatDate(sale.orderDate) }}</TransactionsRow>
+                    <TransactionsRow class="text-start w-full text-green">+ {{ sale.orderAmount }} €</TransactionsRow>
+                    <TransactionsRow class="text-start w-full md:block xs:hidden">
+                        <StatusTag :status="sale.status" />
+                    </TransactionsRow>
+                </tr>
+            </div>
+            <div v-else class="flex flex-1 h-full">
                 <p class="text-center">Aucune transaction</p>
             </div>
         </tbody>

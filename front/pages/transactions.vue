@@ -1,5 +1,4 @@
 <script setup>
-    const sales = inject('sales')
     const transaction = inject('transaction')
 </script>
 
@@ -16,12 +15,12 @@
                 </div>
                 <div class="flex flex-col bg-white rounded-3xl p-6  items-center justify-center">
                 <table class="bg-white rounded-3xl w-full table-auto flex flex-col items-center"> 
-                    <thead class="border-b border-gray-100 w-full pb-4 md:block xs:hidden">
+                    <thead class="border-b border-gray-100 w-full pb-4 md:block">
                         <tr class="flex justify-between items-center w-full  gap-4">
                             <TableHead label="Client" />
-                            <TableHeadWithFilter label="Date" columnFilter="orderDate" />
+                            <TableHeadWithFilter label="Date" columnFilter="orderDate" class="xs:hidden md:flex"  />
                             <TableHeadWithFilter label="Montant" columnFilter="orderAmount" />
-                            <TableHead label="État" />
+                            <TableHead label="État" class="xs:hidden md:block" />
                         </tr>
                     </thead>
                     <tbody class="flex flex-col gap-4 justify-between items-center w-full pt-4">
@@ -30,8 +29,13 @@
                             :key="index" 
                             class="flex justify-between items-center w-full  gap-4"
                         >
-                            <td class="text-start w-full">{{ sale.firstName + ' ' + sale.lastName }}</td>
-                            <td class="text-start w-full">{{ formatDate(sale.orderDate)}}</td>
+                            <td class="text-start w-full">
+                                <div class="flex flex-col">
+                                    <p>{{ truncateText(sale.firstName + ' ' + sale.lastName, 16) }}</p>
+                                    <p class="text-gray-400 text-xs md:hidden xs:block">{{ formatDate(sale.orderDate)}}</p>
+                                </div>
+                            </td>
+                            <td class="text-start w-full xs:hidden md:block">{{ formatDate(sale.orderDate)}}</td>
                             <td class="text-start w-full text-green">+ {{ sale.orderAmount }} €</td>
                             <td class="text-start w-full md:block xs:hidden">
                                 <StatusTag :status="sale.status" />

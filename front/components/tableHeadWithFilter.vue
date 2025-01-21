@@ -13,7 +13,7 @@
 </script>
 
 <template>
-    <th class="text-start w-full cursor-pointer flex gap-4 items-center" @click="transaction.sortColumn('orderDate')">
+    <th class="text-start w-full cursor-pointer flex gap-4 items-center" @click="transaction.sortColumn(columnFilter)">
         {{ label }}
         <span v-if="transaction.sortBy.value === columnFilter">
             <font-awesome-icon :icon="transaction.sortOrder.value === 'asc' ? 'arrow-up' : 'arrow-down'" />
