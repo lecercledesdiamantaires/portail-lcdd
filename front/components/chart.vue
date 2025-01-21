@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center items-center py-2">
+    <div class="flex justify-center items-center py-2 w-full">
       <div class="w-full flex justify-center items-center">
         <p 
             v-if="sales.salesData.length === 0 || sales.salesData.reduce((sum, sale) => sum + sale.orderAmount, 0) === 0" 
@@ -7,7 +7,7 @@
         >
             Vous n'avez aucune vente enregistrée.
         </p>
-        <canvas v-else ref="salesBarChart" class="w-full h-64 rounded-md"></canvas>
+        <canvas v-else ref="salesBarChart" class="h-64 rounded-md"></canvas>
       </div>
     </div>
 </template>

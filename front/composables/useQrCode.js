@@ -2,15 +2,14 @@ export default function () {
     const data = ref(null);
 
    const generateQrCode = async ( promoCode) => {
-        fetch(`https://quickchart.io/qr?text=https://lecercledesdiamantaires.com/?discount=${promoCode}`)
-        .then(response => response.blob())
-        .then(blob => {
-            const url = URL.createObjectURL(blob); 
-            const img = document.querySelector('.qr-code');
-            img.src = url;
-            data.value = blob;
-        });
-        return data;
+        try {
+            const response = await fetch(`https://quickchart.io/qr?text=https://lecercledesdiamantaires.com/?discount=${promoCode}`);
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            data.value = url;
+        } catch (error) {
+            console.error('Failed to generate QR code:', error);
+        }
     }
 
     const download = () => {

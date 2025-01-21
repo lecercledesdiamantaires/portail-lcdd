@@ -1,10 +1,22 @@
-<script setup>
-    const props = defineProps({
-        status: {
-            type: String,
-            required: true
+<script>
+    export default {
+        props: {
+            status: {
+                type: String,
+                required: true
+            }
+        },
+        computed: {
+            statusInFrench() {
+                const statusMap = {
+                    confirmed: 'Confirmé',
+                    cancelled: 'Annulé',
+                    pending: 'En attente'
+                };
+                return statusMap[this.status] || this.status;
+            }
         }
-    })
+    }
 </script>
 
 <template>
@@ -21,6 +33,6 @@
                 'text-red': status === 'cancelled',
                 'text-gray-600': status === 'pending'
             }"
-        >{{ status }}</p>
+        >{{ statusInFrench }}</p>
     </div>
 </template>

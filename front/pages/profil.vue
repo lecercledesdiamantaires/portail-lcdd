@@ -34,8 +34,7 @@
 
 <template>
 
-<div class="flex w-full bg-gray-100 h-full">
-    <Sidebar />
+  <NuxtLayout name="default">
     <div class="w-full flex flex-col justify-center items-center p-8 bg-white rounded-lg shadow-lg">
       <h1 class="text-3xl w-full max-w-md font-bold mb-4">Mon profil</h1>
       <form @submit.prevent="submit" class="w-full max-w-md">
@@ -108,5 +107,5 @@
         </div>
       </form>
     </div>
-  </div>
+  </NuxtLayout>
 </template>
