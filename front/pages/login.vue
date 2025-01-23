@@ -64,6 +64,7 @@
     <NuxtLayout name="unauthorized">
      <div class="flex w-full bg-gray-100 h-screen items-center justify-center">
       <div class="w-full max-w-md p-8 bg-white rounded-3xl shadow-lg">
+        <Logo color="colored" class="pb-6"/>
         <h2 class="text-2xl font-bold text-center mb-6">Se connecter</h2>
         <form @submit.prevent="onSubmit">
           <div class="mb-4">
