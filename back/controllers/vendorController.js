@@ -31,6 +31,26 @@ export const getVendorById = async (req, res) => {
     }
 }
 
+export const updateIban = async (req, res) => {
+    const { id } = req.params;
+    const { iban } = req.body;
+    try {
+        const vendor = await prisma.vendor.update({
+            where: {
+                id: parseInt(id),
+            },
+            data: {
+                iban,
+            },
+        });
+        res.status(200).json(vendor);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erreur serveur lors de la mise à jour de l\'iban du vendor.' });
+    }
+}
+
+
 export const deleteVendor = async (req, res) => {
     const { id } = req.params;
     try {

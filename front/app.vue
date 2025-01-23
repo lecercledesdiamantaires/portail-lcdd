@@ -1,4 +1,6 @@
 <script setup>
+import { provide, useAttrs } from "vue";
+
   const qrCode = useQrCode();
   provide('qrCode', qrCode);
   const shopifyApi = useShopifyApi();
@@ -17,6 +19,8 @@
   provide('searchBar', searchBar);
   const transaction = useTransaction();
   provide('transaction', transaction);
+  const iban = useIban();
+  provide('iban', iban);
 </script>
 
 
