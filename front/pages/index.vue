@@ -4,7 +4,6 @@
    })
 
    const sales = inject('sales');
-   const qrCode = inject('qrCode');
    const promoCode = ref('');
    const user = ref(null);
    const canShowCardValue = ref(false);

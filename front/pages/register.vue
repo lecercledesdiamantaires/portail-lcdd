@@ -80,7 +80,7 @@ const onSubmit = handleSubmit(async(values) => {
     <NuxtLayout name="unauthorized">
       <div class="flex w-full bg-gray-100 h-screen items-center justify-center">
 
-    <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+    <div class="w-full max-w-md p-8 bg-white rounded-3xl shadow-lg">
       <h2 class="text-2xl font-bold text-center mb-6">S'inscrire</h2>
       <form @submit.prevent="onSubmit">
         <!-- Prénom -->
@@ -90,7 +90,7 @@ const onSubmit = handleSubmit(async(values) => {
             v-model="firstName"
             id="firstName" 
             type="text" 
-            class="mt-1 p-2 w-full border rounded focus:ring-2 focus:ring-blue-500"
+            class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
             placeholder="Entrez votre prénom"
           />
           <p v-if="firstNameError" class="text-sm text-danger mt-1">{{ firstNameError }}</p>
@@ -103,7 +103,7 @@ const onSubmit = handleSubmit(async(values) => {
             v-model="lastName"
             id="lastName" 
             type="text" 
-            class="mt-1 p-2 w-full border rounded focus:ring-2 focus:ring-blue-500"
+            class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
             placeholder="Entrez votre nom"
           />
           <p v-if="lastNameError" class="text-sm text-danger mt-1">{{ lastNameError }}</p>
@@ -116,7 +116,7 @@ const onSubmit = handleSubmit(async(values) => {
             v-model="email"
             id="email" 
             type="email" 
-            class="mt-1 p-2 w-full border rounded focus:ring-2 focus:ring-blue-500"
+            class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
             placeholder="exemple@domaine.com"
           />
           <p v-if="emailError" class="text-sm text-danger mt-1">{{ emailError }}</p>
@@ -130,13 +130,13 @@ const onSubmit = handleSubmit(async(values) => {
               v-model="password"
               id="password" 
               :type="showPassword ? 'text' : 'password'" 
-              class="mt-1 p-2 w-full border rounded focus:ring-2 focus:ring-blue-500"
+              class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
               placeholder="Entrez un mot de passe sécurisé"
             />
             <button 
               type="button"
               @click="togglePasswordVisibility"
-              class="absolute inset-y-0 right-3 flex items-center text-gray-500"
+              class="absolute inset-y-0 right-3 flex items-center text-gray-500 rounded-lg"
             >
               <component :is="showPassword ? Eye : EyeOff" />
             </button>
@@ -150,7 +150,7 @@ const onSubmit = handleSubmit(async(values) => {
           <div class="flex">
             <select
               v-model="selectedDialCode"
-              class="mt-1 p-2 border rounded-l w-1/4 bg-gray-50 focus:ring-2 focus:ring-blue-500"
+              class="mt-1 p-2 border rounded-l-lg w-1/4 bg-gray-50 focus:ring-2 focus:ring-blue-500"
             >
               <option
                 v-for="country in countryCodes"
@@ -164,7 +164,7 @@ const onSubmit = handleSubmit(async(values) => {
               v-model="phoneNumber"
               id="phoneNumber" 
               type="text" 
-              class="mt-1 p-2 w-3/4 border rounded-r focus:ring-2 focus:ring-blue-500"
+              class="mt-1 p-2 w-3/4 border rounded-r-lg focus:ring-2 focus:ring-blue-500"
               placeholder="Exemple : 612345678"
             />
           </div>
@@ -189,7 +189,7 @@ const onSubmit = handleSubmit(async(values) => {
         </div>
         <p v-if="acceptTermsError" class="text-sm text-danger mt-1">{{ acceptTermsError }}</p>
 
-        <button type="submit" class="w-full bg-primary text-white p-2 rounded">S'inscrire</button>
+        <button type="submit" class="w-full bg-primary text-white p-2 rounded-lg">S'inscrire</button>
       </form>
     </div>
     </div>

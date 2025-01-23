@@ -1,5 +1,4 @@
 <script setup>
-    const sales = inject('sales')
     const transaction = inject('transaction')
     const iban = inject('iban')
     const myProfile = ref(null)

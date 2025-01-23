@@ -20,7 +20,7 @@
 </script>
 
 <template>
-    <div class="p-2 rounded-xl max-w-max"
+    <div class="p-2 rounded-xl  max-w-max"
         :class="{
             'bg-greenLight': status === 'confirmed',
             'bg-redLight-100': status === 'cancelled',

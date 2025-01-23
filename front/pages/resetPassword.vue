@@ -1,7 +1,13 @@
 <template>
     <NuxtLayout name="unauthorized">
+<<<<<<< HEAD
     <div class="flex justify-center items-center h-screen">
       <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+=======
+
+    <div class="flex justify-center items-center h-screen">
+      <div class="w-full max-w-md p-8 bg-white rounded-3xl shadow-lg">
+>>>>>>> c6151850ed58665044bc5e359a422fd5ea361778
         <h2 class="text-2xl font-bold text-center mb-6">Réinitialiser le mot de passe</h2>
         <form @submit.prevent="onSubmit">
           <div class="mb-4">
@@ -10,7 +16,11 @@
               v-model="password"
               id="password" 
               type="password" 
+<<<<<<< HEAD
               class="mt-1 p-2 w-full border rounded focus:ring-2 focus:ring-blue-500"
+=======
+              class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
+>>>>>>> c6151850ed58665044bc5e359a422fd5ea361778
               placeholder="Entrez un nouveau mot de passe"
               required
             />

@@ -5,7 +5,7 @@
 <template>
     <div class="w-full flex flex-col gap-4">
         <h2 class="text-2xl font-semibold">Mes ventes</h2>
-        <div class="rounded-xl bg-white sm:px-8 sm:py-6 px-4 py-2 w-full">
+        <div class="rounded-3xl bg-white sm:px-8 sm:py-6 px-4 py-2 w-full">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
                     <ButtonArrow

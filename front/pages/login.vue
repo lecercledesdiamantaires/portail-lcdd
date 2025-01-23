@@ -63,7 +63,7 @@
 <template>
     <NuxtLayout name="unauthorized">
      <div class="flex w-full bg-gray-100 h-screen items-center justify-center">
-      <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+      <div class="w-full max-w-md p-8 bg-white rounded-3xl shadow-lg">
         <h2 class="text-2xl font-bold text-center mb-6">Se connecter</h2>
         <form @submit.prevent="onSubmit">
           <div class="mb-4">
@@ -72,7 +72,7 @@
               v-model="email"
               id="email" 
               type="email" 
-              class="mt-1 p-2 w-full border rounded focus:ring-2 focus:ring-blue-500"
+              class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
               placeholder="exemple@domaine.com"
             />
             <p v-if="emailError" class="text-sm text-danger mt-1">{{ emailError }}</p>
@@ -86,7 +86,7 @@
                   v-model="password"
                   id="password" 
                   :type="showPassword ? 'text' : 'password'" 
-                  class="mt-1 p-2 w-full border rounded focus:ring-2 focus:ring-blue-500"
+                  class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
                   placeholder="Votre mot de passe"
                 />
                 <button 
