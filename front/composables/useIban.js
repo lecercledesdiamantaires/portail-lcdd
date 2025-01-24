@@ -1,6 +1,8 @@
 import axios from 'axios'
 
 export default function () {
+    const { $axios } = useNuxtApp()
+
     const iban = ref('')
     let token = null
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -8,8 +10,8 @@ export default function () {
     }
     const getIban = async (id) => {
         try {
-            const response = await axios.get(
-                `http://localhost:4000/api/vendor/get/${id}`, 
+            const response = await $axios.get(
+                `/api/vendor/get/${id}`, 
                 { headers: { Authorization: `Bearer ${token}` } }
             )
             iban.value = response.data.iban
@@ -20,8 +22,8 @@ export default function () {
 
     const updateIban = async (id) => {
         try {
-            const response = await axios.put(
-                `http://localhost:4000/api/vendor/update/${id}`,
+            const response = await $axios.put(
+                `/api/vendor/update/${id}`,
                 { iban: iban.value },
                 { headers: { Authorization: `Bearer ${token}` } }
             )

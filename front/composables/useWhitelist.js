@@ -1,6 +1,8 @@
 import axios from 'axios'
 
 export default function () {
+    const { $axios } = useNuxtApp()
+
     const whitelist = ref([])
     const newEmail = ref('')
     const users = ref(null)
@@ -18,8 +20,8 @@ export default function () {
             throw new Error('L\'email doit être une chaîne de caractères.')
         }
 
-        await axios.post(
-            'http://localhost:4000/api/whitelist/add',
+        await $axios.post(
+            `/api/whitelist/add`,
             { email },
             { headers: { Authorization: `Bearer ${token}` } }
         )
@@ -30,8 +32,8 @@ export default function () {
 
     const deleteEmailFromWhitelist = async (id, userId = null) => {
         try {
-            await axios.delete(
-                `http://localhost:4000/api/whitelist/delete/${id}`,
+            await $axios.delete(
+                `/api/whitelist/delete/${id}`,
                 { headers: { Authorization: `Bearer ${token}` } }
             )
         } catch (error) {
@@ -45,8 +47,8 @@ export default function () {
 
     const deleteUser = async (id) => {
         try {
-            await axios.delete(
-                `http://localhost:4000/api/user/delete/${id}`,
+            await $axios.delete(
+                `/api/user/delete/${id}`,
                 { headers: { Authorization: `Bearer ${token}` } }
             )
         }
@@ -57,8 +59,8 @@ export default function () {
 
     const getWhitelist = async (token) => {
         try {
-            const response = await axios.get(
-                'http://localhost:4000/api/whitelist/all',
+            const response = await $axios.get(
+                `/api/whitelist/all`,
                 { headers: { Authorization: `Bearer ${token}` } }
             )
             whitelist.value = response.data.whitelist || []
@@ -71,8 +73,8 @@ export default function () {
 
     const getUsers = async (token) => {
         try {
-            const response = await axios.get(
-                `http://localhost:4000/api/user/all`, 
+            const response = await $axios.get(
+                `/api/user/all`, 
                 { headers: { Authorization: `Bearer ${token}` } }
             )
             users.value = response.data.user
@@ -83,8 +85,8 @@ export default function () {
 
     const getVendors = async (token) => {
         try {
-            const response = await axios.get(
-                `http://localhost:4000/api/vendor/all`, 
+            const response = await $axios.get(
+                `/api/vendor/all`, 
                 { headers: { Authorization: `Bearer ${token}` } }
             )
             vendors.value = response.data.vendor
@@ -134,8 +136,8 @@ export default function () {
     const deleteVendor = async (id) => {
         try {
             const findVendor = vendors.value.find(vendor => vendor.userId === id)
-            await axios.delete(
-                `http://localhost:4000/api/vendor/delete/${findVendor.id}`,
+            await $axios.delete(
+                `/api/vendor/delete/${findVendor.id}`,
                 { headers: { Authorization: `Bearer ${token}` } }
             )
         } catch (error) {

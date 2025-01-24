@@ -1,8 +1,10 @@
 import axios from 'axios'
 
-export default defineNuxtPlugin(() => {
+export default defineNuxtPlugin((nuxtApp) => {
+  const config = useRuntimeConfig()
+
   const instance = axios.create({
-    baseURL: 'http://localhost:4000', // URL de votre backend
+    baseURL: config.public.API_BASE_URL,
   })
 
   return {
