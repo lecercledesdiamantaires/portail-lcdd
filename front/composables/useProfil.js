@@ -53,7 +53,8 @@ export default function () {
                 `http://localhost:4000/api/picture/get-picture/${id}`,
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-            picture.value = response.data; 
+            response.data.url = `http://localhost:4000/${response.data.url}`;
+            picture.value = response.data;
         } catch (error) {
             console.error('Erreur lors de la récupération de l\'image du vendeur :', error.response?.data || error.message);
         }
