@@ -5,6 +5,7 @@ import protectedRoutes from './routes/protectedRoutes.js';
 import whitelistRoutes from './routes/whitelistRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import vendorRoutes from './routes/vendorRoutes.js';
+import pictureRoutes from './routes/pictureRoutes.js';
 
 const router = Router();
 
@@ -13,6 +14,7 @@ router.use('/protected', protectedRoutes);
 router.use('/whitelist', whitelistRoutes);
 router.use('/user', userRoutes);
 router.use('/vendor', vendorRoutes);
+router.use('/picture', pictureRoutes);
 
 
 
