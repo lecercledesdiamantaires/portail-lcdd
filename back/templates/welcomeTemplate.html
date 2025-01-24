@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenue au Cercle des Diamantaires</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo img {
+            max-width: 150px;
+            height: auto;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #006D5C !important;
+            color: #fff !important;
+            text-decoration: none !important;
+            border-radius: 10px !important;
+            font-size: 16px !important; 
+        }
+        a {
+            color: #fff !important;
+            text-decoration: none !important;
+        }
+        a:visited {
+            color: #fff !important;
+        }
+        a:hover {
+            color: #fff !important;
+        }
+        a:active {
+            color: #fff !important;
+        }
+        h1, p {
+            color: #333 !important;
+            margin: 0 0 15px;
+            font-family: Arial, sans-serif;
+        }
+        .button:hover {
+            background-color: #00524D;
+        }
+        .button:active {
+            background-color: #00403A;
+        }
+        .button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 109, 92, 0.5);
+        }
+        .footer {
+            margin-top: 30px;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 15px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+        .footer a {
+            color: #006D5C !important;
+            text-decoration: none !important;
+        }
+        .footer a:hover {
+            text-decoration: underline !important;
+        }
+
+        img {
+            width: 80px !important;
+            height: auto !important;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo">
+            <img src="http://localhost:4000/assets/pictures/favicon.png" alt="Logo Cercle des Diamantaires">
+        </div>
+
+        <!-- Contenu principal -->
+        <h1>Bienvenue au Cercle des Diamantaires</h1>
+        <p>Nous sommes ravis de vous compter parmi nos Relais d'influences.</p>
+        <p>Vous pouvez désormais vous inscrire sur le portail des relais d'influences pour obtenir votre code promo personnel et avoir accès à toutes vos informations.</p>
+        <br/>
+        <a href="{{registerUrl}}" class="button">Inscrivez vous</a>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Pour toute question ou assistance, contactez-nous :</p>
+            <p>Email : <a href="mailto:contact@lecercledesdiamantaires.com">contact@lecercledesdiamantaires.com</a></p>
+            <p>Téléphone : <a href="tel:+33186043831">01 86 04 38 31</a></p>
+            <p>&copy; 2025 Cercle des Diamantaires. Tous droits réservés.</p>
+        </div>
+    </div>
+</body>
+</html>
