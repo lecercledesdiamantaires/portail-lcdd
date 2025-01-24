@@ -1,4 +1,6 @@
 import { PrismaClient } from '@prisma/client';
+import { sendWelcomeEmail } from '../services/emailService.js';
+
 
 const prisma = new PrismaClient();
 
@@ -23,6 +25,8 @@ export const addEmailToWhitelist = async (req, res) => {
         const whitelistEntry = await prisma.whitelist.create({
             data: { email },
         });
+
+        await sendWelcomeEmail(email);        
 
         res.status(201).json({
             message: 'Email ajouté à la whitelist avec succès.',

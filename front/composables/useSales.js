@@ -325,7 +325,7 @@ const chartData = computed(() => {
 
     const wallet = computed(() => {
         const withdraw = 0;
-        return totalAmountConfirmed.value * 0.04 - withdraw;
+        return totalAmountConfirmed.value * 0.80 * 0.04 - withdraw;
     })
 
     const totalOrderConfirmed = computed(() => {
