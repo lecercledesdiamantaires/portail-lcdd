@@ -61,13 +61,12 @@ export const register = async (req, res) => {
         const role = user.role;
         if (role === 'VENDEUR') {
             await prisma.vendor.create({
-              data: {
+                data: {
                 userId: user.id,
                 promoCode: promoCode,
-                iban: '',
-              },
+                },
             });
-          }
+        }
 
         res.status(201).json({ message: 'Inscription réussie', user });
     } catch (err) {
