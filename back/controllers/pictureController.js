@@ -1,6 +1,11 @@
 import { PrismaClient } from '@prisma/client';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const prisma = new PrismaClient();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const getVendorPicture = async (req, res) => {
     const { id } = req.params;
@@ -25,33 +30,42 @@ export const getVendorPicture = async (req, res) => {
 export const updateVendorPicture = async (req, res) => {
     const { id } = req.params;
 
-  
-    if (!req.file) {
-      return res.status(400).json({ error: "Aucun fichier envoyé." });
-    }
-  
-    const filePath = `http://localhost:4000/assets/pictures/${req.file.filename}`;
-  
     try {
-      const vendorPicture = await prisma.picture.update({
-        where: {
-          vendorId: parseInt(id),
-        },
-        data: {
-          url: filePath, // Enregistrez le chemin dans la base de données
-        },
-      });
-  
-      if (!vendorPicture) {
-        return res.status(404).json({ error: "Vendor introuvable." });
-      }
-  
-      res.status(200).json(vendorPicture);
+        // Étape 1 : Récupérer l'ancienne image de la base de données
+        const vendorPicture = await prisma.picture.findUnique({
+            where: {
+                vendorId: parseInt(id),
+            },
+        });
+
+        if (!vendorPicture) {
+            return res.status(404).json({ error: 'Vendor introuvable.' });
+        }
+
+        const oldImagePath = vendorPicture.url; // URL de l'ancienne image
+
+        // Étape 2 : Mettre à jour l'URL de la nouvelle image dans la base de données
+        const newImagePath = `assets/pictures/${req.file.filename}`;
+        const updatedVendorPicture = await prisma.picture.update({
+            where: {
+                vendorId: parseInt(id),
+            },
+            data: {
+                url: newImagePath,
+            },
+        });
+
+        // Étape 3 : Supprimer l'ancienne image en appelant deleteOldPicture
+        await deleteOldPicture(oldImagePath);
+
+        res.status(200).json(updatedVendorPicture);
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Erreur serveur lors de la mise à jour de l'image du vendor." });
+        console.error(error);
+        res.status(500).json({ error: 'Erreur serveur lors de la mise à jour de l\'image du vendor.' });
     }
 };
+
+
 
 
 export const postVendorPicture = async (req, res) => {
@@ -71,3 +85,20 @@ export const postVendorPicture = async (req, res) => {
     }
 }
 
+const deleteOldPicture = (oldImagePath) => {
+    return new Promise((resolve, reject) => {
+        if (!oldImagePath) {
+            return resolve(); // Rien à supprimer si aucun chemin n'est fourni
+        }
+
+        const fullPath = path.join(__dirname, '..', oldImagePath); // Construire le chemin absolu
+        fs.unlink(fullPath, (err) => {
+            if (err) {
+                console.error(`Erreur lors de la suppression de l'ancienne image : ${err.message}`);
+                return reject(err); // Rejette la promesse si une erreur survient
+            }
+            console.log(`Ancienne image supprimée : ${fullPath}`);
+            resolve();
+        });
+    });
+};
