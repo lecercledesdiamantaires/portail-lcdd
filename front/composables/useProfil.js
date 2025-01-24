@@ -81,16 +81,31 @@ export default function () {
     };
       
 
-    const postPicture = async (id, url) => {
+    const postPicture = async (url) => {
         try {
+           const picture = `http://localhost:4000${url.name}`
             await axios.post(
-                `http://localhost:4000/api/picture/post-picture/${id}`,
-                { url },
+                `http://localhost:4000/api/picture/post-picture/`,
+                { picture },
                 { headers: { Authorization: `Bearer ${token}` } }
             )
         } catch (error) {
             console.error('Erreur lors de la création de l\'image du vendeur :', error.response?.data || error.message)
         }
+    }
+
+
+    const validatePicture = (file) => {
+        const acceptedFormats = ['image/jpeg', 'image/png', 'image/jpg'];
+        if (!acceptedFormats.includes(file.type)) {
+            console.error('Format de fichier invalide. Formats acceptés : jpeg, png, jpg.');
+            return false;
+        }
+        if (file.size > 5000000) {
+            console.error('Fichier trop volumineux. Taille maximale : 5 Mo.');
+            return false;
+        }
+        return true;
     }
 
     
@@ -103,7 +118,9 @@ export default function () {
         updateUserRole,
         getPicture,
         picture,
-        updatePicture
+        updatePicture,
+        postPicture,
+        validatePicture
        
     }
 }

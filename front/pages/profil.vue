@@ -32,18 +32,8 @@ if (process.client) {
 const handleChangeFile = (event) => {
   const file = event.target.files[0];
   if (file) {
-    const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-    const maxSize = 5 * 1024 * 1024; // 5 Mo
-
-    if (!validTypes.includes(file.type)) {
-      fileError.value = 'Seuls les fichiers JPEG, JPG et PNG sont acceptés.';
-      selectedFile.value = null;
-      return;
-    }
-
-    if (file.size > maxSize) {
-      fileError.value = 'La taille du fichier ne doit pas dépasser 5 Mo.';
-      selectedFile.value = null;
+    if(!profil.validatePicture(file)) {
+      fileError.value = 'Le fichier doit être une image de type jpeg, jpg ou png et ne doit pas dépasser 5 Mo.';
       return;
     }
 
@@ -73,10 +63,9 @@ const submit = async () => {
       <h1 class="text-3xl w-full max-w-md font-bold mb-4">Mon profil</h1>
       
       <form @submit.prevent="submit" class="w-full max-w-md">
-        <img :src="profil.picture.value.url" alt="photo de profil" class="w-24 h-24 rounded-full mb-4" />
+        <img :src="profil.picture.value.url" alt="photo de profil" class="w-24 h-24 rounded-full mb-4 bg-white" />
         <div>
           <input type="file" id="picture" @change="handleChangeFile($event)" class="mb-4" accept=".jpeg, .jpg, .png"/>
-          <p v-if="fileError" class="text-sm text-danger mt-1">{{ fileError }}</p>
         </div>
         <div class="mb-4">
           <label for="firstName" class="block text-sm font-medium">Prénom :</label>

@@ -23,13 +23,13 @@ export const register = async (req, res) => {
     }
 
     try {
-        // Vérifier si l'email est dans la whitelist
+      
         const whitelisted = await prisma.whitelist.findUnique({ where: { email } });
         if (!whitelisted) {
             return res.status(403).json({ error: 'Email non autorisé' });
         }
 
-        // Vérifier si l'utilisateur existe déjà
+       
         const existingUser = await prisma.user.findUnique({ where: { email } });
         if (existingUser) {
             return res.status(400).json({ error: 'Utilisateur déjà existant' });
@@ -61,13 +61,27 @@ export const register = async (req, res) => {
         const role = user.role;
         if (role === 'VENDEUR') {
             await prisma.vendor.create({
-              data: {
+                data: {
                 userId: user.id,
                 promoCode: promoCode,
                 iban: '',
-              },
+                },
             });
-          }
+        }
+
+        const file = req.file;
+        console.log('file', file);
+        if (file) {
+            const filePath = `assets/pictures/${file.filename}`;
+            await prisma.picture.create({
+                data: {
+                    url: filePath,
+                    vendorId: user.id,
+                },
+            });
+        }
+
+
 
         res.status(201).json({ message: 'Inscription réussie', user });
     } catch (err) {

@@ -45,6 +45,7 @@ export const updateVendorPicture = async (req, res) => {
         const oldImagePath = vendorPicture.url; // URL de l'ancienne image
 
         // Étape 2 : Mettre à jour l'URL de la nouvelle image dans la base de données
+        console.log('req.file', req.file);
         const newImagePath = `assets/pictures/${req.file.filename}`;
         const updatedVendorPicture = await prisma.picture.update({
             where: {
