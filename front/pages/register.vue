@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 const auth = inject('auth')
 const showPassword = ref(false)
 
+
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value
 }
@@ -39,6 +40,7 @@ const { value: password, errorMessage: passwordError } = useField('password')
 const { value: phoneNumber, errorMessage: phoneNumberError } = useField('phoneNumber')
 const { value: acceptTerms, errorMessage: acceptTermsError } = useField('acceptTerms')
 
+
 const onSubmit = handleSubmit(async(values) => {
   if (values.phoneNumber.startsWith('0')) {
     values.phoneNumber = values.phoneNumber.substring(1);
@@ -52,6 +54,7 @@ const onSubmit = handleSubmit(async(values) => {
   auth.registerForm.lastName = values.lastName;
   auth.registerForm.email = values.email;
   auth.registerForm.password = values.password;
+ 
   
   try {
     await auth.registerUser()
@@ -84,6 +87,7 @@ const onSubmit = handleSubmit(async(values) => {
       <Logo color="colored" class="pb-6"/>
       <h2 class="text-2xl font-bold text-center mb-6">S'inscrire</h2>
       <form @submit.prevent="onSubmit">
+
         <!-- Prénom -->
         <div class="mb-4">
           <label for="firstName" class="block text-sm font-medium">Prénom *</label>
@@ -109,6 +113,7 @@ const onSubmit = handleSubmit(async(values) => {
           />
           <p v-if="lastNameError" class="text-sm text-danger mt-1">{{ lastNameError }}</p>
         </div>
+       
         
         <!-- Email -->
         <div class="mb-4">

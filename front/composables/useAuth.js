@@ -21,7 +21,7 @@ export default function () {
     email: '',
     password: '',
     phoneNumber: '',
-    promoCode: '',
+    promoCode: ''
   })
   
   // Méthode pour se connecter
