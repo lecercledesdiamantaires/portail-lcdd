@@ -16,6 +16,7 @@ prisma.user.generateResetToken = function() {
     return resetToken;
 };
 
+
 export const register = async (req, res) => {
     const { email, password, firstName, lastName, phoneNumber, promoCode } = req.body;
     console.log('req.file', req.file);

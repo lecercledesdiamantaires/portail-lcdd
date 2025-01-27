@@ -2,19 +2,31 @@ import { PrismaClient } from '@prisma/client';
 import fs from 'fs';
 import path, { parse } from 'path';
 import { fileURLToPath } from 'url';
-import { getVendorByUserId } from './vendorController.js';
 import { get } from 'http';
 
 const prisma = new PrismaClient();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const findVendorByUserId = async (id) => {
+    try {
+        const vendor = await prisma.vendor.findUnique({
+            where: {
+                userId: parseInt(id),
+            },
+        });
+        if (vendor) {
+            return vendor;
+        } 
+    } catch (error) {
+        throw new Error('Erreur serveur lors de la récupération du vendor.');
+    }
+}
+
 export const getVendorPicture = async (req, res) => {
     const { id } = req.params;
     try {
-        console.log('id hh', id);
-        const selectedVendor = await getVendorByUserId(id);
-        console.log('selectedVendor', selectedVendor);
+        const selectedVendor = await findVendorByUserId(id);
     
         const vendorPicture = await prisma.picture.findUnique({
                 where: {
@@ -38,7 +50,7 @@ export const updateVendorPicture = async (req, res) => {
 
     try {
 
-        const selectedVendor = await getVendorByUserId(id);
+        const selectedVendor = await findVendorByUserId(id);
 
         const vendorPicture = await prisma.picture.findUnique({
             where: {
