@@ -17,7 +17,8 @@ prisma.user.generateResetToken = function() {
 };
 
 export const register = async (req, res) => {
-    const { email, password, firstName, lastName, phoneNumber, promoCode} = req.body;
+    const { email, password, firstName, lastName, phoneNumber, promoCode } = req.body;
+    console.log('req.file', req.file);
     if (!firstName || !lastName || !email || !password || !phoneNumber) {
         return res.status(400).json({ error: 'Tous les champs doivent être remplis.' });
     }
@@ -54,33 +55,34 @@ export const register = async (req, res) => {
                 phoneNumber,
                 whitelist: {
                     connect: { email }
-                }
+                },
             }
         });
 
         const role = user.role;
         if (role === 'VENDEUR') {
-            await prisma.vendor.create({
+            const vendor = await prisma.vendor.create({
                 data: {
                 userId: user.id,
                 promoCode: promoCode,
-                iban: '',
+                
                 },
             });
-        }
 
-        const file = req.file;
-        console.log('file', file);
-        if (file) {
-            const filePath = `assets/pictures/${file.filename}`;
-            await prisma.picture.create({
-                data: {
-                    url: filePath,
-                    vendorId: user.id,
-                },
-            });
-        }
 
+            if (req.file) {
+                const picturePath = `assets/pictures/${req.file.filename}`;
+                await prisma.picture.create({
+                    data: {
+                        vendorId: vendor.id,
+                        url: picturePath,
+                    },
+                });
+            }else{
+                console.log('no picture');
+                return;
+            }
+        }
 
 
         res.status(201).json({ message: 'Inscription réussie', user });

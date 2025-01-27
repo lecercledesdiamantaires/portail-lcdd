@@ -18,6 +18,7 @@ const user = ref({
 const selectedFile = ref(null);
 const fileError = ref('');
 const pictureUrl = ref('');
+const warning = ref(null);
 
 if (process.client) {
   const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -33,12 +34,14 @@ const handleChangeFile = (event) => {
   const file = event.target.files[0];
   if (file) {
     if(!profil.validatePicture(file)) {
-      fileError.value = 'Le fichier doit être une image de type jpeg, jpg ou png et ne doit pas dépasser 5 Mo.';
+      alert('Le fichier doit être une image de type jpeg, jpg ou png et ne doit pas dépasser 5 Mo.');
+      warning.value = true;
       return;
     }
 
     fileError.value = '';
     selectedFile.value = file;
+    console.log(selectedFile.value);
 
     // Mettre à jour l'URL de l'image pour l'aperçu
     const reader = new FileReader();
@@ -50,6 +53,10 @@ const handleChangeFile = (event) => {
 };
 
 const submit = async () => {
+  if (warning.value) {
+    alert("Informations incorrectes");
+    return;
+  }
   profil.updateUser(user.value.id, user.value);
   profil.updatePicture(user.value.id, selectedFile.value);
   localStorage.setItem('user', JSON.stringify(user.value));
@@ -63,7 +70,7 @@ const submit = async () => {
       <h1 class="text-3xl w-full max-w-md font-bold mb-4">Mon profil</h1>
       
       <form @submit.prevent="submit" class="w-full max-w-md">
-        <img :src="profil.picture.value.url" alt="photo de profil" class="w-24 h-24 rounded-full mb-4 bg-white" />
+        <img :src="`http://localhost:4000${profil.picture.value.url}`" alt="photo de profil" class="w-24 h-24 rounded-full mb-4 bg-white" />
         <div>
           <input type="file" id="picture" @change="handleChangeFile($event)" class="mb-4" accept=".jpeg, .jpg, .png"/>
         </div>

@@ -1,7 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 import fs from 'fs';
-import path from 'path';
+import path, { parse } from 'path';
 import { fileURLToPath } from 'url';
+import { getVendorByUserId } from './vendorController.js';
+import { get } from 'http';
 
 const prisma = new PrismaClient();
 const __filename = fileURLToPath(import.meta.url);
@@ -10,9 +12,11 @@ const __dirname = path.dirname(__filename);
 export const getVendorPicture = async (req, res) => {
     const { id } = req.params;
     try {
+        const selectedVendor = await getVendorByUserId(id);
+    
         const vendorPicture = await prisma.picture.findUnique({
                 where: {
-                    vendorId: parseInt(id),
+                    vendorId: parseInt(selectedVendor.id),
                 },
             });
             if (vendorPicture) {
@@ -31,10 +35,12 @@ export const updateVendorPicture = async (req, res) => {
     const { id } = req.params;
 
     try {
-        // Étape 1 : Récupérer l'ancienne image de la base de données
+       
+        const selectedVendor = await getVendorByUserId(id);
+
         const vendorPicture = await prisma.picture.findUnique({
             where: {
-                vendorId: parseInt(id),
+                vendorId: parseInt(selectedVendor.id),
             },
         });
 
@@ -49,7 +55,7 @@ export const updateVendorPicture = async (req, res) => {
         const newImagePath = `assets/pictures/${req.file.filename}`;
         const updatedVendorPicture = await prisma.picture.update({
             where: {
-                vendorId: parseInt(id),
+                vendorId: parseInt(selectedVendor.id),
             },
             data: {
                 url: newImagePath,
@@ -70,13 +76,15 @@ export const updateVendorPicture = async (req, res) => {
 
 
 export const postVendorPicture = async (req, res) => {
-    const { vendorId, url } = req.body;
+    const { id } = req.params;
 
     try {
+        console.log('req.file Controller', req.file);
+        console.log('req.params Controller', req.params);
         const vendorPicture = await prisma.picture.create({
             data: {
-                vendorId,
-                url,
+                vendorId : parseInt(id),
+                url : `assets/pictures/${req.file.filename}`,
             },
         });
         res.status(201).json(vendorPicture);

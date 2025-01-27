@@ -3,6 +3,8 @@ import useShopifyApi from './useShopifyApi'
 import { errorMessages } from 'vue/compiler-sfc'
 
 export default function () {
+  const { $axios } = useNuxtApp()
+
   const user = ref(null)
   const isAuthenticated = ref(false)
   const token = ref(null)
@@ -21,7 +23,8 @@ export default function () {
     email: '',
     password: '',
     phoneNumber: '',
-    promoCode: ''
+    promoCode: '',
+    picture: null,
   })
   
   // Méthode pour se connecter
@@ -30,7 +33,7 @@ export default function () {
         if (typeof email !== 'string') {
           throw new Error('L\'email doit être une chaîne de caractères.');
         }
-        const response = await axios.post('http://localhost:4000/api/auth/login', {
+        const response = await $axios.post(`/api/auth/login`, {
             email: email,  
             password: password
         });
@@ -53,8 +56,9 @@ export default function () {
   const register = async (userData) => {
     try {
       code.value = await useShopifyApi().createPromoCode()
-      userData.promoCode = code.value.code
-      const response = await axios.post('http://localhost:4000/api/auth/register', userData)
+      userData.append("promoCode", code.value.code);
+      console.log('userData', userData)
+      const response = await $axios.post(`/api/auth/register`, userData)
       user.value = response.data.user
       responseMessage.value = true
     } catch (error) {

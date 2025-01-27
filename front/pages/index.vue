@@ -12,6 +12,7 @@
       promoCode.value = localStorage.getItem('promoCode');
       user.value = JSON.parse(localStorage.getItem('user'));
       sales.getSales(promoCode.value);
+
       setTimeout(() => {
          canShowCardValue.value = true
       }, 800)

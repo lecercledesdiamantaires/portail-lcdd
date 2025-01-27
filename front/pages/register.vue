@@ -72,22 +72,23 @@ const onSubmit = handleSubmit(async(values) => {
     values.phoneNumber = values.phoneNumber.substring(1);
   }
   const fullPhoneNumber = `${selectedDialCode.value}${values.phoneNumber}`
-
-
-
   const cleanedPhoneNumber = fullPhoneNumber.replace(/\D/g, '')
-  auth.registerForm.phoneNumber = cleanedPhoneNumber;
-  auth.registerForm.firstName = values.firstName;
-  auth.registerForm.lastName = values.lastName;
-  auth.registerForm.email = values.email;
-  auth.registerForm.password = values.password;
-  console.log(values)
+
+  const formData = new FormData()
+  formData.append('firstName', values.firstName);
+  formData.append('lastName', values.lastName);
+  formData.append('email', values.email);
+  formData.append('password', values.password);
+  formData.append('phoneNumber', cleanedPhoneNumber);
+
+  if (selectedFile.value) {
+    formData.append('picture', selectedFile.value);
+  }
 
  
   
   try {
-    await auth.registerUser()
-    await profil.postPicture(selectedFile.value)
+    await auth.register(formData)
     if (auth.responseMessage.value) {
       navigateTo("/login");
     } else {

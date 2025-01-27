@@ -1,6 +1,8 @@
 import axios from 'axios'
 
 export default function () {
+    const { $axios } = useNuxtApp()
+
     let token = null
     if (typeof window !== 'undefined' && window.localStorage) {
         token = localStorage.getItem('token')
@@ -10,8 +12,8 @@ export default function () {
 
     const getUser = async (id) => {
         try {
-            const response = await axios.get(
-                `http://localhost:4000/api/user/all${id}`, 
+            const response = await $axios.get(
+                `/api/user/all${id}`, 
                 { headers: { Authorization: `Bearer ${token}` } }
             )
             users.value = response.data.user
@@ -23,8 +25,8 @@ export default function () {
     const updateUser = async (id, userData) => {
         try {
             console.log('userData', userData)
-            await axios.put(
-                `http://localhost:4000/api/user/update/${id}`,
+            await $axios.put(
+                `/api/user/update/${id}`,
                 userData,
                 { headers: { Authorization: `Bearer ${token}` } }
             )
@@ -35,8 +37,8 @@ export default function () {
     
     const updateUserRole = async (id, role) => {
         try {
-            await axios.put(
-                `http://localhost:4000/api/user/update-role/${id}`,
+            await $axios.put(
+                `/api/user/update-role/${id}`,
                 { role },
                 { headers: { Authorization: `Bearer ${token}` } }
             )
@@ -49,11 +51,11 @@ export default function () {
     const getPicture = async (id) => {
        try {
             console.log('id', id);
-            const response = await axios.get(
-                `http://localhost:4000/api/picture/get-picture/${id}`,
+            const response = await $axios.get(
+                `/api/picture/get-picture/${id}`,
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-            response.data.url = `http://localhost:4000/${response.data.url}`;
+            response.data.url = `/${response.data.url}`;
             picture.value = response.data;
         } catch (error) {
             console.error('Erreur lors de la récupération de l\'image du vendeur :', error.response?.data || error.message);
@@ -64,9 +66,11 @@ export default function () {
         try {
             const formData = new FormData();
             formData.append('file', file);
+            console.log(id, file);
+            
         
-            await axios.put(
-            `http://localhost:4000/api/picture/update-picture/${id}`,
+            await $axios.put(
+            `/api/picture/update-picture/${id}`,
             formData,
             {
                 headers: {
@@ -79,20 +83,6 @@ export default function () {
             console.error('Erreur lors de l\'envoi du fichier :', error.response?.data || error.message);
         }
     };
-      
-
-    const postPicture = async (url) => {
-        try {
-           const picture = `http://localhost:4000${url.name}`
-            await axios.post(
-                `http://localhost:4000/api/picture/post-picture/`,
-                { picture },
-                { headers: { Authorization: `Bearer ${token}` } }
-            )
-        } catch (error) {
-            console.error('Erreur lors de la création de l\'image du vendeur :', error.response?.data || error.message)
-        }
-    }
 
 
     const validatePicture = (file) => {
@@ -119,7 +109,6 @@ export default function () {
         getPicture,
         picture,
         updatePicture,
-        postPicture,
         validatePicture
        
     }

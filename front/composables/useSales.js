@@ -3,6 +3,9 @@ import { differenceInDays } from 'date-fns';
 import { ref, reactive, computed, onMounted, watch } from 'vue';
 
 export default function () {
+
+    const { $axios } = useNuxtApp()
+
     const data = ref(null);
     const salesData = reactive([]);
 
@@ -282,9 +285,11 @@ const chartData = computed(() => {
         }
     };
 
+
     const getSales = (code) => {
-        axios
-            .get(`http://localhost:4000/shopify/sales/${code}`)
+
+        $axios
+            .get(`/shopify/sales/${code}`)
             .then((response) => {
                 salesData.splice(0, salesData.length); 
     
