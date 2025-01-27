@@ -39,10 +39,8 @@ export const getVendorByUserId = async (req, res) => {
                 userId: parseInt(id),
             },
         });
-
-        res.status(200).json(vendor);
-
-    } catch(error) {
+       res.status(200).json(vendor);
+    } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Erreur serveur lors de la récupération du vendor.' });
     }

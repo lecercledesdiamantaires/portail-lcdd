@@ -16,20 +16,21 @@ prisma.user.generateResetToken = function() {
     return resetToken;
 };
 
+
 export const register = async (req, res) => {
-    const { email, password, firstName, lastName, phoneNumber, promoCode} = req.body;
+    const { email, password, firstName, lastName, phoneNumber, promoCode } = req.body;
     if (!firstName || !lastName || !email || !password || !phoneNumber) {
         return res.status(400).json({ error: 'Tous les champs doivent être remplis.' });
     }
 
     try {
-        // Vérifier si l'email est dans la whitelist
+      
         const whitelisted = await prisma.whitelist.findUnique({ where: { email } });
         if (!whitelisted) {
             return res.status(403).json({ error: 'Email non autorisé' });
         }
 
-        // Vérifier si l'utilisateur existe déjà
+       
         const existingUser = await prisma.user.findUnique({ where: { email } });
         if (existingUser) {
             return res.status(400).json({ error: 'Utilisateur déjà existant' });
@@ -54,19 +55,35 @@ export const register = async (req, res) => {
                 phoneNumber,
                 whitelist: {
                     connect: { email }
-                }
+                },
             }
         });
 
         const role = user.role;
         if (role === 'VENDEUR') {
-            await prisma.vendor.create({
+            const vendor = await prisma.vendor.create({
                 data: {
                 userId: user.id,
                 promoCode: promoCode,
+                
                 },
             });
+
+
+            if (req.file) {
+                const picturePath = `assets/pictures/${req.file.filename}`;
+                await prisma.picture.create({
+                    data: {
+                        vendorId: vendor.id,
+                        url: picturePath,
+                    },
+                });
+            }else{
+                console.log('no picture');
+                return;
+            }
         }
+
 
         res.status(201).json({ message: 'Inscription réussie', user });
     } catch (err) {

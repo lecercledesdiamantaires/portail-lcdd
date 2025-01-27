@@ -1,5 +1,4 @@
 <script setup>
-import { Eye, EyeOff } from 'lucide-vue-next'
 import countryCodes from '~/assets/country-codes.json'
 import { useField, useForm } from 'vee-validate'
 import * as yup from 'yup'
@@ -7,7 +6,11 @@ import Swal from "sweetalert2";
 
 
 const auth = inject('auth')
+const profil = inject('profil')
 const showPassword = ref(false)
+const selectedFile = ref(null);
+const fileError = ref('');
+const pictureUrl = ref('');
 
 
 const togglePasswordVisibility = () => {
@@ -41,23 +44,49 @@ const { value: phoneNumber, errorMessage: phoneNumberError } = useField('phoneNu
 const { value: acceptTerms, errorMessage: acceptTermsError } = useField('acceptTerms')
 
 
+const handleFile = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    if(!profil.validatePicture(file)) {
+      fileError.value = 'Le fichier doit être une image de type jpeg, jpg ou png et ne doit pas dépasser 5 Mo.';
+      alert(fileError.value)
+      return;
+    }
+
+    fileError.value = '';
+    selectedFile.value = file;
+   
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      pictureUrl.value = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+
 const onSubmit = handleSubmit(async(values) => {
   if (values.phoneNumber.startsWith('0')) {
     values.phoneNumber = values.phoneNumber.substring(1);
   }
   const fullPhoneNumber = `${selectedDialCode.value}${values.phoneNumber}`
-
-
   const cleanedPhoneNumber = fullPhoneNumber.replace(/\D/g, '')
-  auth.registerForm.phoneNumber = cleanedPhoneNumber;
-  auth.registerForm.firstName = values.firstName;
-  auth.registerForm.lastName = values.lastName;
-  auth.registerForm.email = values.email;
-  auth.registerForm.password = values.password;
+
+  const formData = new FormData()
+  formData.append('firstName', values.firstName);
+  formData.append('lastName', values.lastName);
+  formData.append('email', values.email);
+  formData.append('password', values.password);
+  formData.append('phoneNumber', cleanedPhoneNumber);
+
+  if (selectedFile.value) {
+    formData.append('picture', selectedFile.value);
+  }
+
  
   
   try {
-    await auth.registerUser()
+    await auth.register(formData)
     if (auth.responseMessage.value) {
       navigateTo("/login");
     } else {
@@ -88,6 +117,18 @@ const onSubmit = handleSubmit(async(values) => {
       <h2 class="text-2xl font-bold text-center mb-6">S'inscrire</h2>
       <form @submit.prevent="onSubmit">
 
+        <div class="mb-4">
+          <label for="picture" class="block text-sm font-medium">Photo de profil *</label>
+          <input 
+            id="picture" 
+            type="file" 
+            class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
+            accept=".jpeg, .jpg, .png"
+            @change="handleFile($event)"
+          />
+          <p v-if="firstNameError" class="text-sm text-danger mt-1">{{ firstNameError }}</p>
+        </div>
+        
         <!-- Prénom -->
         <div class="mb-4">
           <label for="firstName" class="block text-sm font-medium">Prénom *</label>

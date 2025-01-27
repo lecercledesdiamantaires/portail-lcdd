@@ -51,9 +51,7 @@ export const getSalesByDiscountCode = async (req, res) => {
 
 export const deleteDiscountCode = async (req, res) => {
     try {
-        console.log(req.params.code);
         const code = await deleteShopifyDiscountCode(req.params.code);
-        console.log("test", code);
 
         if (code) {
             res.status(204).end();

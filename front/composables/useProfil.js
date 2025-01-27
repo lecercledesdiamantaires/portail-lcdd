@@ -24,7 +24,6 @@ export default function () {
 
     const updateUser = async (id, userData) => {
         try {
-            console.log('userData', userData)
             await $axios.put(
                 `/api/user/update/${id}`,
                 userData,
@@ -50,7 +49,6 @@ export default function () {
 
     const getPicture = async (id) => {
        try {
-            console.log('id', id);
             const response = await $axios.get(
                 `/api/picture/get-picture/${id}`,
                 { headers: { Authorization: `Bearer ${token}` } }
@@ -66,6 +64,7 @@ export default function () {
         try {
             const formData = new FormData();
             formData.append('file', file);
+            
         
             await $axios.put(
             `/api/picture/update-picture/${id}`,
@@ -81,18 +80,19 @@ export default function () {
             console.error('Erreur lors de l\'envoi du fichier :', error.response?.data || error.message);
         }
     };
-      
 
-    const postPicture = async (id, url) => {
-        try {
-            await $axios.post(
-                `/api/picture/post-picture/${id}`,
-                { url },
-                { headers: { Authorization: `Bearer ${token}` } }
-            )
-        } catch (error) {
-            console.error('Erreur lors de la création de l\'image du vendeur :', error.response?.data || error.message)
+
+    const validatePicture = (file) => {
+        const acceptedFormats = ['image/jpeg', 'image/png', 'image/jpg'];
+        if (!acceptedFormats.includes(file.type)) {
+            console.error('Format de fichier invalide. Formats acceptés : jpeg, png, jpg.');
+            return false;
         }
+        if (file.size > 5000000) {
+            console.error('Fichier trop volumineux. Taille maximale : 5 Mo.');
+            return false;
+        }
+        return true;
     }
 
     
@@ -105,7 +105,8 @@ export default function () {
         updateUserRole,
         getPicture,
         picture,
-        updatePicture
+        updatePicture,
+        validatePicture
        
     }
 }
