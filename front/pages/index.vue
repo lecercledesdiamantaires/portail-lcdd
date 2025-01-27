@@ -21,7 +21,7 @@
 </script>
 <template>  
       <NuxtLayout name="default">
-         <div class="flex flex-col gap-4 sm:p-6 w-full xs:px-2 xs:py-6">
+         <div class="flex flex-col gap-8 sm:p-6 w-full xs:px-2 xs:py-6">
             <HelloText class="xs:pl-20 lg:pl-0"/>   
             <CardInfosContainer />
             <div class="flex gap-4 xl:flex-row xs:flex-col">

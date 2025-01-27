@@ -1,11 +1,5 @@
 <script setup>
     const transaction = inject('transaction')
-    const iban = inject('iban')
-    const myProfile = ref(null)
-    if(process.client){
-        myProfile.value = JSON.parse(localStorage.getItem('user'))
-        iban.getIban(myProfile.value.id)
-    }
 </script>
 
 <template>
@@ -18,17 +12,6 @@
                     >
                         Annuler les filtres
                     </ButtonSecondary>
-                    <input 
-                        v-model="iban.iban.value" 
-                        type="text" 
-                        placeholder="Renseignez votre IBAN" 
-                        class="p-2 border border-gray-300 rounded w-48"
-                    />
-                    <ButtonPrimary 
-                        @click="() => iban.updateIban(myProfile.id)"
-                    >
-                        Save
-                    </ButtonPrimary>
                 </div>
                 <div class="flex flex-col bg-white rounded-3xl p-6  items-center justify-center">
                 <table class="bg-white rounded-3xl w-full table-auto flex flex-col items-center"> 

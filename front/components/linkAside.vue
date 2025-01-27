@@ -21,6 +21,10 @@ const getLink = (direction) => {
       return '/transactions';
     case 'logout':
       return '#';
+    case 'avantages':
+      return '/avantages';
+    case 'commissions':
+      return '/commissions';
     default:
       return '/';
   }
@@ -39,6 +43,10 @@ const getIcon = (direction) => {
       return "user";
     case 'transactions':
       return "arrow-right-arrow-left";
+    case 'avantages':
+      return 'tag';
+    case 'commissions':
+      return 'sack-dollar';
     default:
       return null;
   }
