@@ -1,13 +1,30 @@
-import axios from 'axios';
 import { differenceInDays } from 'date-fns';
 import { ref, reactive, computed, onMounted, watch } from 'vue';
+import useIban from '@/composables/useIban';
+
 
 export default function () {
 
     const { $axios } = useNuxtApp()
-
+    let token = null
+    if (typeof window !== 'undefined' && window.localStorage) {
+        token = localStorage.getItem('token')
+    }
     const data = ref(null);
     const salesData = reactive([]);
+
+    const withdraw = ref(0);
+
+    const { getVendorByUserId, vendorId } = useIban()
+
+    const myProfile = ref(null);
+    if (process.client) {
+        const userProfile = localStorage.getItem('user');
+        if (userProfile) {
+            myProfile.value = JSON.parse(userProfile);
+        }
+    }
+
 
     const isAtMinDate = ref(false);  // Indicateur si l'on est à la date minimale
     const isAtMaxDate = ref(false);  // Indicateur si l'on est à la date maximale
@@ -193,9 +210,6 @@ const chartData = computed(() => {
     }
 });
 
-
-    
-
     const updateDateStatus = () => {
         // Vérification que minDate et maxDate sont définis avant d'accéder à leurs méthodes
         if (minDate.value && maxDate.value) {
@@ -287,13 +301,13 @@ const chartData = computed(() => {
 
 
     const getSales = (code) => {
-
         $axios
             .get(`/shopify/sales/${code}`)
             .then((response) => {
                 salesData.splice(0, salesData.length); 
     
                 response.data.forEach((element) => {
+                    const type = 'Vente' ;
                     const orderAmount = parseFloat(element.current_subtotal_price);
                     const orderDate = element.created_at;
                     const firstName = element.customer.first_name;
@@ -305,6 +319,7 @@ const chartData = computed(() => {
                     const status = getStatus(isConfirmed, isCancelled, financialStatus, orderDate);
 
                     salesData.push({
+                        type,
                         orderAmount,
                         orderDate,
                         firstName,
@@ -328,10 +343,33 @@ const chartData = computed(() => {
         }, 0);
     });
 
-    const wallet = computed(() => {
-        const withdraw = 0;
-        return totalAmountConfirmed.value * 0.80 * 0.04 - withdraw;
-    })
+    const getCurrentWithdraw = async (id) => {
+        try {
+            const response = await $axios.get(`/api/withdraw/get/${id}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            withdraw.value = response.data[0].totalWithdraw;
+        } catch (error) {
+            console.error('Error getting wallet:', error.response?.data || error.message);
+            throw error;
+        }
+    }
+
+    const updateWallet = async () => {
+        if (process.client) {
+            myProfile.value = JSON.parse(localStorage.getItem('user'));
+            if (myProfile.value && myProfile.value.id) {
+                await getVendorByUserId(myProfile.value.id);
+                if (vendorId.value) {
+                    await getCurrentWithdraw(vendorId.value);
+                }
+            }
+        }
+    }
+
+    onMounted(async () => {
+        await updateWallet();
+    });
 
     const totalOrderConfirmed = computed(() => {
         return salesData.filter(data => data.status === 'confirmed').length;
@@ -341,6 +379,9 @@ const chartData = computed(() => {
         return salesData.filter(data => data.status === 'pending').length;
     });
 
+    const wallet = computed(() => {
+        return totalAmountConfirmed.value * 0.80 * 0.04 - withdraw.value;
+    })
 
     return {
         totalAmountConfirmed,
@@ -360,6 +401,7 @@ const chartData = computed(() => {
         maxSalesValue,
         wallet,
         totalOrderConfirmed, 
-        totalOdrerPending
+        totalOdrerPending,
+        updateWallet
     };
 }

@@ -23,8 +23,6 @@ const getLink = (direction) => {
       return '#';
     case 'avantages':
       return '/avantages';
-    case 'commissions':
-      return '/commissions';
     default:
       return '/';
   }
@@ -45,8 +43,6 @@ const getIcon = (direction) => {
       return "arrow-right-arrow-left";
     case 'avantages':
       return 'tag';
-    case 'commissions':
-      return 'sack-dollar';
     default:
       return null;
   }

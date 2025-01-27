@@ -15,7 +15,7 @@
                 v-model="whitelist.newEmail.value" 
                 type="email" 
                 placeholder="Ajouter un email à la whitelist" 
-                class="p-2 border border-gray-300 rounded w-full" 
+                class="p-2 border border-gray-300 rounded-xl w-full" 
             />
             <ButtonSecondary @click="whitelist.addEmail()">Ajouter</ButtonSecondary>
         </div>

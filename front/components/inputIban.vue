@@ -5,7 +5,7 @@
 
 <template>
     <div class="w-full flex flex-col gap-4">
-        <div class="flex gap-4 flex-col pt-12 lg:pt-0 md:flex-row xs:gap-2">
+        <div class="flex flex-col pt-12 lg:pt-0 md:flex-row xs:gap-2">
             <input 
                 v-model="iban.iban.value" 
                 type="text" 
