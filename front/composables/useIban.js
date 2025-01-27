@@ -11,6 +11,7 @@ export default function () {
         token = localStorage.getItem('token')
     }
 
+    const myProfile = ref(null)
 
     const getIban = async (id) => {
         try {
@@ -38,7 +39,6 @@ export default function () {
                 { headers: { Authorization: `Bearer ${token}` } }
             )
             vendorId.value = response.data.id
-            console.log('vendorId.value', vendorId.value)
         } catch (error) {
             console.error('Erreur lors de la récupération de l\'utilisateur :', error.response?.data || error.message)
         }
@@ -62,6 +62,34 @@ export default function () {
         const cleanedIban = iban.value.replace(/[\s-]/g, ''); 
         return ibanRegex.test(cleanedIban);
     }
+
+    if (process.client) {
+        const userProfile = localStorage.getItem('user');
+        if (userProfile) {
+            myProfile.value = JSON.parse(userProfile);
+            getVendorByUserId(myProfile.value.id);
+        }
+    }
+
+    watch(myProfile, (newProfile) => {
+        if (newProfile && newProfile.id) {
+            getVendorByUserId(newProfile.id);
+        }
+    }, { immediate: true })
+
+    watch(vendorId, (newVendorId) => {
+        if (newVendorId) {
+            getIban(newVendorId);
+        }
+    }, { immediate: true })
+
+    watch(() => iban.value, (newValue) => {
+        if (validateIban(newValue)) {
+            errorMessage.value = null;
+        } else {
+            errorMessage.value = 'IBAN invalide';
+        }
+    })
 
     return{
         iban,

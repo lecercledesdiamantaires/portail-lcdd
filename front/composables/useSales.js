@@ -341,6 +341,7 @@ const chartData = computed(() => {
         return salesData.filter(data => data.status === 'pending').length;
     });
 
+
     return {
         totalAmountConfirmed,
         chartData,

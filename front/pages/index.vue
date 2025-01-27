@@ -4,6 +4,7 @@
    })
 
    const sales = inject('sales');
+
    const promoCode = ref('');
    const user = ref(null);
    const canShowCardValue = ref(false);
@@ -12,11 +13,10 @@
       promoCode.value = localStorage.getItem('promoCode');
       user.value = JSON.parse(localStorage.getItem('user'));
       sales.getSales(promoCode.value);
-
       setTimeout(() => {
          canShowCardValue.value = true
       }, 800)
-   } 
+   }
 
 </script>
 <template>  
