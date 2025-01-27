@@ -121,6 +121,37 @@ const submit = async () => {
             required
           />
         </div>
+        <div class="mb-4">
+          <label for="password" class="block text-sm font-medium">Mot de passe *</label>
+          <div class="relative">
+            <input 
+              v-model="user.password"
+              id="password" 
+              :type="showPassword ? 'text' : 'password'" 
+              class="mt-1 p-2 w-full border rounded focus:ring-2 focus:ring-blue-500"
+              placeholder="Entrez un mot de passe sécurisé"
+            />
+            <button 
+              type="button"
+              @click="togglePasswordVisibility"
+              class="absolute inset-y-0 right-3 flex items-center text-gray-500"
+            >
+              <component :is="showPassword ? Eye : EyeOff" />
+            </button>
+          </div>
+          <p v-if="passwordError" class="text-sm text-danger mt-1">{{ passwordError }}</p>
+        </div>
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium">Numéro de téléphone :</label>
+          <input
+            type="text"
+            id="phoneNumber"
+            v-model="user.phoneNumber"
+            placeholder="Entrez votre numéro de téléphone"
+            class="p-2 border border-gray-300 rounded w-full" 
+            required
+          />
+        </div>
         <button type="submit" class="w-full bg-primary text-white p-2 rounded-lg">Mettre à jour</button>
       </form>
     </div>

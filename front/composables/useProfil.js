@@ -24,6 +24,7 @@ export default function () {
 
     const updateUser = async (id, userData) => {
         try {
+            console.log(userData)
             await $axios.put(
                 `/api/user/update/${id}`,
                 userData,

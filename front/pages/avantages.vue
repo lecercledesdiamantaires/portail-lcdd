@@ -6,5 +6,8 @@ definePageMeta({
 </script>
 
 <template>
+  <NuxtLayout >
+    ss
+  </NuxtLayout>
 
 </template>
