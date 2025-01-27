@@ -29,18 +29,16 @@
             iban.errorMessage.value = 'IBAN invalide';
         }
     })
-    console.log(!iban.iban.value)
-    console.log(iban.errorMessage.value)
 </script>
 
 <template>
-    <div class="mb-6 flex flex-col gap-4">
+    <div class="mb-6 w-full flex flex-col gap-4">
         <div class="flex gap-4">
             <input 
                 v-model="iban.iban.value" 
                 type="text" 
                 placeholder="Renseignez votre IBAN" 
-                class="p-2 border border-gray-300 rounded w-48"
+                class="p-2 border border-gray-300 rounded w-full"
             />
             <ButtonPrimary 
                 :class="{ 'cursor-not-allowed': !iban.iban.value || iban.errorMessage.value }"

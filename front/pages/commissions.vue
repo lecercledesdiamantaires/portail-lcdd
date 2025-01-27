@@ -5,5 +5,7 @@
 </script>
 
 <template>
-    <InputIban />
+    <NuxtLayout name="default">
+        <InputIban />
+    </NuxtLayout>
 </template>
