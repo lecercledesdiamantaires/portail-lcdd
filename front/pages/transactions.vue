@@ -6,6 +6,7 @@
     <NuxtLayout name="default">
         <div class="flex w-full bg-gray-100 ">
             <div class="flex flex-col gap-4 sm:p-6 w-full xs:px-2 xs:py-6">
+                <Commissions />
                 <div class="flex justify-end">
                     <ButtonSecondary 
                         @click="transaction.resetFilters()"

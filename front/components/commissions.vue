@@ -17,8 +17,7 @@
 </script>
 
 <template>
-    <NuxtLayout name="default">
-        <div class="flex flex-col gap-2 sm:p-6 w-full xs:px-2 xs:py-6">
+        <div class="flex flex-col gap-2 w-full">
             <InputIban />
             <div class="flex gap-4 flex-col">
                 <CardInfos icon="sack-dollar" color="yellow" label="Mes commissions" :amount="'$ ' + sales.wallet.value"/>
@@ -33,6 +32,5 @@
                 <p v-if="withdraw.successMessage" class="text-green">{{ withdraw.successMessage }}</p>
             </div>
         </div>
-    </NuxtLayout>
 </template>
 

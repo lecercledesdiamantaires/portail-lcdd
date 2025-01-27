@@ -29,7 +29,6 @@
                         <LinkAside direction="dashboard" />
                         <LinkAside direction="transactions" />
                         <LinkAside direction="profil" />
-                        <LinkAside direction="commissions" />
                         <LinkAside direction="avantages" />
                     </div>
                 </div>
