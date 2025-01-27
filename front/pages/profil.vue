@@ -19,14 +19,26 @@ const selectedFile = ref(null);
 const fileError = ref('');
 const pictureUrl = ref('');
 const warning = ref(null);
+const isLoading = ref(true);
 
 if (process.client) {
-  const storedUser = JSON.parse(localStorage.getItem('user'));
+  const storedUser = localStorage.getItem('user');
   if (storedUser) {
-    Object.assign(user.value, storedUser);
-    profil.getPicture(storedUser.id).then((url) => {
-      pictureUrl.value = url;
-    });
+    const userData = JSON.parse(storedUser);
+    Object.assign(user.value, userData);
+
+    profil.getPicture(userData.id)
+      .then((url) => {
+        pictureUrl.value = url;
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la récupération de l\'image :', error);
+      })
+      .finally(() => {
+        isLoading.value = false;
+      });
+  } else {
+    isLoading.value = false;
   }
 }
 
@@ -68,8 +80,10 @@ const submit = async () => {
   <NuxtLayout name="default">
     <div class="w-full flex flex-col justify-center items-center p-8 bg-white rounded-lg shadow-lg">
       <h1 class="text-3xl w-full max-w-md font-bold mb-4">Mon profil</h1>
+
+      <div v-if="isLoading" class="spinner"></div>
       
-      <form @submit.prevent="submit" class="w-full max-w-md">
+      <form @submit.prevent="submit" class="w-full max-w-md" v-else>
         <img :src="`http://localhost:4000${profil.picture.value.url}`" alt="photo de profil" class="w-24 h-24 rounded-full mb-4 bg-white" />
        
        
