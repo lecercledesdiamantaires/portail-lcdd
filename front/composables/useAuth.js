@@ -1,6 +1,7 @@
 import axios from 'axios'
 import useShopifyApi from './useShopifyApi'
 import { errorMessages } from 'vue/compiler-sfc'
+import validatePicture  from './useProfil'
 
 export default function () {
   const { $axios } = useNuxtApp()
@@ -55,12 +56,13 @@ export default function () {
   // Méthode pour s'inscrire
   const register = async (userData) => {
     try {
+      console.log('userData', userData)
       code.value = await useShopifyApi().createPromoCode()
       userData.append("promoCode", code.value.code);
-      console.log('userData', userData)
       const response = await $axios.post(`/api/auth/register`, userData)
       user.value = response.data.user
       responseMessage.value = true
+
     } catch (error) {
       console.error('Erreur lors de l\'inscription :', error)
       if (error.response) {

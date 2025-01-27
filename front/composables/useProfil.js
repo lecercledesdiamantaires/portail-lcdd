@@ -50,7 +50,6 @@ export default function () {
 
     const getPicture = async (id) => {
        try {
-            console.log('id', id);
             const response = await $axios.get(
                 `/api/picture/get-picture/${id}`,
                 { headers: { Authorization: `Bearer ${token}` } }

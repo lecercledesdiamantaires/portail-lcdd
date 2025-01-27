@@ -125,6 +125,7 @@ const onSubmit = handleSubmit(async(values) => {
             id="picture" 
             type="file" 
             class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
+            accept=".jpeg, .jpg, .png"
             @change="handleFile($event)"
           />
           <p v-if="firstNameError" class="text-sm text-danger mt-1">{{ firstNameError }}</p>

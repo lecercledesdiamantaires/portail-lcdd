@@ -12,7 +12,9 @@ const __dirname = path.dirname(__filename);
 export const getVendorPicture = async (req, res) => {
     const { id } = req.params;
     try {
+        console.log('id hh', id);
         const selectedVendor = await getVendorByUserId(id);
+        console.log('selectedVendor', selectedVendor);
     
         const vendorPicture = await prisma.picture.findUnique({
                 where: {
@@ -35,7 +37,7 @@ export const updateVendorPicture = async (req, res) => {
     const { id } = req.params;
 
     try {
-       
+
         const selectedVendor = await getVendorByUserId(id);
 
         const vendorPicture = await prisma.picture.findUnique({

@@ -71,6 +71,8 @@ const submit = async () => {
       
       <form @submit.prevent="submit" class="w-full max-w-md">
         <img :src="`http://localhost:4000${profil.picture.value.url}`" alt="photo de profil" class="w-24 h-24 rounded-full mb-4 bg-white" />
+       
+       
         <div>
           <input type="file" id="picture" @change="handleChangeFile($event)" class="mb-4" accept=".jpeg, .jpg, .png"/>
         </div>
