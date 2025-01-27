@@ -1,3 +1,7 @@
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
 export const createWithdraw = async (req, res) => {
     const { amount, vendorId } = req.body;
 

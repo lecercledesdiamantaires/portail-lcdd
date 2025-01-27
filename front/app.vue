@@ -21,6 +21,8 @@ import { provide, useAttrs } from "vue";
   provide('transaction', transaction);
   const iban = useIban();
   provide('iban', iban);
+  const withdraw = useWithdraw();
+  provide('withdraw', withdraw);
 </script>
 
 
