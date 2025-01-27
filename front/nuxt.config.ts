@@ -30,7 +30,6 @@ export default defineNuxtConfig({
       DATABASE_URL: process.env.DATABASE_URL
     },
   },
-
   compatibilityDate: '2024-12-27'
 
     

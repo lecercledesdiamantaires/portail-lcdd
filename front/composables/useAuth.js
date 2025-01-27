@@ -56,7 +56,6 @@ export default function () {
   // Méthode pour s'inscrire
   const register = async (userData) => {
     try {
-      console.log('userData', userData)
       code.value = await useShopifyApi().createPromoCode()
       userData.append("promoCode", code.value.code);
       const response = await $axios.post(`/api/auth/register`, userData)

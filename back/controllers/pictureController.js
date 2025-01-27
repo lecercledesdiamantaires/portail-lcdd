@@ -62,10 +62,8 @@ export const updateVendorPicture = async (req, res) => {
             return res.status(404).json({ error: 'Vendor introuvable.' });
         }
 
-        const oldImagePath = vendorPicture.url; // URL de l'ancienne image
-
-        // Étape 2 : Mettre à jour l'URL de la nouvelle image dans la base de données
-        console.log('req.file', req.file);
+        const oldImagePath = vendorPicture.url; 
+ 
         const newImagePath = `assets/pictures/${req.file.filename}`;
         const updatedVendorPicture = await prisma.picture.update({
             where: {
@@ -85,28 +83,6 @@ export const updateVendorPicture = async (req, res) => {
         res.status(500).json({ error: 'Erreur serveur lors de la mise à jour de l\'image du vendor.' });
     }
 };
-
-
-
-
-export const postVendorPicture = async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        console.log('req.file Controller', req.file);
-        console.log('req.params Controller', req.params);
-        const vendorPicture = await prisma.picture.create({
-            data: {
-                vendorId : parseInt(id),
-                url : `assets/pictures/${req.file.filename}`,
-            },
-        });
-        res.status(201).json(vendorPicture);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Erreur serveur lors de la création de l\'image du vendor.' });
-    }
-}
 
 const deleteOldPicture = (oldImagePath) => {
     return new Promise((resolve, reject) => {

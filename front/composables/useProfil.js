@@ -24,7 +24,6 @@ export default function () {
 
     const updateUser = async (id, userData) => {
         try {
-            console.log('userData', userData)
             await $axios.put(
                 `/api/user/update/${id}`,
                 userData,
@@ -65,7 +64,6 @@ export default function () {
         try {
             const formData = new FormData();
             formData.append('file', file);
-            console.log(id, file);
             
         
             await $axios.put(

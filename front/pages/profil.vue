@@ -53,9 +53,7 @@ const handleChangeFile = (event) => {
 
     fileError.value = '';
     selectedFile.value = file;
-    console.log(selectedFile.value);
-
-    // Mettre à jour l'URL de l'image pour l'aperçu
+   
     const reader = new FileReader();
     reader.onload = (e) => {
       pictureUrl.value = e.target.result;

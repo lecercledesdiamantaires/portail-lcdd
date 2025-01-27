@@ -37,7 +37,6 @@
     try {
       const response = await axios.post('http://localhost:4000/api/auth/forgot-password', { email: email.value })
       message.value = response.data.message
-      console.log(response.data)
     } catch (error) {
       errorMessage.value = error.response?.data?.error || 'Une erreur s\'est produite'
     }

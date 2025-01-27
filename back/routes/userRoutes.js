@@ -5,7 +5,6 @@ import { getUsers, getUserById, deleteUser, updateUser, updateUserRole } from '.
 
 const router = Router();
 
-// Route protégée pour ajouter un email à la whitelist (Admin uniquement)
 router.get('/all', authenticateToken, authorizeRoles(['ADMIN']), getUsers);
 router.get('/unique/:id', authenticateToken, authorizeRoles(['ADMIN']), getUserById);
 router.delete('/delete/:id', authenticateToken, authorizeRoles(['ADMIN']), deleteUser);
