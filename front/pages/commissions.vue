@@ -23,10 +23,10 @@
             <div class="flex gap-4 flex-col">
                 <CardInfos icon="sack-dollar" color="yellow" label="Mes commissions" :amount="'$ ' + sales.wallet.value"/>
                 <ButtonPrimary
-                    :class="{ 'cursor-not-allowed': !iban.iban.value || iban.errorMessage.value }"
-                    :disabled="!iban.iban.value || sales.wallet.value === 0 || iban.errorMessage.value"
-                    @click="() => withdraw.createWithdraw(sales.wallet.value, iban.vendorId.value)"
-                >
+                    :class="{ 'cursor-not-allowed': !iban.iban.value || iban.errorMessage.value || sales.wallet.value === 0 }"
+                    :disabled="!iban.iban.value || sales.wallet.value === 0  || iban.errorMessage.value"
+                    @click="() => withdraw.createWithdraw(sales.wallet.value, iban.vendorId.value, user)"
+                >   
                     Recevoir mes commissions
                 </ButtonPrimary>
                 <p v-if="withdraw.errorMessage" class="text-red">{{ withdraw.errorMessage }}</p>

@@ -1,5 +1,6 @@
-export default function () {
+import { set } from "date-fns";
 
+export default function () {
     const { $axios } = useNuxtApp()
     let token = null
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -10,22 +11,17 @@ export default function () {
 
     const withdraws = ref([]);
 
-    const switchSuccessMessage = (value) => {
-        successMessage.value = value
-        setTimeout(() => {
-            successMessage.value = null
-        }, 2000)
-    }
-
-    const createWithdraw = async (amount, vendorId) => {
+    const createWithdraw = async (amount, vendorId, user) => {
         try {
             const response = await $axios.post('/api/withdraw/create', {
                 amount,
-                vendorId
+                vendorId, 
+                user
             }, {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            switchSuccessMessage('Demande de virement éffectuée.');
+            updateTotalWithdraw(vendorId, amount);
+            window.location.reload();
             return response.data;
         } catch (error) {
             console.error('Error creating payout:', error.response?.data || error.message);
@@ -37,7 +33,7 @@ export default function () {
     const getWithdraws = async () => {
         try {
             const response = await $axios.get('/api/withdraw/all', {
-                headers: { Authorization: `Bearer ${token.value}` }
+                headers: { Authorization: `Bearer ${token}` }
             });
             withdraws.value = response.data;
         } catch (error) {
@@ -49,7 +45,7 @@ export default function () {
     const acceptWithdraw = async (id) => {
         try {
             const response = await $axios.put(`/api/withdraw/accept/${id}`, {}, {
-                headers: { Authorization: `Bearer ${token.value}` }
+                headers: { Authorization: `Bearer ${token}` }
             });
             return response.data;
         } catch (error) {
@@ -57,6 +53,22 @@ export default function () {
             throw error;
         }
     }
+
+    const updateTotalWithdraw = async (id, amount) => {
+        try {
+            const response = await $axios.put(`/api/withdraw/updateTotalWithdraw/${id}`, {
+                amount
+            }, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error updating total withdraw:', error.response?.data || error.message);
+            throw error;
+        }
+    }
+
+
 
     return {
         createWithdraw, 
