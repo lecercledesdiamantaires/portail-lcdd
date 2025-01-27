@@ -31,35 +31,30 @@ export const getVendorById = async (req, res) => {
     }
 }
 
-export const getVendorByUserId = async (id) => {
+export const getVendorByUserId = async (req, res) => {
     try {
+        const { id } = req.params;
         const vendor = await prisma.vendor.findUnique({
             where: {
                 userId: parseInt(id),
             },
         });
 
-        if (vendor) {
-            return vendor;
-        } else {
-            return null;
-        }
-    } catch (error) {
+        res.status(200).json(vendor);
+
+    } catch(error) {
         console.error(error);
+        res.status(500).json({ error: 'Erreur serveur lors de la récupération du vendor.' });
     }
 }
 
 export const updateIban = async (req, res) => {
-    const { id } = req.params;
-    const { iban } = req.body;
-    const vendor = await getVendorByUserId(id);
-    if (!vendor) {
-        return res.status(404).json({ error: 'Vendor introuvable.' });
-    }
     try {
+        const { id } = req.params;
+        const { iban } = req.body;
         const updatedVendor = await prisma.vendor.update({
             where: {
-                id: parseInt(vendor.id),
+                id: parseInt(id),
             },
             data: {
                 iban,
