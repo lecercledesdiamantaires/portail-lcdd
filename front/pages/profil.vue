@@ -82,7 +82,7 @@ const submit = async () => {
       <div v-if="isLoading" class="spinner"></div>
       
       <form @submit.prevent="submit" class="w-full max-w-md" v-else>
-        <img :src="`http://localhost:4000${profil.picture.value.url}`" alt="photo de profil" class="w-24 h-24 rounded-full mb-4 bg-white" />
+        <img :src="`${profil.picture.value.url}`" alt="photo de profil" class="w-24 h-24 rounded-full mb-4 bg-white" />
        
        
         <div>
