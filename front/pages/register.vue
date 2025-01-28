@@ -5,6 +5,7 @@ import * as yup from 'yup'
 import Swal from "sweetalert2";
 
 
+
 const auth = inject('auth')
 const profil = inject('profil')
 const showPassword = ref(false)
@@ -110,9 +111,9 @@ const onSubmit = handleSubmit(async(values) => {
 
 <template>
     <NuxtLayout name="unauthorized">
-      <div class="flex w-full bg-gray-100 h-screen items-center justify-center">
+      <div class="flex w-full bg-gray-100 items-center justify-center p-4">
 
-    <div class="w-full max-w-md p-8 bg-white rounded-3xl shadow-lg">
+    <div class="w-full max-w-lg p-8 bg-white rounded-3xl shadow-lg">
       <Logo color="colored" class="pb-6"/>
       <h2 class="text-2xl font-bold text-center mb-6">S'inscrire</h2>
       <form @submit.prevent="onSubmit">
@@ -129,32 +130,33 @@ const onSubmit = handleSubmit(async(values) => {
           <p v-if="firstNameError" class="text-sm text-danger mt-1">{{ firstNameError }}</p>
         </div>
         
-        <!-- Prénom -->
-        <div class="mb-4">
-          <label for="firstName" class="block text-sm font-medium">Prénom *</label>
-          <input 
-            v-model="firstName"
-            id="firstName" 
-            type="text" 
-            class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
-            placeholder="Entrez votre prénom"
-          />
-          <p v-if="firstNameError" class="text-sm text-danger mt-1">{{ firstNameError }}</p>
+        <div class="sm:flex gap-2 ">
+          <!-- Prénom -->
+          <div class="mb-4 w-full">
+            <label for="firstName" class="block text-sm font-medium">Prénom *</label>
+            <input 
+              v-model="firstName"
+              id="firstName" 
+              type="text" 
+              class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
+              placeholder="Entrez votre prénom"
+            />
+            <p v-if="firstNameError" class="text-sm text-danger mt-1">{{ firstNameError }}</p>
+          </div>
+          
+          <!-- Nom -->
+          <div class="mb-4 w-full">
+            <label for="lastName" class="block text-sm font-medium">Nom *</label>
+            <input 
+              v-model="lastName"
+              id="lastName" 
+              type="text" 
+              class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
+              placeholder="Entrez votre nom"
+            />
+            <p v-if="lastNameError" class="text-sm text-danger mt-1">{{ lastNameError }}</p>
+          </div>
         </div>
-        
-        <!-- Nom -->
-        <div class="mb-4">
-          <label for="lastName" class="block text-sm font-medium">Nom *</label>
-          <input 
-            v-model="lastName"
-            id="lastName" 
-            type="text" 
-            class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
-            placeholder="Entrez votre nom"
-          />
-          <p v-if="lastNameError" class="text-sm text-danger mt-1">{{ lastNameError }}</p>
-        </div>
-       
         
         <!-- Email -->
         <div class="mb-4">
@@ -236,7 +238,12 @@ const onSubmit = handleSubmit(async(values) => {
         </div>
         <p v-if="acceptTermsError" class="text-sm text-danger mt-1">{{ acceptTermsError }}</p>
 
-        <button type="submit" class="w-full bg-primary text-white p-2 rounded-lg">S'inscrire</button>
+        <div class="flex flex-col gap-2">
+          <ButtonPrimary type="submit" class="w-full">S'inscrire</ButtonPrimary>
+          <ButtonSecondary class="w-full">
+                <NuxtLink class="w-full block" to="/login">J'ai déjà un compte ?</NuxtLink>
+          </ButtonSecondary>
+        </div>
       </form>
     </div>
     </div>
