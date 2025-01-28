@@ -1,18 +1,16 @@
 <script setup>
 
-const route = useRoute()
-const userId = route.params.id
+  const route = useRoute()
+  const userId = route.params.id
 
-definePageMeta({
-  middleware: ['auth', 'admin'],
-})
+  definePageMeta({
+    middleware: ['auth', 'admin'],
+  })
 
-const whitelist = inject('whitelist')
-const sales = inject('sales')
-const user = ref(null)
-
-const canShowCardChart = ref(false)
-
+  const whitelist = inject('whitelist')
+  const sales = inject('sales')
+  const user = ref(null)
+  const canShowCardChart = ref(false)
 
   if (process.client) {
     watchEffect(() => {
@@ -22,7 +20,7 @@ const canShowCardChart = ref(false)
       }
     })
   }
-
+  
   watch(
       () => whitelist.combinedData.value,
       (newData) => {
@@ -46,7 +44,11 @@ const canShowCardChart = ref(false)
 <template>
     <div class="flex flex-col gap-4 sm:p-6 w-full h-screen xs:px-2 xs:py-6 bg-gray-100">
         <NuxtLink to="/admin" class="text-primary underline">Retour</NuxtLink>
-        <h1 class="text-3xl font-bold">Vue de {{user?.firstName}}</h1>
+        
+        <div class="flex items-center justify-between gap-4">
+          <h1 class="text-3xl font-bold">Vue de <span class="capitalize">{{user?.firstName}} {{user?.lastName}}</span></h1>
+          <ProfilePicture :userId="userId" />
+        </div>
         <CardInfosContainer />
         <CardChart v-if="canShowCardChart" />
     </div>

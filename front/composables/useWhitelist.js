@@ -9,6 +9,7 @@ export default function () {
     const vendors = ref(null)
     const vendorsDetails = ref(null)
     const errorMessage = ref(null)
+    const withdraws = ref(null)
     
     let token = null
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -66,6 +67,7 @@ export default function () {
             whitelist.value = response.data.whitelist || []
             await getUsers(token)
             await getVendors(token)
+            await getWithdraws(token)
         } catch (error) {
         console.error('Erreur lors de la récupération de la whitelist :', error.response?.data || error.message)
         }
@@ -94,6 +96,7 @@ export default function () {
             console.error('Erreur lors de la récupération des vendors :', error.response?.data || error.message)
         }
     }
+
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         return emailRegex.test(email)
@@ -108,7 +111,7 @@ export default function () {
             errorMessage.value = "Veuillez entrer une adresse e-mail valide."
             setTimeout(() => {
                 errorMessage.value = null
-              }, 2000)  
+            }, 2000)  
         }
     }
     
@@ -117,10 +120,26 @@ export default function () {
         await getWhitelist(token)
     }
 
+    const getWithdraws = async (token) => {
+        try {
+            const response = await $axios.get(
+                `/api/withdraw/all`,
+                { headers: { Authorization: `Bearer ${token}` } }
+            )
+            withdraws.value = response.data
+        } catch (error) {
+            console.error('Erreur lors de la récupération des payouts :', error.response?.data || error.message)
+        }
+    }
+
     const combinedData = computed(() => {
         return whitelist.value.map(item => {
-            const user = users?.value?.find(user => user?.id === item?.userId)
-            const vendor = vendors?.value?.find(vendor => vendor?.userId === item?.userId)
+            console.log(item)
+            const user = users?.value?.find(user => user?.id === item?.userId);
+            const vendor = vendors?.value?.find(vendor => vendor?.userId === item?.userId);
+            const withdrawsForVendor = vendor
+                ? withdraws?.value?.filter(withdraw => withdraw?.vendorId === vendor?.id)
+                : [];
             return {
                 ...item,
                 role: user ? user.role : 'Unknown',
@@ -128,9 +147,11 @@ export default function () {
                 firstName: user ? user.firstName : 'Unknown',
                 phoneNumber: user ? user.phoneNumber : 'Unknown',
                 promoCode: vendor ? vendor.promoCode : null,
-            }
-        })
-    })
+                vendorId: vendor ? vendor.id : null,
+                withdraws: withdrawsForVendor // Inclure tous les retraits associés
+            };
+        });
+    });
 
 
     const deleteVendor = async (id) => {

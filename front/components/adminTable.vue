@@ -2,6 +2,7 @@
     const whitelist = inject('whitelist')
     const popup = inject('popup')
     const profil = inject('profil')
+    const iban = inject('iban')
     const searchBar = inject('searchBar')
     const shopifyApi = inject('shopifyApi')
     const myProfil = ref(null)
@@ -35,7 +36,8 @@
         <table class="table-auto  w-full border-collapse">
             <thead>
                 <tr class="bg-gray-100">
-                    <adminHead >Role</adminHead>
+                    <adminHead>Retrait</adminHead>
+                    <adminHead>Role</adminHead>
                     <adminHead>Nom</adminHead>
                     <adminHead>Prénom</adminHead>
                     <adminHead>Email</adminHead>
@@ -53,6 +55,7 @@
                         'bg-blueLight': user.role === 'ADMIN'
                     }"
                 >
+                    <adminRow>{{user.withdraws.length}}</adminRow>
                     <adminRow>
                         <select class="p-2 outline-none" v-model="user.role" @change="profil.updateUserRole(user.userId, user.role)">
                             <option value="ADMIN">ADMIN</option>
@@ -63,25 +66,18 @@
                     <adminRow>{{ user.lastName }}</adminRow>
                     <adminRow>{{ user.email }}</adminRow>
                     <adminRow>{{ user.promoCode }}</adminRow>
-
-                    <adminRow>
-                        <ButtonDanger v-if="myProfil.email !== user.email" @click="popup.openPopup()">
+                    <adminRow v-if="myProfil.email !== user.email">
+                        <ButtonDanger  @click="popup.openPopup()">
                             <font-awesome-icon icon="trash" />
                         </ButtonDanger>
                         <Popup :condition="popup.popup.value === true" label="Êtes-vous sûr de vouloir supprimer l'utilisateur ?">    
                             <div class="flex flex-col w-full gap-2 py-4">
                                 <ButtonSecondary @click="popup.closePopup()">Annuler</ButtonSecondary>
                                 <ButtonDanger @click="deleteUser(user)">Confirmer</ButtonDanger>
-                               
                             </div>
                         </Popup>
                     </adminRow>
-                    <adminRow v-if="user.role === 'ADMIN' || user.role === 'Unknown'">
-                        <ButtonPrimary class="cursor-not-allowed !bg-gray-600">
-                            <font-awesome-icon icon="arrow-right" />
-                        </ButtonPrimary>
-                    </adminRow>   
-                    <adminRow v-else>
+                    <adminRow v-if="user.role === 'VENDEUR'">
                         <ButtonPrimary>
                             <NuxtLink :to="{ name: 'vendorDetails-id', params: { id: user.userId } }">
                                 <font-awesome-icon icon="arrow-right" />

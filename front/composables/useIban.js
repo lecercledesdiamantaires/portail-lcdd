@@ -39,6 +39,7 @@ export default function () {
                 { headers: { Authorization: `Bearer ${token}` } }
             )
             vendorId.value = response.data.id
+            console.log(response.data.id)
         } catch (error) {
             console.error('Erreur lors de la récupération de l\'utilisateur :', error.response?.data || error.message)
         }
