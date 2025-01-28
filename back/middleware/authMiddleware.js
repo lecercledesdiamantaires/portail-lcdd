@@ -13,7 +13,6 @@ export const authenticateToken = (req, res, next) => {
         req.user = verified; // Attache les infos du token à `req.user`
         next();
     } catch (err) {
-        console.error(err);
         return res.status(403).json({ error: 'Token invalide ou expiré.' });
     }
 };

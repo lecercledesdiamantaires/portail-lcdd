@@ -1,6 +1,5 @@
 <script setup>
     const iban = inject('iban')
-
 </script>
 
 <template>

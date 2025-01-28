@@ -37,6 +37,9 @@ import { useRoute } from 'vue-router'
 import { useField, useForm } from 'vee-validate'
 import * as yup from 'yup'
 
+const { $axios } = useNuxtApp()
+
+
 const route = useRoute()
 const message = ref('')
 const errorMessage = ref('')
@@ -53,7 +56,7 @@ const { value: password, errorMessage: passwordError } = useField('password')
 
 const onSubmit = handleSubmit(async (values) => {
   try {
-    const response = await axios.post('http://localhost:4000/api/auth/reset-password', {
+    const response = await$axios.post('/api/auth/reset-password', {
       token: route.query.token,
       password: values.password
     })
