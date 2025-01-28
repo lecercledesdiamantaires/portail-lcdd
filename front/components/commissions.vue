@@ -24,7 +24,7 @@
                 <ButtonPrimary
                     :class="{ 'cursor-not-allowed': !iban.iban.value || iban.errorMessage.value || sales.wallet.value === 0 }"
                     :disabled="!iban.iban.value || sales.wallet.value === 0  || iban.errorMessage.value"
-                    @click="() => withdraw.createWithdraw(sales.wallet.value, iban.vendorId.value, user)"
+                    @click="() => withdraw.createWithdraw(sales.wallet.value, iban.vendorId.value, user, iban.iban.value)"
                 >   
                     Recevoir mes commissions
                 </ButtonPrimary>

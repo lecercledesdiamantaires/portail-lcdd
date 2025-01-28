@@ -32,10 +32,10 @@
 
 <template>
     <div>
-        <table class="table-auto w-full border-collapse">
+        <table class="table-auto  w-full border-collapse">
             <thead>
                 <tr class="bg-gray-100">
-                    <adminHead>Role</adminHead>
+                    <adminHead >Role</adminHead>
                     <adminHead>Nom</adminHead>
                     <adminHead>Prénom</adminHead>
                     <adminHead>Email</adminHead>

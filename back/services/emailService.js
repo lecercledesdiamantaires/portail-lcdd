@@ -1,9 +1,15 @@
 import nodemailer from 'nodemailer';
 import fs from 'fs';
 import path from 'path';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const FRONT_URL = process.env.FRONT_URL;
+
 
 export const sendResetPasswordEmail = async (email, token) => {
-    const resetUrl = `http://localhost:3000/resetpassword?token=${token}`;
+    const resetUrl = `${FRONT_URL}/resetpassword?token=${token}`;
 
     const templatePath = path.resolve('./templates/resetPasswordTemplate.html');
     let htmlTemplate = fs.readFileSync(templatePath, 'utf-8');
@@ -22,7 +28,7 @@ export const sendResetPasswordEmail = async (email, token) => {
         from: process.env.EMAIL_USER,
         to: email,
         subject: 'Réinitialisation de mot de passe',
-        html: htmlTemplate, // Utiliser le template HTML
+        html: htmlTemplate,
     };
 
     await transporter.sendMail(mailOptions);
@@ -51,7 +57,7 @@ export const sendWelcomeEmail = async (email) => {
     await transporter.sendMail(mailOptions);
 };
 
-export const sendWithdrawAsk = async (vendorId, amount, user) => {
+export const sendWithdrawAsk = async (vendorId, amount, user, iban) => {
     const templatePath = path.resolve('./templates/withdrawTemplate.html');
     let htmlTemplate = fs.readFileSync(templatePath, 'utf-8');
 
@@ -59,6 +65,7 @@ export const sendWithdrawAsk = async (vendorId, amount, user) => {
     htmlTemplate = htmlTemplate.replace('{{amount}}', amount);
     htmlTemplate = htmlTemplate.replace('{{firstName}}', user.firstName);
     htmlTemplate = htmlTemplate.replace('{{lastName}}', user.lastName);
+    htmlTemplate = htmlTemplate.replace('{{iban}}', iban);
 
 
     const transporter = nodemailer.createTransport({

@@ -27,15 +27,16 @@
   
   <script setup>
   import { ref } from 'vue'
-  import axios from 'axios'
   
+  const { $axios } = useNuxtApp()
+
   const email = ref('')
   const message = ref('')
   const errorMessage = ref('')
   
   const onSubmit = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/api/auth/forgot-password', { email: email.value })
+      const response = await $axios.post('/api/auth/forgot-password', { email: email.value })
       message.value = response.data.message
     } catch (error) {
       errorMessage.value = error.response?.data?.error || 'Une erreur s\'est produite'

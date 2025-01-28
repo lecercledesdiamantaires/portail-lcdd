@@ -11,12 +11,13 @@ export default function () {
 
     const withdraws = ref([]);
 
-    const createWithdraw = async (amount, vendorId, user) => {
+    const createWithdraw = async (amount, vendorId, user, iban) => {
         try {
             const response = await $axios.post('/api/withdraw/create', {
                 amount,
                 vendorId, 
-                user
+                user,
+                iban
             }, {
                 headers: { Authorization: `Bearer ${token}` }
             });

@@ -4,8 +4,7 @@ import { sendWithdrawAsk } from '../services/emailService.js';
 const prisma = new PrismaClient();
 
 export const createWithdraw = async (req, res) => {
-    const { amount, vendorId, user } = req.body;
-
+    const { amount, vendorId, user, iban } = req.body;
     if (!amount || !vendorId) {
         return res.status(400).json({ error: 'Amount and vendorId are required' });
     }
@@ -19,7 +18,7 @@ export const createWithdraw = async (req, res) => {
                 date: new Date(),
             },
         });
-        //await sendWithdrawAsk(vendorId, amount, user);
+        await sendWithdrawAsk(vendorId, amount, user, iban );
 
         res.status(201).json(payout);
     } catch (error) {
