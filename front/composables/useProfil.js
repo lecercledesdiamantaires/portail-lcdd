@@ -54,7 +54,7 @@ export default function () {
                 `/api/picture/get-picture/${id}`,
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-            response.data.url = `/${response.data.url}`;
+            response.data.url = `${response.data.url}`;
             picture.value = response.data;
         } catch (error) {
             console.error('Erreur lors de la récupération de l\'image du vendeur :', error.response?.data || error.message);
@@ -97,8 +97,6 @@ export default function () {
     }
 
     
-
-
 
     return {
         getUser,

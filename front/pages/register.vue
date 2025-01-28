@@ -111,141 +111,140 @@ const onSubmit = handleSubmit(async(values) => {
 
 <template>
     <NuxtLayout name="unauthorized">
-      <div class="flex w-full bg-gray-100 items-center justify-center p-4">
+      <div class="flex w-full h-full bg-gray-100 items-center justify-center p-4">
+      <div class="w-full max-w-lg p-8 bg-white rounded-3xl shadow-lg">
+        <Logo color="colored" class="pb-6"/>
+        <h2 class="text-2xl font-bold text-center mb-6">S'inscrire</h2>
+        <form @submit.prevent="onSubmit">
 
-    <div class="w-full max-w-lg p-8 bg-white rounded-3xl shadow-lg">
-      <Logo color="colored" class="pb-6"/>
-      <h2 class="text-2xl font-bold text-center mb-6">S'inscrire</h2>
-      <form @submit.prevent="onSubmit">
-
-        <div class="mb-4">
-          <label for="picture" class="block text-sm font-medium">Photo de profil *</label>
-          <input 
-            id="picture" 
-            type="file" 
-            class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
-            accept=".jpeg, .jpg, .png"
-            @change="handleFile($event)"
-          />
-          <p v-if="firstNameError" class="text-sm text-danger mt-1">{{ firstNameError }}</p>
-        </div>
-        
-        <div class="sm:flex gap-2 ">
-          <!-- Prénom -->
-          <div class="mb-4 w-full">
-            <label for="firstName" class="block text-sm font-medium">Prénom *</label>
+          <div class="mb-4">
+            <label for="picture" class="block text-sm font-medium">Photo de profil *</label>
             <input 
-              v-model="firstName"
-              id="firstName" 
-              type="text" 
+              id="picture" 
+              type="file" 
               class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
-              placeholder="Entrez votre prénom"
+              accept=".jpeg, .jpg, .png"
+              @change="handleFile($event)"
             />
             <p v-if="firstNameError" class="text-sm text-danger mt-1">{{ firstNameError }}</p>
           </div>
           
-          <!-- Nom -->
-          <div class="mb-4 w-full">
-            <label for="lastName" class="block text-sm font-medium">Nom *</label>
-            <input 
-              v-model="lastName"
-              id="lastName" 
-              type="text" 
-              class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
-              placeholder="Entrez votre nom"
-            />
-            <p v-if="lastNameError" class="text-sm text-danger mt-1">{{ lastNameError }}</p>
+          <div class="sm:flex gap-2 ">
+            <!-- Prénom -->
+            <div class="mb-4 w-full">
+              <label for="firstName" class="block text-sm font-medium">Prénom *</label>
+              <input 
+                v-model="firstName"
+                id="firstName" 
+                type="text" 
+                class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
+                placeholder="Entrez votre prénom"
+              />
+              <p v-if="firstNameError" class="text-sm text-danger mt-1">{{ firstNameError }}</p>
+            </div>
+            
+            <!-- Nom -->
+            <div class="mb-4 w-full">
+              <label for="lastName" class="block text-sm font-medium">Nom *</label>
+              <input 
+                v-model="lastName"
+                id="lastName" 
+                type="text" 
+                class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
+                placeholder="Entrez votre nom"
+              />
+              <p v-if="lastNameError" class="text-sm text-danger mt-1">{{ lastNameError }}</p>
+            </div>
           </div>
-        </div>
-        
-        <!-- Email -->
-        <div class="mb-4">
-          <label for="email" class="block text-sm font-medium">Email *</label>
-          <input 
-            v-model="email"
-            id="email" 
-            type="email" 
-            class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
-            placeholder="exemple@domaine.com"
-          />
-          <p v-if="emailError" class="text-sm text-danger mt-1">{{ emailError }}</p>
-        </div>
+          
+          <!-- Email -->
+          <div class="mb-4">
+            <label for="email" class="block text-sm font-medium">Email *</label>
+            <input 
+              v-model="email"
+              id="email" 
+              type="email" 
+              class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
+              placeholder="exemple@domaine.com"
+            />
+            <p v-if="emailError" class="text-sm text-danger mt-1">{{ emailError }}</p>
+          </div>
 
-              <!-- Mot de passe -->
-        <div class="mb-4">
-          <label for="password" class="block text-sm font-medium">Mot de passe *</label>
-          <div class="relative">
-            <input 
-              v-model="password"
-              id="password" 
-              :type="showPassword ? 'text' : 'password'" 
-              class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
-              placeholder="Entrez un mot de passe sécurisé"
-            />
-            <button 
-              type="button"
-              @click="togglePasswordVisibility"
-              class="absolute inset-y-0 right-3 flex items-center text-gray-500 rounded-lg"
-            >
-              <component :is="showPassword ? Eye : EyeOff" />
-            </button>
-          </div>
-          <p v-if="passwordError" class="text-sm text-danger mt-1">{{ passwordError }}</p>
-        </div>
-        
-        <!-- Numéro de téléphone -->
-        <div class="mb-4">
-          <label for="phoneNumber" class="block text-sm font-medium">Numéro de téléphone *</label>
-          <div class="flex">
-            <select
-              v-model="selectedDialCode"
-              class="mt-1 p-2 border rounded-l-lg w-1/4 bg-gray-50 focus:ring-2 focus:ring-blue-500"
-            >
-              <option
-                v-for="country in countryCodes"
-                :key="country.code"
-                :value="country.dial_code"
+                <!-- Mot de passe -->
+          <div class="mb-4">
+            <label for="password" class="block text-sm font-medium">Mot de passe *</label>
+            <div class="relative">
+              <input 
+                v-model="password"
+                id="password" 
+                :type="showPassword ? 'text' : 'password'" 
+                class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
+                placeholder="Entrez un mot de passe sécurisé"
+              />
+              <button 
+                type="button"
+                @click="togglePasswordVisibility"
+                class="absolute inset-y-0 right-3 flex items-center text-gray-500 rounded-lg"
               >
-                {{ country.emoji }} {{ country.dial_code }}
-              </option>
-            </select>
-            <input 
-              v-model="phoneNumber"
-              id="phoneNumber" 
-              type="text" 
-              class="mt-1 p-2 w-3/4 border rounded-r-lg focus:ring-2 focus:ring-blue-500"
-              placeholder="Exemple : 612345678"
-            />
+                <component :is="showPassword ? Eye : EyeOff" />
+              </button>
+            </div>
+            <p v-if="passwordError" class="text-sm text-danger mt-1">{{ passwordError }}</p>
           </div>
-          <p v-if="phoneNumberError" class="text-sm text-danger mt-1">{{ phoneNumberError }}</p>
-        </div>
+          
+          <!-- Numéro de téléphone -->
+          <div class="mb-4">
+            <label for="phoneNumber" class="block text-sm font-medium">Numéro de téléphone *</label>
+            <div class="flex">
+              <select
+                v-model="selectedDialCode"
+                class="mt-1 p-2 border rounded-l-lg w-1/4 bg-gray-50 focus:ring-2 focus:ring-blue-500"
+              >
+                <option
+                  v-for="country in countryCodes"
+                  :key="country.code"
+                  :value="country.dial_code"
+                >
+                  {{ country.emoji }} {{ country.dial_code }}
+                </option>
+              </select>
+              <input 
+                v-model="phoneNumber"
+                id="phoneNumber" 
+                type="text" 
+                class="mt-1 p-2 w-3/4 border rounded-r-lg focus:ring-2 focus:ring-blue-500"
+                placeholder="Exemple : 612345678"
+              />
+            </div>
+            <p v-if="phoneNumberError" class="text-sm text-danger mt-1">{{ phoneNumberError }}</p>
+          </div>
 
-        <!-- Acceptation des termes -->
-        <div class="mb-4 flex items-center">
-          <input 
-            v-model="acceptTerms"
-            id="acceptTerms" 
-            type="checkbox" 
-            class="mr-2"
-            required
-          />
-          <label for="acceptTerms" class="text-sm">
-            J'accepte les 
-            <a href="#" class="text-primary">
-              termes et conditions
-            </a>
-          </label>
-        </div>
-        <p v-if="acceptTermsError" class="text-sm text-danger mt-1">{{ acceptTermsError }}</p>
+          <!-- Acceptation des termes -->
+          <div class="mb-4 flex items-center">
+            <input 
+              v-model="acceptTerms"
+              id="acceptTerms" 
+              type="checkbox" 
+              class="mr-2"
+              required
+            />
+            <label for="acceptTerms" class="text-sm">
+              J'accepte les 
+              <a href="#" class="text-primary">
+                termes et conditions
+              </a>
+            </label>
+          </div>
+          <p v-if="acceptTermsError" class="text-sm text-danger mt-1">{{ acceptTermsError }}</p>
 
-        <div class="flex flex-col gap-2">
-          <ButtonPrimary type="submit" class="w-full">S'inscrire</ButtonPrimary>
-          <ButtonSecondary class="w-full">
-                <NuxtLink class="w-full block" to="/login">J'ai déjà un compte ?</NuxtLink>
-          </ButtonSecondary>
-        </div>
-      </form>
-    </div>
+          <div class="flex flex-col gap-2">
+            <ButtonPrimary type="submit" class="w-full">S'inscrire</ButtonPrimary>
+            <ButtonSecondary class="w-full">
+                  <NuxtLink class="w-full block" to="/login">J'ai déjà un compte ?</NuxtLink>
+            </ButtonSecondary>
+          </div>
+        </form>
+      </div>
     </div>
 </NuxtLayout>
 
