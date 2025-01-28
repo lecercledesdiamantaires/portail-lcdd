@@ -6,7 +6,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const FRONT_URL = process.env.FRONT_URL;
-
+const BACK_URL = process.env.BACK_URL;
+const logoUrl = `${BACK_URL}/assets/pictures/favicon.png`
 
 export const sendResetPasswordEmail = async (email, token) => {
     const resetUrl = `${FRONT_URL}/resetpassword?token=${token}`;
@@ -15,6 +16,7 @@ export const sendResetPasswordEmail = async (email, token) => {
     let htmlTemplate = fs.readFileSync(templatePath, 'utf-8');
 
     htmlTemplate = htmlTemplate.replace('{{resetUrl}}', resetUrl);
+    htmlTemplate = htmlTemplate.replace('{{logoUrl}}', logoUrl);
 
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
@@ -36,8 +38,13 @@ export const sendResetPasswordEmail = async (email, token) => {
 
 
 export const sendWelcomeEmail = async (email) => {
+    const welcomeUrl = `${FRONT_URL}/register`;
     const templatePath = path.resolve('./templates/welcomeTemplate.html');
     let htmlTemplate = fs.readFileSync(templatePath, 'utf-8');
+
+    htmlTemplate = htmlTemplate.replace('{{welcomeUrl}}', welcomeUrl);
+    htmlTemplate = htmlTemplate.replace('{{logoUrl}}', logoUrl);
+
 
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
@@ -60,6 +67,8 @@ export const sendWelcomeEmail = async (email) => {
 export const sendWithdrawAsk = async (vendorId, amount, user, iban) => {
     const templatePath = path.resolve('./templates/withdrawTemplate.html');
     let htmlTemplate = fs.readFileSync(templatePath, 'utf-8');
+
+    htmlTemplate = htmlTemplate.replace('{{logoUrl}}', logoUrl);
 
     htmlTemplate = htmlTemplate.replace('{{vendorId}}', vendorId);
     htmlTemplate = htmlTemplate.replace('{{amount}}', amount);
