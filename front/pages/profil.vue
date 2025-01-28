@@ -70,8 +70,12 @@ const submit = async () => {
     alert("Informations incorrectes");
     return;
   }
-  profil.updateUser(user.value.id, user.value);
-  profil.updatePicture(user.value.id, selectedFile.value);
+  await profil.updateUser(user.value.id, user.value);
+  if (selectedFile.value) {
+    await profil.updatePicture(user.value.id, selectedFile.value);
+    const updatedPictureUrl = await profil.getPicture(user.value.id);
+    pictureUrl.value = updatedPictureUrl;
+  }
   localStorage.setItem('user', JSON.stringify(user.value));
   window.location.reload();
 };
@@ -85,7 +89,10 @@ const submit = async () => {
       <div v-if="isLoading" class="spinner"></div>
       
       <form @submit.prevent="submit" class="w-full max-w-md" v-else>
-        <img :src="`${API_BASE_URL}${profil.picture.value.url}`" alt="photo de profil" class="w-24 h-24 rounded-full mb-4 bg-white" />
+
+
+        <img v-if="pictureUrl" :src="pictureUrl" alt="photo de profil" class="w-24 h-24 rounded-full mb-4 bg-white" />
+        <img v-else :src="`${API_BASE_URL}${profil.picture.value.url}`" alt="photo de profil" class="w-24 h-24 rounded-full mb-4 bg-white" />
        
        
         <div>
