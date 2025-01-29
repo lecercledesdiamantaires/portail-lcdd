@@ -95,3 +95,27 @@ export const sendWithdrawAsk = async (vendorId, amount, user, iban) => {
     await transporter.sendMail(mailOptions);
 }
 
+export const sendWithdrawAccept = async (email, amount) => {
+    const templatePath = path.resolve('./templates/withdrawAcceptTemplate.html');
+    let htmlTemplate = fs.readFileSync(templatePath, 'utf-8');
+
+    htmlTemplate = htmlTemplate.replace('{{logoUrl}}', logoUrl);
+    htmlTemplate = htmlTemplate.replace('{{amount}}', amount);
+
+    const transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+        },
+    });
+
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: 'Retrait accepté',
+        html: htmlTemplate, 
+    };
+
+    await transporter.sendMail(mailOptions);
+}

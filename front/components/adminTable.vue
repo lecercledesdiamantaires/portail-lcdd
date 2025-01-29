@@ -55,7 +55,7 @@
                         'bg-blueLight': user.role === 'ADMIN'
                     }"
                 >
-                    <adminRow>{{user.withdraws.length}}</adminRow>
+                    <adminRow>{{user.withdraws?.length}}</adminRow>
                     <adminRow>
                         <select class="p-2 outline-none" v-model="user.role" @change="profil.updateUserRole(user.userId, user.role)">
                             <option value="ADMIN">ADMIN</option>

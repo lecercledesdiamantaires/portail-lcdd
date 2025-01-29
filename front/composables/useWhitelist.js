@@ -134,21 +134,22 @@ export default function () {
 
     const combinedData = computed(() => {
         return whitelist.value.map(item => {
-            console.log(item)
             const user = users?.value?.find(user => user?.id === item?.userId);
             const vendor = vendors?.value?.find(vendor => vendor?.userId === item?.userId);
-            const withdrawsForVendor = vendor
-                ? withdraws?.value?.filter(withdraw => withdraw?.vendorId === vendor?.id)
+            const pendingWithdraws = vendor
+                ? withdraws?.value?.filter(
+                    withdraw => withdraw?.vendorId === vendor?.id && withdraw?.status === 'PENDING'
+                )
                 : [];
             return {
                 ...item,
-                role: user ? user.role : 'Unknown',
-                lastName: user ? user.lastName : 'Unknown',
-                firstName: user ? user.firstName : 'Unknown',
-                phoneNumber: user ? user.phoneNumber : 'Unknown',
+                role: user ? user.role : 'N/A',
+                lastName: user ? user.lastName : 'N/A',
+                firstName: user ? user.firstName : 'N/A',
+                phoneNumber: user ? user.phoneNumber : 'N/A',
                 promoCode: vendor ? vendor.promoCode : null,
-                vendorId: vendor ? vendor.id : null,
-                withdraws: withdrawsForVendor // Inclure tous les retraits associés
+                vendorIban: vendor?.iban ? vendor.iban : 'N/A',
+                withdraws: pendingWithdraws
             };
         });
     });

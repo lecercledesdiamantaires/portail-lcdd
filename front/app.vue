@@ -23,6 +23,8 @@ import { provide, useAttrs } from "vue";
   provide('iban', iban);
   const withdraw = useWithdraw();
   provide('withdraw', withdraw);
+  const admin = useAdmin();
+  provide('admin', admin);
 </script>
 
 

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retrait accepté</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #006D5C;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        img {
+            width: 80px !important;
+            height: auto !important;
+        }
+        .button:hover {
+            background-color: #00524D;
+        }
+        .button:active {
+            background-color: #00403A;
+        }
+        .button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 109, 92, 0.5);
+        }
+
+        .footer {
+            margin-top: 30px;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 15px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+        .footer a {
+            color: #006D5C !important;
+            text-decoration: none !important;
+        }
+        .footer a:hover {
+            text-decoration: underline !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="logo">
+            <img src="{{logoUrl}}" alt="Logo Cercle des Diamantaires">
+        </div>
+
+        <h1>Votre retrait à été validé</h1>
+        <br>
+        <p>Le paiement que vous avez demandé de {{amount}}€ viens d'être effectué</p>
+        <p>Il devrait apparaître sur le compte bancaire indiqué dans un délai de trois jours ouvrés.</p>
+        <br>
+        <p>Si vous n'avez pas reçu le paiement dans un délai de trois jours ouvrés à partir de la date de cet e-mail, veuillez contacter l'adresse indiquée ci-dessous.</p>
+
+
+        <div class="footer">
+            <p>Pour toute question ou assistance, contactez-nous :</p>
+            <p>Email : <a href="mailto:contact@lecercledesdiamantaires.com">contact@lecercledesdiamantaires.com</a></p>
+            <p>Téléphone : <a href="tel:+33186043831">01 86 04 38 31</a></p>
+            <p>&copy; 2025 Cercle des Diamantaires. Tous droits réservés.</p>
+        </div>
+    </div>
+</body>
+</html>
