@@ -41,6 +41,8 @@ export default {
       yellowLight: "#FFF3CD",
       purple : "#FAA6FF",
       purpleLight : "#F7EFFF",
+      brown : "#894106",
+      brownLight : "#FFD7BA",
 
       // Gray Scale
       gray: {

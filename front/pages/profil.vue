@@ -91,7 +91,7 @@ const submit = async () => {
   <NuxtLayout name="default" class="bg-gray-100">
     <div class="bg-gray-100 flex justify-center items-center h-screen w-full">
 
-      <div class="flex flex-col justify-center items-center p-8 bg-white rounded-xl shadow-lg max-w-lg w-full">
+      <div class="flex flex-col justify-center items-center p-8 bg-white rounded-3xl shadow-lg max-w-lg w-full">
         <h1 class="text-3xl w-full max-w-md font-bold mb-4">Mon profil</h1>
 
         <div v-if="isLoading" class="spinner"></div>
