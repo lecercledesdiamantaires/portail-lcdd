@@ -4,6 +4,11 @@
     if (process.client){
         user.value = JSON.parse(localStorage.getItem('user'));
     }
+    const adjustHeight = (event) => {
+        const textarea = event.target;
+        textarea.style.height = 'auto';
+        textarea.style.height = `${textarea.scrollHeight}px`;
+    }
 </script>
 
 
@@ -21,8 +26,9 @@
                     </div>
                     <div class="mb-4">
                         <label class="block text-sm font-medium"  for="message">Message:</label>
-                        <textarea id="message" class="mt-1 p-2 w-full h-full border rounded-lg focus:ring-2 focus:ring-blue-500"
-                        v-model="email.message.value" required></textarea>
+                        <textarea id="message" class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500 resize-none max-h-72"
+                        v-model="email.message.value" required
+                        rows="1" @input="adjustHeight"></textarea>
                     </div>
                     <ButtonPrimary type="submit" class="w-full" @click="email.sendEmailContact(user.email, email.subject.value, email.message.value )">
                         Envoyer
