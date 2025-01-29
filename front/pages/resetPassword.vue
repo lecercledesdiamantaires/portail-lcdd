@@ -3,6 +3,7 @@
 
     <div class="flex justify-center items-center h-screen">
       <div class="w-full max-w-md p-8 bg-white rounded-3xl shadow-lg">
+        <Logo color="colored" class="pb-6"/>
         <h2 class="text-2xl font-bold text-center mb-6">Réinitialiser le mot de passe</h2>
         <form @submit.prevent="onSubmit">
           <div class="mb-4">
@@ -11,20 +12,21 @@
               v-model="password"
               id="password" 
               type="password" 
-              class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
+              class="mt-1 p-2 w-full border rounded-xl"
               placeholder="Entrez un nouveau mot de passe"
               required
             />
             <p v-if="passwordError" class="text-sm text-danger mt-1">{{ passwordError }}</p>
           </div>
-          <ButtonSecondary type="submit" class="w-full">Réinitialiser</ButtonSecondary>
+          <div class="flex flex-col gap-2">
+            <ButtonSecondary type="submit" class="w-full">Réinitialiser</ButtonSecondary>
+            <ButtonPrimary v-if="message" class="w-full ">
+                <NuxtLink to="/login">Se connecter</NuxtLink>
+            </ButtonPrimary>
+          </div>
         </form>
-        <ButtonPrimary v-if="message" class="w-full">
-          <NuxtLink to="/login">Se connecter</NuxtLink>
-        </ButtonPrimary>
         <p v-if="message" class="text-sm text-success my-4">{{ message }}</p>
-        <p v-if="errorMessage" class="text-sm text-danger mt-4">{{ errorMessage }}</p>
-      
+        <p v-else-if="errorMessage" class="text-sm text-danger mt-4">{{ errorMessage }}</p>
       </div>
     </div>
   </NuxtLayout>
@@ -56,13 +58,15 @@ const { value: password, errorMessage: passwordError } = useField('password')
 
 const onSubmit = handleSubmit(async (values) => {
   try {
-    const response = await$axios.post('/api/auth/reset-password', {
+    const response = await $axios.post('/api/auth/reset-password', {
       token: route.query.token,
       password: values.password
     })
     message.value = response.data.message
   } catch (error) {
     errorMessage.value = error.response?.data?.error || 'Une erreur s\'est produite'
+    console.error(error)
+
   }
 })
 </script>

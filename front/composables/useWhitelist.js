@@ -7,9 +7,9 @@ export default function () {
     const newEmail = ref('')
     const users = ref(null)
     const vendors = ref(null)
-    const vendorsDetails = ref(null)
     const errorMessage = ref(null)
-    
+    const withdraws = ref(null)
+
     let token = null
     if (typeof window !== 'undefined' && window.localStorage) {
         token = localStorage.getItem('token')
@@ -66,6 +66,7 @@ export default function () {
             whitelist.value = response.data.whitelist || []
             await getUsers(token)
             await getVendors(token)
+            await getWithdraws(token)
         } catch (error) {
         console.error('Erreur lors de la récupération de la whitelist :', error.response?.data || error.message)
         }
@@ -94,6 +95,7 @@ export default function () {
             console.error('Erreur lors de la récupération des vendors :', error.response?.data || error.message)
         }
     }
+
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         return emailRegex.test(email)
@@ -108,7 +110,7 @@ export default function () {
             errorMessage.value = "Veuillez entrer une adresse e-mail valide."
             setTimeout(() => {
                 errorMessage.value = null
-              }, 2000)  
+            }, 2000)  
         }
     }
     
@@ -117,19 +119,42 @@ export default function () {
         await getWhitelist(token)
     }
 
+    const getWithdraws = async (token) => {
+        try {
+            const response = await $axios.get(
+                `/api/withdraw/all`,
+                { headers: { Authorization: `Bearer ${token}` } }
+            )
+            withdraws.value = response.data
+        } catch (error) {
+            console.error('Erreur lors de la récupération des payouts :', error.response?.data || error.message)
+        }
+    }
+
     const combinedData = computed(() => {
         return whitelist.value.map(item => {
-            const user = users?.value?.find(user => user?.id === item?.userId)
-            const vendor = vendors?.value?.find(vendor => vendor?.userId === item?.userId)
+            const user = users?.value?.find(user => user?.id === item?.userId);
+            const vendor = vendors?.value?.find(vendor => vendor?.userId === item?.userId);
+            const pendingWithdraws = vendor
+                ? withdraws?.value?.filter(
+                    withdraw => withdraw?.vendorId === vendor?.id && withdraw?.status === 'PENDING'
+                )
+                : [];
             return {
                 ...item,
-                role: user ? user.role : 'Unknown',
-                lastName: user ? user.lastName : 'Unknown',
-                firstName: user ? user.firstName : 'Unknown',
-                phoneNumber: user ? user.phoneNumber : 'Unknown',
+                role: user ? user.role : 'N/A',
+                lastName: user ? user.lastName : 'N/A',
+                firstName: user ? user.firstName : 'N/A',
+                phoneNumber: user ? user.phoneNumber : 'N/A',
                 promoCode: vendor ? vendor.promoCode : null,
-            }
-        })
+                vendorIban: vendor?.iban ? vendor.iban : 'N/A',
+                withdraws: pendingWithdraws
+            };
+        });
+    });
+
+    const withdrawsPending = computed(() => {
+        return withdraws.value?.filter(withdraw => withdraw.status === 'PENDING')
     })
 
 
@@ -154,6 +179,8 @@ export default function () {
         users,
         newEmail,
         whitelist,
+        withdraws,
+        withdrawsPending,   
         combinedData,
         errorMessage,
         validateEmail,

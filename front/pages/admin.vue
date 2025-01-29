@@ -16,17 +16,20 @@
 
 
 <template>
-    <div class="flex-1 p-2 sm:p-8">
-        <div class="flex items-center justify-between mb-2 sm:mb-6">
+    <div class="flex flex-1 flex-col gap-4 p-2 sm:p-8">
+        <div class="flex items-center justify-between sm:mb-6">
             <HelloText />   
             <ButtonDanger @click="auth.logout()">
                 Déconnexion
             </ButtonDanger>
         </div>
+        <WithdrawPendingAlert />
         <InputWhitelist />
-        <SearchBar />
-        <div class="overflow-x-auto">
-            <AdminTable />   
+        <div>
+            <SearchBar />
+            <div class="overflow-x-auto">
+                <AdminTable />   
+            </div>
         </div>
     </div>
 </template>

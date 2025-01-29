@@ -158,7 +158,6 @@ export const forgotPassword = async (req, res) => {
 export const resetPassword = async (req, res) => {
     const { token, password } = req.body;
     const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
-
     const user = await prisma.user.findFirst({
         where: {
             resetPasswordToken: hashedToken,
@@ -170,13 +169,13 @@ export const resetPassword = async (req, res) => {
         return res.status(400).json({ error: 'Le lien de réinitialisation est invalide ou a expiré' });
     }
 
-    user.password = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
     await prisma.user.update({
         where: { id: user.id },
         data: {
-            password: user.password,
+            password: hashedPassword,
             resetPasswordToken: user.resetPasswordToken,
             resetPasswordExpires: user.resetPasswordExpires,
         },

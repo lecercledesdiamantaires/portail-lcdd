@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-import { sendWithdrawAsk } from '../services/emailService.js';
+import { sendWithdrawAsk, sendWithdrawAccept } from '../services/emailService.js';
+import exp from 'constants';
 
 const prisma = new PrismaClient();
 
@@ -40,18 +41,29 @@ export const getWithdrawById = async (req, res) => {
     }
 }
 
+export const getWithdraws = async (req, res) => {
+    try {
+        const payouts = await prisma.payout.findMany();
+        res.status(200).json(payouts);
+    } catch (error) {
+        console.error('Error getting payouts:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
 export const acceptWithdraw = async (req, res) => {
     const { id } = req.params;
+    const { amount, email } = req.body;
 
     if (!id) {
         return res.status(400).json({ error: 'Withdraw ID is required' });
     }
-
     try {
         const payout = await prisma.payout.update({
             where: { id: parseInt(id) },
-            data: { status: 'ACCEPTED' },
+            data: { status: 'PAID' },
         });
+        await sendWithdrawAccept(email, amount)
         res.status(200).json(payout);
     } catch (error) {
         console.error('Error accepting payout:', error);

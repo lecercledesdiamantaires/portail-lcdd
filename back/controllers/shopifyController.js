@@ -37,11 +37,8 @@ export const getSalesByDiscountCode = async (req, res) => {
         const { code } = req.params;
         const sales = await getSales()
         const salesWithDiscountCode = sales.filter(sale => sale.discount_codes.some(discountCode => discountCode.code === code));
-        if (salesWithDiscountCode.length === 0) {
-            res.status(404).json({ error: 'Aucune vente trouvée avec ce code promo.' });
-        } else {
-            res.status(200).json(salesWithDiscountCode);
-        }
+        res.status(200).json(salesWithDiscountCode);
+    
     } catch (error) {
         console.error('Erreur lors de la récupération des ventes par code promo :', error);
         res.status(500).json({ error: 'Erreur lors de la récupération des ventes par code promo.' });

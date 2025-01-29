@@ -292,7 +292,7 @@ const chartData = computed(() => {
         
         if (cancelled) {
             return 'cancelled';
-        } else if (confirmed && financialStatus === 'paid' && !cancelled && differenceInDays(currentDate, orderDateObj) >= 15){
+        } else if (confirmed && financialStatus === 'paid' && !cancelled && differenceInDays(currentDate, orderDateObj) >= 30){
             return 'confirmed';
         } else {
             return 'pending'; 
@@ -330,9 +330,9 @@ const chartData = computed(() => {
                 });
             })
             .catch((error) => {
-                console.error('Error fetching sales:', error);
+                return error;
             });
-    };
+        };
     
     const totalAmountConfirmed = computed(() => {
         return salesData.reduce((total, data) => {

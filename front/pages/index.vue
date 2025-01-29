@@ -12,7 +12,7 @@
    if (process.client){
       promoCode.value = localStorage.getItem('promoCode');
       user.value = JSON.parse(localStorage.getItem('user'));
-      sales.getSales(promoCode.value);
+      console.log(sales.getSales(promoCode.value));
       setTimeout(() => {
          canShowCardValue.value = true
       }, 800)
@@ -25,7 +25,7 @@
             <HelloText class="xs:pl-20 lg:pl-0"/>   
             <CardInfosContainer />
             <div class="flex gap-4 xl:flex-row xs:flex-col">
-               <CardQrCode :promoCode="promoCode" :user="user"/>
+               <CardQrCode v-if="user" :promoCode="promoCode" :user="user"/>
                <div class="flex flex-col gap-4 w-full flex-1">
                   <div class="flex justify-between items-center">
                      <h2 class="text-2xl font-semibold">Dernières transactions</h2>
