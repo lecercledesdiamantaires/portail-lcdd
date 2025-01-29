@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #006D5C;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        img {
+            width: 80px !important;
+            height: auto !important;
+        }
+        .button:hover {
+            background-color: #00524D;
+        }
+        .button:active {
+            background-color: #00403A;
+        }
+        .button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 109, 92, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="logo">
+            <img src="{{logoUrl}}" alt="Logo Cercle des Diamantaires">
+        </div>
+
+        <h1>Contact</h1>
+        <br>
+        <p>De la part de {{email}}</p>
+        <br>
+        <h2>Sujet :</h2>
+        <p>{{subject}}</p>
+        <br>
+        <h2>Message :</h2>
+        <p>{{message}}</p>
+    </div>
+</body>
+</html>

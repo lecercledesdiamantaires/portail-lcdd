@@ -119,3 +119,31 @@ export const sendWithdrawAccept = async (email, amount) => {
 
     await transporter.sendMail(mailOptions);
 }
+
+
+export const sendMailContact = async (email, subject, message) => {
+    const templatePath = path.resolve('./templates/contactTemplate.html');
+    let htmlTemplate = fs.readFileSync(templatePath, 'utf-8');
+
+    htmlTemplate = htmlTemplate.replace('{{logoUrl}}', logoUrl);
+    htmlTemplate = htmlTemplate.replace('{{email}}', email);
+    htmlTemplate = htmlTemplate.replace('{{subject}}', subject);
+    htmlTemplate = htmlTemplate.replace('{{message}}', message);
+
+    const transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+        },
+    });
+
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: process.env.EMAIL_USER,
+        subject: 'Nouveau message de contact',
+        html: htmlTemplate,
+    };
+
+    await transporter.sendMail(mailOptions);
+};

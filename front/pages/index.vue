@@ -1,4 +1,6 @@
 <script setup>
+import ButtonPrimary from '~/components/buttonPrimary.vue';
+
    definePageMeta({
          middleware: ['auth', 'vendor']
    })
@@ -35,6 +37,17 @@
                </div>
             </div> 
             <CardChart v-if="canShowCardValue" />
+            <div class="w-full rounded-3xl bg-white p-6">
+               <div class="flex flex-col items-center gap-4">
+                  <h2 class="text-2xl font-semibold">Contactez nous</h2>
+                  <p class="text-center">Si vous avez le moindre problème ou la moindre demande contactez nous</p>
+                  <ButtonPrimary>
+                     <NuxtLink to="/contact">Contactez nous</NuxtLink>
+                  </ButtonPrimary>
+
+               </div>
+             
+            </div>
          </div>
       </NuxtLayout>
 </template>

@@ -25,6 +25,8 @@ import { provide, useAttrs } from "vue";
   provide('withdraw', withdraw);
   const admin = useAdmin();
   provide('admin', admin);
+  const email = useEmail();
+  provide('email', email);
 </script>
 
 
