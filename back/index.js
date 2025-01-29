@@ -9,7 +9,6 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import shopifyRoutes from './routes/shopifyRoutes.js';
 
-
 dotenv.config();
 
 const app = express();

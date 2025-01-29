@@ -29,7 +29,6 @@
                     Recevoir mes commissions
                 </ButtonPrimary>
                 <p v-if="withdraw.errorMessage" class="text-red">{{ withdraw.errorMessage }}</p>
-                <p v-if="withdraw.successMessage" class="text-green">{{ withdraw.successMessage }}</p>
             </div>
         </div>
 </template>
