@@ -30,5 +30,5 @@
 </script>
 
 <template>
-    <img :src="`${API_BASE_URL}/${profil.picture.value?.url}`" alt="photo de profil" class="w-24 h-24 rounded-full mb-4 bg-white object-scale-down " />
+    <img :src="`${API_BASE_URL}/${profil.picture.value?.url}`" alt="photo de profil" class="w-24 h-24 rounded-full mb-4 bg-white object-cover" />
 </template>

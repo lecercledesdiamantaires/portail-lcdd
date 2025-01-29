@@ -7,10 +7,9 @@ export default function () {
     const newEmail = ref('')
     const users = ref(null)
     const vendors = ref(null)
-    const vendorsDetails = ref(null)
     const errorMessage = ref(null)
     const withdraws = ref(null)
-    
+
     let token = null
     if (typeof window !== 'undefined' && window.localStorage) {
         token = localStorage.getItem('token')
@@ -154,6 +153,10 @@ export default function () {
         });
     });
 
+    const withdrawsPending = computed(() => {
+        return withdraws.value?.filter(withdraw => withdraw.status === 'PENDING')
+    })
+
 
     const deleteVendor = async (id) => {
         try {
@@ -176,6 +179,8 @@ export default function () {
         users,
         newEmail,
         whitelist,
+        withdraws,
+        withdrawsPending,   
         combinedData,
         errorMessage,
         validateEmail,

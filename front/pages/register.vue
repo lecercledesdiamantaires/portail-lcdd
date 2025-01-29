@@ -1,6 +1,8 @@
 <script setup>
 import countryCodes from '~/assets/country-codes.json'
 import { useField, useForm } from 'vee-validate'
+import { Eye, EyeOff } from 'lucide-vue-next'
+
 import * as yup from 'yup'
 import Swal from "sweetalert2";
 
@@ -111,7 +113,7 @@ const onSubmit = handleSubmit(async(values) => {
 
 <template>
     <NuxtLayout name="unauthorized">
-      <div class="flex w-full h-full bg-gray-100 items-center justify-center p-4">
+      <div class="flex w-full h-screen overflow-y-auto bg-gray-100 items-center justify-center p-4">
       <div class="w-full max-w-lg p-8 bg-white rounded-3xl shadow-lg">
         <Logo color="colored" class="pb-6"/>
         <h2 class="text-2xl font-bold text-center mb-6">S'inscrire</h2>
@@ -122,10 +124,11 @@ const onSubmit = handleSubmit(async(values) => {
             <input 
               id="picture" 
               type="file" 
-              class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
+              class="flex h-9 w-full rounded-lg border border-input text-sm file:border-0 file:rounded file:bg-transparent file:text-foreground file:text-sm file:font-medium file:p-2"
               accept=".jpeg, .jpg, .png"
               @change="handleFile($event)"
             />
+            <p class="mt-1 text-sm text-gray-500" id="file_input_help">PNG, JPG or JPEG.</p>
             <p v-if="firstNameError" class="text-sm text-danger mt-1">{{ firstNameError }}</p>
           </div>
           

@@ -18,7 +18,7 @@
                 <table class="bg-white rounded-3xl w-full table-auto flex flex-col items-center"> 
                     <thead class="border-b border-gray-100 w-full pb-4 md:block">
                         <tr class="flex justify-between items-center w-full gap-4">
-                            <TableHead label="Type" />
+                            <TableHead label="Type" class="xs:hidden md:block"  />
                             <TableHead label="Client" />
                             <TableHeadWithFilter label="Date" columnFilter="orderDate" class="xs:hidden md:flex"  />
                             <TableHeadWithFilter label="Montant" columnFilter="orderAmount" />
