@@ -21,6 +21,7 @@
     "os": "^0.1.2",
     "require": "^2.4.20",
     "vue": "latest",
-    "vue-router": "latest"
+    "vue-router": "latest",
+    "vue3-pdf": "^4.2.6"
   }
 }

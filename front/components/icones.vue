@@ -23,6 +23,7 @@
       blue: '#0D6EFD',
       purple: '#FAA6FF',
       red: '#DC3545',
+      brown: '#894106'
     };
     return colors[props.color] || props.color;
   });
@@ -34,6 +35,7 @@
       blue: 'bg-blueLight',
       purple: 'bg-purpleLight',
       red: 'bg-redLight-50',
+      brown: 'bg-brownLight'
     };
     return bgColors[props.color] || props.bgColor;
   });
