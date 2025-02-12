@@ -17,7 +17,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'https://partenaire.lecercledesdiamantaires.com',
+    methods: 'GET,POST,PUT,DELETE',
+    allowedHeaders: 'Content-Type,Authorization',
+}));
 app.use(bodyParser.json());
 app.use('/shopify', shopifyRoutes);
 
