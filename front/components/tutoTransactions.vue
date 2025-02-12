@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center justify-between w-full gap-5 xs:flex-col md:flex-row shadow-lg">
-    <div class="flex flex-col items-start justify-center gap-4 max-w-lg flex-1 min-w-sm">
+    <div class="flex flex-col xs:items-center md:items-start justify-center gap-4 max-w-lg flex-1 min-w-sm">
       <h2 class="text-2xl font-bold xs:text-center md:text-start w-full">Comment retirer vos commissions ?</h2>
       <p class="xs:text-center md:text-start">Lorsque vous réalisez une vente, votre commission est mise en attente pendant 30 jours. Ce délai permet de valider la réception du bijou par le client et sa satisfaction.<br>
       Une fois ce délai écoulé, rendez-vous dans la <NuxtLink to="/transactions" class="font-bold text-primary">Page Transactions</NuxtLink> pour demander vos commissions. C’est simple, rapide et sécurisé !</p>
