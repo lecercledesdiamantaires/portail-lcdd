@@ -18,7 +18,7 @@ const __dirname = path.dirname(__filename);
 
 app.use(express.json());
 app.use(cors({
-    origin: 'https://partenaire.lecercledesdiamantaires.com',
+    origin: 'https://portail-lcdd.vercel.app',
     methods: 'GET,POST,PUT,DELETE',
     allowedHeaders: 'Content-Type,Authorization',
 }));
