@@ -29,18 +29,21 @@
         </div>
         <div class="container-card flex flex-col rounded-3xl max-h-72 h-full justify-between">
             <div class=" flex p-6 gap-4">
-                <img :src="data" alt="qr code" class="qr-code rounded-3xl md:h-40 md:w-40 xs:h-32 xs:w-32"/>
+                <img :src="data" alt="qr code" class="qr-code rounded-2xl md:h-40 md:w-40 xs:h-32 xs:w-32"/>
                 <div class="flex flex-col items-end justify-between h-full flex-1">
-                    <Logo color="white" height="h-full" width="w-full" class="h-16 w-16"/>
+                    <ProfilePicture :userId="7" size="w-20 aspect-square"/>
                     <div class="flex flex-col items-start w-full">
-                        <h4 class="md:text-sm uppercase font-extralight text-gray-200 tracking-wider xs:text-xs" >Propriétaire</h4>
-                        <p class="md:text-lg text-white xs:text-md capitalize">{{ user?.firstName }} {{ user?.lastName }}</p>
+                        <p class="md:text-lg text-white xs:text-md capitalize">{{ user?.firstName }}</p>
+                        <p class="md:text-lg text-white xs:text-md uppercase">{{ user?.lastName }}</p>
                     </div>
                 </div>
             </div>
-            <div class="bottom-card w-full h-full px-6 py-5  rounded-b-3xl">
-                <p class="text-xs text-white">Mon code promo :</p>
-                <p class="text-lg text-white">{{ promoCode }}</p>
+            <div class="bottom-card w-full h-full px-6 py-5 rounded-b-3xl flex justify-between items-center">
+                <div>
+                    <h4 class="md:text-sm uppercase font-extralight text-gray-200 tracking-wider xs:text-xs" >Code promo :</h4>
+                    <p class="text-lg text-white">{{ promoCode }}</p>
+                </div>
+                <Logo color="white" height="h-full" width="w-full" class="h-12 w-12"/>
             </div>
         </div>
     </div>
