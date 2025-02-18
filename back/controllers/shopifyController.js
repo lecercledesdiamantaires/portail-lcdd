@@ -3,6 +3,9 @@ import { createShopifyDiscountCode, getShopifyDiscountCodes, getSales, deleteSho
 export const createDiscountCode = async (req, res) => {
     try {
         const { code } = req.body; 
+        if (code === 'null') {
+            return res.status(400).json({ error: 'Invalid ID parameter' });
+        }
         const priceRuleId = '2140950135119';
         const discountCode = await createShopifyDiscountCode(priceRuleId, code);
         
@@ -17,6 +20,9 @@ export const createDiscountCode = async (req, res) => {
 export const getDiscountCodeByName = async (req, res) => {
     try{
         const { code } = req.params;
+        if (code === 'null') {
+            return res.status(400).json({ error: 'Invalid ID parameter' });
+        }
         const priceRuleId = '2140950135119'; 
         const discountCodes = await getShopifyDiscountCodes(priceRuleId)
         const discountCodesList = discountCodes.discount_codes || [];
