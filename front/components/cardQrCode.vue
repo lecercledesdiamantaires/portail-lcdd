@@ -31,7 +31,7 @@
             <div class=" flex p-6 gap-4">
                 <img :src="data" alt="qr code" class="qr-code rounded-2xl md:h-40 md:w-40 xs:h-32 xs:w-32"/>
                 <div class="flex flex-col items-end justify-between h-full flex-1">
-                    <ProfilePicture :userId="7" size="w-20 aspect-square"/>
+                    <ProfilePicture :userId="user?.id" size="w-20 aspect-square"/>
                     <div class="flex flex-col items-start w-full">
                         <p class="md:text-lg text-white xs:text-md capitalize">{{ user?.firstName }}</p>
                         <p class="md:text-lg text-white xs:text-md uppercase">{{ user?.lastName }}</p>
