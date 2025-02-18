@@ -4,6 +4,10 @@
             type: Number,
             required: true,
         },
+        size : {
+            type: String,
+            default: 'w-24 h-24 mb-4'
+        }
     });
 
     const profil = inject('profil');
@@ -30,5 +34,6 @@
 </script>
 
 <template>
-    <img :src="`${API_BASE_URL}/${profil.picture.value?.url}`" alt="photo de profil" class="w-24 h-24 rounded-full mb-4 bg-white object-cover" />
+    <img :src="`${API_BASE_URL}/${profil.picture.value?.url}`" alt="photo de profil" class="rounded-full bg-white object-cover" :class="size" />
+
 </template>
