@@ -8,6 +8,7 @@ import vendorRoutes from './routes/vendorRoutes.js';
 import pictureRoutes from './routes/pictureRoutes.js';
 import withdrawRoutes from './routes/withdrawRoutes.js';
 import emailRoutes from './routes/emailRoutes.js';
+import shopifyRoutes from './routes/shopifyRoutes.js';
 
 const router = Router();
 
@@ -19,6 +20,7 @@ router.use('/vendor', vendorRoutes);
 router.use('/picture', pictureRoutes);
 router.use('/withdraw', withdrawRoutes);
 router.use('/email', emailRoutes);  
+router.use('/shopify', shopifyRoutes);
 
 
 

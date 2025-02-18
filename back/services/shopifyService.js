@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { PrismaClient } from '@prisma/client';
+import dotenv from 'dotenv';
+dotenv.config();
 const prisma = new PrismaClient();
 
 const SHOPIFY_BASE_URL = process.env.SHOPIFY_BASE_URL; // URL de base Shopify

@@ -1,6 +1,11 @@
 <script setup>
-import { provide, useAttrs } from "vue";
-
+  import { provide, useAttrs } from "vue";
+	
+  useHead({
+    link: [
+      { rel: 'icon', type: 'image/png', href: '/favicon.ico' }
+    ]
+  })
   const qrCode = useQrCode();
   provide('qrCode', qrCode);
   const shopifyApi = useShopifyApi();
