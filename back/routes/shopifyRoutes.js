@@ -1,6 +1,7 @@
-import express from 'express';
-const router = express.Router();
+import { Router } from 'express';
 import { createDiscountCode, getDiscountCodeByName, getSalesByDiscountCode, deleteDiscountCode } from '../controllers/shopifyController.js';
+
+const router = Router();
 
 router.post('/discount-code', createDiscountCode);
 router.get('/get-code/:code', getDiscountCodeByName);
