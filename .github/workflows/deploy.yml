@@ -21,9 +21,8 @@ jobs:
           script: |
             cd /var/www/portail-lcdd
             git pull origin main
-            npm install --production
             cd front
-            npm run build
+            /home/ubuntu/.nvm/versions/node/v22.14.0/bin/npm run build
             cd ..
-            pm2 restart all
+            /home/ubuntu/.nvm/versions/node/v22.14.0/bin/pm2 restart all
             sudo systemctl restart nginx
