@@ -5,7 +5,7 @@ export default defineNuxtConfig({
       titleTemplate: '%s',
       title: 'Portail partenaire',
       meta: [
-{
+        { 
           name: 'apple-mobile-web-app-capable',
           content: 'yes'
         },
