@@ -32,5 +32,3 @@ jobs:
             cd ..
             pm2 restart all
             sudo systemctl restart nginx
-          shell: bash
-
