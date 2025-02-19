@@ -3,9 +3,9 @@ export default defineNuxtConfig({
   app: {
     head: {
       titleTemplate: '%s',
-      title: 'App Name',
+      title: 'Portail partenaire',
       meta: [
-	{
+{
           name: 'apple-mobile-web-app-capable',
           content: 'yes'
         },
@@ -15,12 +15,12 @@ export default defineNuxtConfig({
         },
       ],   
       link: [
-         {
-           rel: 'apple-touch-icon',
-           type: 'image/png',
+        {
+          rel: 'apple-touch-icon',
+          type: 'image/png',
            href: '/public/apple-touch-icon.png' // [your-domain]
-         },
-         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+        },
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
       ]
     }
   },
