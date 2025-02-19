@@ -15,7 +15,7 @@ export default defineNuxtConfig({
         },
       ],   
       link: [
-        { 
+        {
           rel: 'apple-touch-icon',
           type: 'image/png',
            href: '/public/apple-touch-icon.png' // [your-domain]
