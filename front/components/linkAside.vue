@@ -13,7 +13,7 @@ defineProps({
 
 const getLink = (direction) => {
   switch (direction) {
-    case 'dashboard':
+    case 'accueil':
       return '/';
     case 'profil':
       return '/profil';
@@ -35,7 +35,7 @@ const isActive = (direction) => {
 
 const getIcon = (direction) => {
   switch (direction) {
-    case 'dashboard':
+    case 'accueil':
       return "house";
     case 'profil':
       return "user";
