@@ -22,6 +22,8 @@ jobs:
             cd /var/www/portail-lcdd
             git pull origin main
             npm install --production
+            cd front
             npm run build
+            cd ..
             pm2 restart all
             sudo systemctl restart nginx
