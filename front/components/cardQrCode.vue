@@ -40,7 +40,7 @@
             </div>
             <div class="bottom-card w-full h-full px-6 py-5 rounded-b-3xl flex justify-between items-center">
                 <div>
-                    <h4 class="md:text-sm uppercase font-extralight text-gray-200 tracking-wider xs:text-xs" >Code promo :</h4>
+                    <h4 class="md:text-sm uppercase font-extralight text-gray-200 tracking-wider xs:text-xs" >Code prestige :</h4>
                     <p class="text-lg text-white">{{ promoCode }}</p>
                 </div>
                 <Logo color="white" height="h-full" width="w-full" class="h-12 w-12"/>

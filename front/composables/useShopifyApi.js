@@ -17,7 +17,7 @@ export default function () {
         }
     }
 
-    function generateRandomCode(length = 8) {
+    function generateRandomCode(length = 12) {
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         let result = '';
         for (let i = 0; i < length; i++) {
@@ -26,7 +26,7 @@ export default function () {
         return result;
     }
     
-    const createPromoCode = async (code = `PROMO-${generateRandomCode()}`) => {
+    const createPromoCode = async (code = `CODE-${generateRandomCode()}`) => {
         try {
             const response = await $axios.post(`api/shopify/discount-code`, {
               code, // Nom du code promo à créer
