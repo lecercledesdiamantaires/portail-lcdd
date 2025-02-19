@@ -26,7 +26,7 @@
                         <Logo color="colored"/>
                     </NuxtLink>
                     <div class="flex flex-col gap-4 items-center pr-8">
-                        <LinkAside direction="dashboard" />
+                        <LinkAside direction="accueil" />
                         <LinkAside direction="transactions" />
                         <LinkAside direction="profil" />
                         <LinkAside direction="avantages" />
