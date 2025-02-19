@@ -19,10 +19,17 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
+            - name: Load NVM and Run Commands
+          run: |
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+            nvm use 22.14.0
             cd /var/www/portail-lcdd
             git pull origin main
             cd front
-            /home/ubuntu/.nvm/versions/node/v22.14.0/bin/npm run build
+            npm run build
             cd ..
-            /home/ubuntu/.nvm/versions/node/v22.14.0/bin/pm2 restart all
+            pm2 restart all
             sudo systemctl restart nginx
+
