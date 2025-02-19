@@ -1,3 +1,6 @@
+.env
+ecosystem.config.cjs
+
 # Nuxt dev/build outputs
 .output
 .data
