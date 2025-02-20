@@ -20,6 +20,7 @@ model User {
   email       String @unique
   phoneNumber String @unique
   password    String
+  address     String @default("")
   role        Role   @default(VENDEUR)
 
   vendor    Vendor?
@@ -41,15 +42,15 @@ model Whitelist {
 }
 
 model Vendor {
-  id        Int    @id @default(autoincrement())
-  promoCode String @unique
-  iban String? @unique
+  id        Int     @id @default(autoincrement())
+  promoCode String  @unique
+  iban      String?
 
-  user   User? @relation(fields: [userId], references: [id])
-  userId Int?  @unique
+  user      User? @relation(fields: [userId], references: [id])
+  userId    Int?  @unique
 
-  picture Picture?
-  payouts Payout[]
+  picture   Picture?
+  payouts   Payout[]
 
   totalWithdraw Float @default(0)
 

@@ -2,6 +2,7 @@ import axios from 'axios'
 import useShopifyApi from './useShopifyApi'
 import { errorMessages } from 'vue/compiler-sfc'
 import validatePicture  from './useProfil'
+import { add } from 'date-fns'
 
 export default function () {
   const { $axios } = useNuxtApp()
@@ -26,6 +27,7 @@ export default function () {
     phoneNumber: '',
     promoCode: '',
     picture: null,
+    address: ''
   })
   
   // Méthode pour se connecter

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { add } from 'date-fns'
 
 export default function () {
     const { $axios } = useNuxtApp()
@@ -148,6 +149,8 @@ export default function () {
                 phoneNumber: user ? user.phoneNumber : 'N/A',
                 promoCode: vendor ? vendor.promoCode : null,
                 vendorIban: vendor?.iban ? vendor.iban : 'N/A',
+                totalWithdraw: vendor?.totalWithdraw ? vendor.totalWithdraw : 0,
+                address: user ? user.address : 'N/A',
                 withdraws: pendingWithdraws
             };
         });

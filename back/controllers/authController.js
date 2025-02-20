@@ -16,21 +16,18 @@ prisma.user.generateResetToken = function() {
     return resetToken;
 };
 
-
 export const register = async (req, res) => {
-    const { email, password, firstName, lastName, phoneNumber, promoCode } = req.body;
-    if (!firstName || !lastName || !email || !password || !phoneNumber) {
+    const { email, password, firstName, lastName, phoneNumber, promoCode, address } = req.body;
+    if (!firstName || !lastName || !email || !password || !phoneNumber || !address) {
         return res.status(400).json({ error: 'Tous les champs doivent être remplis.' });
     }
 
-    try {
-      
+    try {      
         const whitelisted = await prisma.whitelist.findUnique({ where: { email } });
         if (!whitelisted) {
             return res.status(403).json({ error: 'Email non autorisé' });
         }
 
-       
         const existingUser = await prisma.user.findUnique({ where: { email } });
         if (existingUser) {
             return res.status(400).json({ error: 'Utilisateur déjà existant' });
@@ -53,6 +50,7 @@ export const register = async (req, res) => {
                 firstName,
                 lastName,
                 phoneNumber,
+                address,
                 whitelist: {
                     connect: { email }
                 },

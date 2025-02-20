@@ -2,6 +2,10 @@
 import countryCodes from '~/assets/country-codes.json'
 import { useField, useForm } from 'vee-validate'
 import { Eye, EyeOff } from 'lucide-vue-next'
+import axios from 'axios'
+import { debounce } from 'lodash'
+
+
 
 import * as yup from 'yup'
 import Swal from "sweetalert2";
@@ -14,6 +18,12 @@ const showPassword = ref(false)
 const selectedFile = ref(null);
 const fileError = ref('');
 const pictureUrl = ref('');
+const selectedCountry = ref('FRA')
+const address = ref('')
+const suggestions = ref([])
+const isSelecting = ref(false)
+
+const API_KEY = import.meta.env.VITE_HERE_API_KEY
 
 
 const togglePasswordVisibility = () => {
@@ -29,7 +39,8 @@ const schema = yup.object({
     .string()
     .matches(/^[0-9]{8,10}$/, 'Le numéro de téléphone doit contenir entre 8 et 10 chiffres')
     .required('Le numéro de téléphone est requis'),
-  acceptTerms: yup.boolean().oneOf([true], 'Vous devez accepter les termes et conditions')
+  acceptTerms: yup.boolean().oneOf([true], 'Vous devez accepter les termes et conditions'),
+  addressShowing: yup.string().required('L\'adresse est requise')
 })
 
 const { handleSubmit } = useForm({
@@ -45,6 +56,38 @@ const { value: email, errorMessage: emailError } = useField('email')
 const { value: password, errorMessage: passwordError } = useField('password')
 const { value: phoneNumber, errorMessage: phoneNumberError } = useField('phoneNumber')
 const { value: acceptTerms, errorMessage: acceptTermsError } = useField('acceptTerms')
+const { value: addressShowing, errorMessage: addressError } = useField('addressShowing')
+
+
+const selectAddress = (place) => {
+    isSelecting.value = true 
+    address.value = place.title
+    addressShowing.value = place.address.houseNumber + ' ' + place.address.street + ', ' + place.address.postalCode + ', ' + place.address.city
+    suggestions.value = []
+    setTimeout(() => { isSelecting.value = false }, 300) 
+}
+
+const fetchAddresses = async (query) => {
+    if (isSelecting.value || !query || query.length < 3) return
+
+    try {
+        const { data } = await axios.get('https://autocomplete.search.hereapi.com/v1/autocomplete', {
+            params: {
+                q: query,
+                apiKey: API_KEY,
+                lang: 'fr',
+                in: `countryCode:${selectedCountry.value}`,
+                limit: 20
+            }
+        })
+        suggestions.value = data.items || []
+    } catch (error) {
+        console.error('Erreur API HERE:', error.response?.data || error.message)
+    }
+}
+
+watch(addressShowing, fetchAddresses)
+
 
 
 const handleFile = (event) => {
@@ -69,9 +112,7 @@ const handleFile = (event) => {
 
 
 const onSubmit = handleSubmit(async(values) => {
-  if (values.phoneNumber.startsWith('0')) {
-    values.phoneNumber = values.phoneNumber.substring(1);
-  }
+  values.phoneNumber = values.phoneNumber.replace(/^0+/, ''); // Supprime les zéros en début
   const fullPhoneNumber = `${selectedDialCode.value}${values.phoneNumber}`
   const cleanedPhoneNumber = fullPhoneNumber.replace(/\D/g, '')
 
@@ -81,12 +122,11 @@ const onSubmit = handleSubmit(async(values) => {
   formData.append('email', values.email);
   formData.append('password', values.password);
   formData.append('phoneNumber', cleanedPhoneNumber);
+  formData.append('address', address.value);
 
   if (selectedFile.value) {
     formData.append('picture', selectedFile.value);
   }
-
- 
   
   try {
     await auth.register(formData)
@@ -113,8 +153,8 @@ const onSubmit = handleSubmit(async(values) => {
 
 <template>
     <NuxtLayout name="unauthorized">
-      <div class="flex w-full h-screen overflow-y-auto bg-gray-100 items-center justify-center p-4">
-      <div class="w-full max-w-lg p-8 bg-white rounded-3xl shadow-lg">
+      <div class="flex w-full h-full min-h-screen overflow-y-auto overflow-x-hidden bg-gray-100 items-center justify-center md:p-4 p-0">
+      <div class="w-full max-w-lg sm:p-8 p-4 bg-white rounded-3xl shadow-lg">
         <Logo color="colored" class="pb-6"/>
         <h2 class="text-2xl font-bold text-center mb-6">S'inscrire</h2>
         <form @submit.prevent="onSubmit">
@@ -129,7 +169,7 @@ const onSubmit = handleSubmit(async(values) => {
               @change="handleFile($event)"
             />
             <p class="mt-1 text-sm text-gray-500" id="file_input_help">PNG, JPG or JPEG.</p>
-            <p v-if="firstNameError" class="text-sm text-danger mt-1">{{ firstNameError }}</p>
+            <p v-if="fileError" class="text-sm text-danger mt-1">{{ fileError }}</p>
           </div>
           
           <div class="sm:flex gap-2 ">
@@ -173,7 +213,7 @@ const onSubmit = handleSubmit(async(values) => {
             <p v-if="emailError" class="text-sm text-danger mt-1">{{ emailError }}</p>
           </div>
 
-                <!-- Mot de passe -->
+          <!-- Mot de passe -->
           <div class="mb-4">
             <label for="password" class="block text-sm font-medium">Mot de passe *</label>
             <div class="relative">
@@ -220,6 +260,38 @@ const onSubmit = handleSubmit(async(values) => {
               />
             </div>
             <p v-if="phoneNumberError" class="text-sm text-danger mt-1">{{ phoneNumberError }}</p>
+          </div>
+
+          <div class="mb-4">
+            <label for="country" class="block text-sm font-medium">Pays *</label>
+            <select v-model="selectedCountry" id="country" class="p-2 w-full border rounded-lg">
+              <option v-for="country in countryCodes" :key="country.code" :value="country.alpha3">
+                {{ country.emoji }} {{ country.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="relative mb-4">
+            <label for="address" class="block text-sm font-medium">Adresse *</label>
+            <input
+              v-model="addressShowing"
+              id="address"
+              type="text"
+              class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
+              placeholder="Entrez votre adresse (ex: 10 rue de la Paix)"
+            />
+
+              <ul v-if="suggestions.length" class="absolute z-10 w-full max-h-48 overflow-y-scroll bg-white border rounded-lg shadow-lg mt-1">
+                  <li 
+                      v-for="(place, index) in suggestions" 
+                      :key="index"
+                      @click="selectAddress(place)"
+                      class="p-2 hover:bg-gray-100 cursor-pointer"
+                  >   
+                      {{ place.address.houseNumber }} {{ place.address.street }} {{ place.address.postalCode }} {{ place.address.city }}
+                  </li>
+              </ul>
+              <p v-if="addressError" class="text-sm text-danger mt-1">{{ addressError }}</p>
           </div>
 
           <!-- Acceptation des termes -->
