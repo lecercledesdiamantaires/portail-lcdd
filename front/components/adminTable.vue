@@ -37,11 +37,11 @@
             <thead>
                 <tr class="bg-gray-100">
                     <adminHead>Retrait</adminHead>
+                    <adminHead>Carte</adminHead>
                     <adminHead>Role</adminHead>
                     <adminHead>Nom</adminHead>
                     <adminHead>Prénom</adminHead>
                     <adminHead>Email</adminHead>
-                    <adminHead>Promo code</adminHead>
                     <adminHead>Supprimer</adminHead>
                     <adminHead>Voir plus</adminHead>
                 </tr>
@@ -57,7 +57,14 @@
                 >
                     <adminRow>{{user.withdraws?.length}}</adminRow>
                     <adminRow>
-                        <select class="p-2 outline-none" v-model="user.role" @change="profil.updateUserRole(user.userId, user.role)">
+                        <input 
+                            type="checkbox" 
+                            :checked="user.cardSent" 
+                            @change="profil.updateCardSent(user.userId, !user.cardSent)" 
+                        />
+                    </adminRow>                    
+                    <adminRow>
+                        <select class="py-2 outline-none" v-model="user.role" @change="profil.updateUserRole(user.userId, user.role)">
                             <option value="ADMIN">ADMIN</option>
                             <option value="VENDEUR">VENDEUR</option>
                         </select>
@@ -65,7 +72,6 @@
                     <adminRow>{{ user.firstName }}</adminRow>
                     <adminRow>{{ user.lastName }}</adminRow>
                     <adminRow>{{ user.email }}</adminRow>
-                    <adminRow>{{ user.promoCode }}</adminRow>
                     <adminRow v-if="myProfil.email !== user.email">
                         <ButtonDanger  @click="popup.openPopup()">
                             <font-awesome-icon icon="trash" />

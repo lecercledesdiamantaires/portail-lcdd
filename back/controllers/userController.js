@@ -74,7 +74,7 @@ export const updateUser = async (req, res) => {
                 lastName,
                 email,
                 phoneNumber,
-                password : hashedPassword
+                password : hashedPassword,
             },
         });
 
@@ -105,5 +105,28 @@ export const updateUserRole = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Erreur serveur lors de la mise à jour du rôle utilisateur.' });
+    }
+}
+
+export const updateCardSent = async (req, res) => {
+    const { id } = req.params;
+    const { cardSent } = req.body;
+
+    if (!id) {
+        return res.status(400).json({ error: 'ID requis.' });
+    }
+
+    try {
+        const user = await prisma.user.update({
+            where: { id: parseInt(id, 10) },
+            data: {
+                cardSent,
+            },
+        });
+
+        res.status(200).json({ message: 'Rôle utilisateur mis à jour avec succès.', user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erreur serveur lors de la mise à jour du statut de l\'envoie de la carte.' });
     }
 }

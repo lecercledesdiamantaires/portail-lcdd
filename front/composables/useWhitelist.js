@@ -151,6 +151,7 @@ export default function () {
                 vendorIban: vendor?.iban ? vendor.iban : 'N/A',
                 totalWithdraw: vendor?.totalWithdraw ? vendor.totalWithdraw : 0,
                 address: user ? user.address : 'N/A',
+                cardSent: user ? user.cardSent : false,
                 withdraws: pendingWithdraws
             };
         });

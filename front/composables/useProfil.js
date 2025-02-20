@@ -48,6 +48,19 @@ export default function () {
         }
     }
 
+    const updateCardSent = async (id, cardSent) => {
+        try {
+            await $axios.put(
+                `/api/user/update-card-sent/${id}`,
+                { cardSent },
+                { headers: { Authorization: `Bearer ${token}` } }
+            )
+            window.location.reload()
+        } catch (error) {
+            console.error('Erreur lors de la mise à jour du statut de l\'envoie de la carte', error.response?.data || error.message)
+        }
+    }
+
     const getPicture = async (id) => {
        try {
             const response = await $axios.get(
@@ -102,6 +115,7 @@ export default function () {
         getUser,
         updateUser,
         updateUserRole,
+        updateCardSent,
         getPicture,
         picture,
         updatePicture,

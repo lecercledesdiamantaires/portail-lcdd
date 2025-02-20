@@ -1,7 +1,5 @@
 <script setup>
     const whitelist = inject('whitelist')
-    console.log(whitelist?.withdrawsPending)
-    console.log(whitelist?.withdrawsPending?.length)
 </script>
 
 <template>

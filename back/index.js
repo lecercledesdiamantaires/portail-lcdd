@@ -23,8 +23,6 @@ app.use(bodyParser.json());
 app.use('/api', router);
 
 app.use('/assets/pictures', express.static(path.join(__dirname, 'assets/pictures')));
-console.log(path.join(__dirname, 'assets/pictures'));
-console.log('Static files served from:', path.join(__dirname, 'assets/pictures'));
 
 
 // Démarrage du serveur

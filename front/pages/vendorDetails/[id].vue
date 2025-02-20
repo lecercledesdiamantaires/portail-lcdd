@@ -47,6 +47,9 @@
           <h1 class="text-3xl font-bold">Vue de <span class="capitalize">{{user?.firstName}} {{user?.lastName}}</span></h1>
           <ProfilePicture :userId="userId" />
         </div>
+        <div v-if="!user?.cardSent" class="px-4 py-3 rounded-xl border border-redLight-300 bg-redLight-100 text-center">
+          <p>La carte n'a pas encore été envoyée</p>
+        </div>
         <div class="flex flex-col gap-6">
           <div class="flex lg:flex-row md:flex-col xs:flex-col gap-6 justify-between">
             <AdminInfo label="Email" :info="user?.email" />

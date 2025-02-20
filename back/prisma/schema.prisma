@@ -14,20 +14,21 @@ datasource db {
 }
 
 model User {
-  id          Int    @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   firstName   String
   lastName    String
-  email       String @unique
-  phoneNumber String @unique
+  email       String  @unique
+  phoneNumber String  @unique
   password    String
-  address     String @default("")
-  role        Role   @default(VENDEUR)
+  address     String  @default("")
+  cardSent    Boolean @default(false)
+  role        Role    @default(VENDEUR)
 
-  vendor    Vendor?
-  whitelist Whitelist?
+  vendor      Vendor?
+  whitelist   Whitelist?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   resetPasswordToken   String?
   resetPasswordExpires DateTime?
@@ -44,7 +45,7 @@ model Whitelist {
 model Vendor {
   id        Int     @id @default(autoincrement())
   promoCode String  @unique
-  iban      String?
+  iban      String? @default("")
 
   user      User? @relation(fields: [userId], references: [id])
   userId    Int?  @unique
