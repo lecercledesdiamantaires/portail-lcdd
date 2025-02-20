@@ -1,5 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
+import fs from 'fs';
+import { format } from 'fast-csv';
+import os from 'os';
 
 const prisma = new PrismaClient();
 
@@ -130,3 +133,56 @@ export const updateCardSent = async (req, res) => {
         res.status(500).json({ error: 'Erreur serveur lors de la mise à jour du statut de l\'envoie de la carte.' });
     }
 }
+
+export const exportUsersToCSV = async () => {
+    try {
+        const users = await prisma.user.findMany({
+            where: {
+                cardSent: false, 
+                role: 'VENDEUR' 
+            },
+            select: {
+                firstName: true,
+                lastName: true,
+                address: true,
+                vendor: {
+                    select: {
+                        promoCode: true, 
+                        picture: {
+                            select: { url: true }
+                        }
+                    }
+                }
+            }
+        });
+
+        if (users.length === 0) {
+            console.log('✅ Aucun utilisateur à exporter (tout le monde a reçu sa carte).');
+            return;
+        }
+
+        const downloadPath = os.homedir() + '/Downloads/users.csv';
+        const ws = fs.createWriteStream(downloadPath);
+        const csvStream = format({ headers: true });
+
+        csvStream.pipe(ws);
+
+        users.forEach(user => {
+            csvStream.write({
+                Nom: `${user.firstName} ${user.lastName}`,
+                Email: user.email,
+                Adresse: user.address || 'Non renseignée',
+                "Code promo": user.vendor?.promoCode || 'Pas de code',
+                Url: `https://lecercledesdiamantaires.com/?discount=${user.vendor?.promoCode}`,
+                Image: `https://partenaire.lecercledesdiamantaires.com/${user.vendor?.picture?.url}` || 'Pas d\'image'
+            });
+        });
+        csvStream.end();
+
+    } catch (error) {
+        console.error('Erreur lors de l\'export :', error);
+    } finally {
+        await prisma.$disconnect();
+    }
+};
+
