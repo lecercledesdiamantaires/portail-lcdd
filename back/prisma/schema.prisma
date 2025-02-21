@@ -45,18 +45,11 @@ model Whitelist {
 model Vendor {
   id        Int     @id @default(autoincrement())
   promoCode String  @unique
-<<<<<<< HEAD
   walletId  String  @unique
-  iban      String?
+  iban      String? @default("")
 
   user      User?   @relation(fields: [userId], references: [id])
   userId    Int?    @unique
-=======
-  iban      String? @default("")
-
-  user      User? @relation(fields: [userId], references: [id])
-  userId    Int?  @unique
->>>>>>> be1337d29f588679d1bfce429132db913896bc2c
 
   picture   Picture?
   payouts   Payout[]

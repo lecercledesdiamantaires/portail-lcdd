@@ -62,8 +62,8 @@ export default function () {
     try {
       code.value = await useShopifyApi().createPromoCode()
       userData.append("promoCode", code.value.code);
-      walletId.value = await useWallet().createCard(useWallet().cardJson, userData)
-      userData.append("walletId", walletId.value.cardId);
+      // walletId.value = await useWallet().createCard(useWallet().cardJson, userData)
+      // userData.append("walletId", walletId.value.cardId);
 
       const response = await $axios.post(`/api/auth/register`, userData)
       user.value = response.data.user
