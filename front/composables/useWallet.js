@@ -66,7 +66,6 @@ export default function () {
             cardJson.barcodeValue = `https://lecercledesdiamantaires.com/?discount=${user.get("promoCode")}`;
             cardJson.header = `${user.get("firstName")} ${user.get("lastName")}`;
             cardJson.textModulesData[0].body = `${user.get("promoCode")}`;
-            console.log(cardJson);
             const response = await $axios.post(`api/wallet/create`, cardJson);
             return response.data;
         } catch(error) {

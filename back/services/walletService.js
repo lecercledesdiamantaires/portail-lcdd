@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 export const createWalletCard = async (cardJson) => {
     try {
         const response = await axios.post(
-            'https://app.addtowallet.co//api/card/create',
+            'https://app.addtowallet.co/api/card/create',
             cardJson,
             {
                 headers: {
