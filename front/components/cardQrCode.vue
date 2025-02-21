@@ -51,7 +51,7 @@
 
 <style scoped>
    .container-card {
-      background: linear-gradient(107deg, #006D5C 2.61%, #003D34 101.2%);
+      background: linear-gradient(107deg, #006D5C 2.61%, #013320 101.2%);
    }
 
    .bottom-card {
