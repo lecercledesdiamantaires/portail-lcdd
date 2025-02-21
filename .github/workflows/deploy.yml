@@ -24,11 +24,26 @@ jobs:
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
             nvm use 22.14.0
+
             cd /var/www/portail-lcdd
             git pull origin main
+
+            # 🔹 Sauvegarde de la base de données
+            TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+            mysqldump -u debian-sys-maint -p portail_lcdd > backup/db_backup_$TIMESTAMP.sql
+
+            # 🔹 Appliquer les migrations Prisma
+            cd back
+            npm install --production
+            npx prisma migrate deploy
+            cd ..
+
+            # 🔹 Build du frontend
             cd front
             npm install --production
             npm run build
             cd ..
+
+            # 🔹 Redémarrer les services
             pm2 restart all
             sudo systemctl restart nginx

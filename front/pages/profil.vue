@@ -1,7 +1,9 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { Eye, EyeOff } from 'lucide-vue-next'
+import axios from 'axios';
 
+const API_KEY = import.meta.env.VITE_HERE_API_KEY
 
 definePageMeta({
   middleware: ['auth']
@@ -16,14 +18,16 @@ const user = ref({
   firstName: '',
   lastName: '',
   email: '',
-  password: '',
-  phoneNumber: ''
+  phoneNumber: '',
+  address:''
 });
 
 const selectedFile = ref(null);
 const fileError = ref('');
 const pictureUrl = ref('');
 const warning = ref(null);
+const suggestions = ref([])
+const isSelecting = ref(false)
 const isLoading = ref(true);
 
 if (process.client) {
@@ -46,11 +50,47 @@ if (process.client) {
     isLoading.value = false;
   }
 }
-const showPassword = ref(false)
 
-const togglePasswordVisibility = () => {
-  showPassword.value = !showPassword.value
-}
+const selectAddress = (place) => {
+    isSelecting.value = true;
+    user.value.address = place.title;
+    console.log(place.title);
+    console.log(user.value.address);
+    suggestions.value = [];
+    
+    setTimeout(() => {
+        isSelecting.value = false;
+    }, 300);
+};
+
+const fetchAddresses = async (query) => {
+    if (isSelecting.value || !query || query.length < 3) return;
+
+    try {
+        const { data } = await axios.get('https://autocomplete.search.hereapi.com/v1/autocomplete', {
+            params: {
+                q: query,
+                apiKey: API_KEY,
+                lang: 'fr',
+                limit: 20
+            }
+        });
+        suggestions.value = data.items || [];
+    } catch (error) {
+        console.error('Erreur API HERE:', error.response?.data || error.message);
+    }
+};
+
+watch(
+    () => user.value.address,
+    (newAddress, oldAddress) => {
+        if (!isSelecting.value && newAddress !== oldAddress) {
+            fetchAddresses(newAddress);
+        }
+    }
+);
+
+
 const handleChangeFile = (event) => {
   const file = event.target.files[0];
   if (file) {
@@ -138,26 +178,7 @@ const submit = async () => {
               required
             />
           </div>
-          <div class="mb-4">
-            <label for="password" class="block text-sm font-medium">Mot de passe :</label>
-            <div class="relative">
-              <input 
-                v-model="user.password"
-                id="password" 
-                :type="showPassword ? 'text' : 'password'" 
-                class="mt-1 p-2 w-full border rounded-xl focus:ring-2 focus:ring-blue-500"
-                placeholder="Entrez un mot de passe sécurisé"
-              />
-              <button 
-                type="button"
-                @click="togglePasswordVisibility"
-                class="absolute inset-y-0 right-3 flex items-center text-gray-500"
-              >
-                <component :is="showPassword ? Eye : EyeOff" />
-              </button>
-            </div>
-            <p v-if="passwordError" class="text-sm text-danger mt-1">{{ passwordError }}</p>
-          </div>
+
           <div class="mb-4">
             <label for="email" class="block text-sm font-medium">Numéro de téléphone :</label>
             <input
@@ -168,6 +189,26 @@ const submit = async () => {
               class="p-2 border border-gray-300 rounded-xl w-full" 
               required
             />
+          </div>
+          <div class="relative mb-4">
+            <label for="address" class="block text-sm font-medium">Adresse</label>
+            <input
+              v-model="user.address"
+              id="address"
+              type="text"
+              class="mt-1 p-2 w-full border rounded-lg focus:ring-2 focus:ring-blue-500"
+              placeholder="Entrez votre adresse (ex: 10 rue de la Paix)"
+            />
+            <ul v-if="suggestions?.length" class="absolute z-10 w-full max-h-48 overflow-y-scroll bg-white border rounded-lg shadow-lg mt-1">
+                <li 
+                    v-for="(place, index) in suggestions" 
+                    :key="index"
+                    @click="selectAddress(place)"
+                    class="p-2 hover:bg-gray-100 cursor-pointer"
+                >   
+                  {{place.title}}
+                </li>
+            </ul>
           </div>
           <ButtonPrimary type="submit" class="w-full">Mettre à jour</ButtonPrimary>
         </form>

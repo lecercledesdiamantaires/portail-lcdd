@@ -41,7 +41,7 @@
             </div>
             <div class="bottom-card w-full h-full px-6 py-5 rounded-b-3xl flex justify-between items-center">
                 <div>
-                    <h4 class="md:text-sm uppercase font-extralight text-gray-200 tracking-wider xs:text-xs" >Code prestige :</h4>
+                    <h4 class="md:text-sm uppercase font-extralight text-gray-200 tracking-wider xs:text-xs" >Code privilège :</h4>
                     <p class="text-lg text-white">{{ promoCode }}</p>
                 </div>
                 <Logo color="white" height="h-full" width="w-full" class="h-12 w-12"/>
@@ -57,7 +57,7 @@
 
 <style scoped>
    .container-card {
-      background: linear-gradient(107deg, #006D5C 2.61%, #003D34 101.2%);
+      background: linear-gradient(107deg, #006D5C 2.61%, #013320 101.2%);
    }
 
    .bottom-card {

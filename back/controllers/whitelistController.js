@@ -48,8 +48,6 @@ export const getWhitelist = async (req, res) => {
     }
 };
 
-
-
 export const deleteEmailFromWhitelist = async (req, res) => {
     const { email } = req.params; // Récupération depuis les paramètres de l'URL
 

@@ -15,7 +15,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const sendResetPasswordEmail = async (email, token) => {
     const resetUrl = `${FRONT_URL}/resetpassword?token=${token}`;
     const templatePath = path.join(__dirname, '..', 'templates', 'resetPasswordTemplate.html');
-    console.log('Template path:', templatePath);
     let htmlTemplate = fs.readFileSync(templatePath, 'utf-8');
 
     htmlTemplate = htmlTemplate.replace('{{resetUrl}}', resetUrl);
@@ -44,7 +43,6 @@ export const sendWelcomeEmail = async (email) => {
     const welcomeUrl = `${FRONT_URL}/register`;
     const templatePath = path.join(__dirname, '..', 'templates', 'welcomeTemplate.html');
 
-    console.log('Template path:', templatePath);
     let htmlTemplate = fs.readFileSync(templatePath, 'utf-8');
 
     htmlTemplate = htmlTemplate.replace('{{welcomeUrl}}', welcomeUrl);
@@ -73,7 +71,7 @@ export const sendWithdrawAsk = async (vendorId, amount, user, iban) => {
     const templatePath = path.join(__dirname, '..', 'templates', 'withdrawTemplate.html');
     let htmlTemplate = fs.readFileSync(templatePath, 'utf-8');
 
-    console.log('Template path:', templatePath);
+
     htmlTemplate = htmlTemplate.replace('{{logoUrl}}', logoUrl);
 
     htmlTemplate = htmlTemplate.replace('{{vendorId}}', vendorId);
@@ -105,7 +103,6 @@ export const sendWithdrawAccept = async (email, amount) => {
     const templatePath = path.join(__dirname, '..', 'templates', 'withdrawAcceptTemplate.html');
     let htmlTemplate = fs.readFileSync(templatePath, 'utf-8');
 
-    console.log('Template path:', templatePath);
     htmlTemplate = htmlTemplate.replace('{{logoUrl}}', logoUrl);
     htmlTemplate = htmlTemplate.replace('{{amount}}', amount);
 
@@ -131,8 +128,6 @@ export const sendWithdrawAccept = async (email, amount) => {
 export const sendMailContact = async (email, subject, message) => {
     const templatePath = path.join(__dirname, '..', 'templates', 'contactTemplate.html');
     let htmlTemplate = fs.readFileSync(templatePath, 'utf-8');
-
-    console.log('Template path:', templatePath);
 
     htmlTemplate = htmlTemplate.replace('{{logoUrl}}', logoUrl);
     htmlTemplate = htmlTemplate.replace('{{email}}', email);
