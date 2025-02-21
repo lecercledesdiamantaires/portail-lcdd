@@ -9,6 +9,7 @@ import pictureRoutes from './routes/pictureRoutes.js';
 import withdrawRoutes from './routes/withdrawRoutes.js';
 import emailRoutes from './routes/emailRoutes.js';
 import shopifyRoutes from './routes/shopifyRoutes.js';
+import walletRoutes from './routes/walletRoutes.js';
 
 
 const router = Router();
@@ -22,5 +23,6 @@ router.use('/picture', pictureRoutes);
 router.use('/withdraw', withdrawRoutes);
 router.use('/email', emailRoutes);  
 router.use('/shopify', shopifyRoutes);
+router.use('/wallet', walletRoutes);
 
 export default router;

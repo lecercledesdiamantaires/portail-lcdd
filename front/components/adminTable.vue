@@ -6,11 +6,15 @@
     const searchBar = inject('searchBar')
     const shopifyApi = inject('shopifyApi')
     const myProfil = ref(null)
+    const wallet = inject('wallet');
 
     const deleteUser = (user) => {
+        wallet.deleteWalletCard(user.userId)
         shopifyApi.deletePromoCode(user.promoCode)
         whitelist.deleteVendor(user.userId)
-        whitelist.deleteEmail(user.email, user.userId) 
+        whitelist.deleteEmail(user.email, user.userId)
+        
+        
         popup.closePopup()
     }
     if (process.client) {
@@ -29,6 +33,7 @@
             )
         })
     })
+
 </script>
 
 <template>

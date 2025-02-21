@@ -2,6 +2,7 @@ import axios from 'axios'
 import useShopifyApi from './useShopifyApi'
 import { errorMessages } from 'vue/compiler-sfc'
 import validatePicture  from './useProfil'
+import useWallet from './useWallet'
 
 export default function () {
   const { $axios } = useNuxtApp()
@@ -12,6 +13,7 @@ export default function () {
   const code = ref(null)
   const responseMessage = ref(null)
   const errorMessage = ref(null)
+  const walletId = ref(null)
 
   const loginForm = reactive({
     email: '',
@@ -58,6 +60,9 @@ export default function () {
     try {
       code.value = await useShopifyApi().createPromoCode()
       userData.append("promoCode", code.value.code);
+      walletId.value = await useWallet().createCard(useWallet().cardJson, userData)
+      userData.append("walletId", walletId.value.cardId);
+
       const response = await $axios.post(`/api/auth/register`, userData)
       user.value = response.data.user
       responseMessage.value = true
