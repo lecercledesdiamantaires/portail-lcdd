@@ -134,38 +134,28 @@ export const updateCardSent = async (req, res) => {
     }
 }
 
-export const exportUsersToCSV = async () => {
+export const exportUsersToCSV = async (req, res) => {
     try {
         const users = await prisma.user.findMany({
-            where: {
-                cardSent: false, 
-                role: 'VENDEUR' 
-            },
+            where: { cardSent: false, role: 'VENDEUR' },
             select: {
                 firstName: true,
                 lastName: true,
+                email: true,
                 address: true,
-                vendor: {
-                    select: {
-                        promoCode: true, 
-                        picture: {
-                            select: { url: true }
-                        }
-                    }
-                }
+                vendor: { select: { promoCode: true, picture: { select: { url: true } } } }
             }
         });
 
         if (users.length === 0) {
-            console.log('✅ Aucun utilisateur à exporter (tout le monde a reçu sa carte).');
-            return;
+            return res.status(404).json({ message: 'Aucun utilisateur à exporter.' });
         }
 
-        const downloadPath = os.homedir() + '/Downloads/users.csv';
-        const ws = fs.createWriteStream(downloadPath);
-        const csvStream = format({ headers: true });
+        res.setHeader('Content-Disposition', 'attachment; filename=users.csv');
+        res.setHeader('Content-Type', 'text/csv');
 
-        csvStream.pipe(ws);
+        const csvStream = format({ headers: true });
+        csvStream.pipe(res);
 
         users.forEach(user => {
             csvStream.write({
@@ -177,12 +167,11 @@ export const exportUsersToCSV = async () => {
                 Image: `https://partenaire.lecercledesdiamantaires.com/${user.vendor?.picture?.url}` || 'Pas d\'image'
             });
         });
-        csvStream.end();
 
+        csvStream.end();
     } catch (error) {
-        console.error('Erreur lors de l\'export :', error);
-    } finally {
-        await prisma.$disconnect();
+        console.error('❌ Erreur lors de l\'export :', error);
+        res.status(500).json({ error: 'Erreur serveur.' });
     }
 };
 

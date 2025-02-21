@@ -24,7 +24,7 @@ export default function () {
 
     const downloadCSV = async () => {
         try {
-            const response = await $axios.get('api/user/export-users');
+            const response = await fetch('http://localhost:4000/api/user/export-users');
             if (!response.ok) throw new Error('Erreur lors du téléchargement');
     
             const blob = await response.blob();
@@ -32,7 +32,7 @@ export default function () {
     
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'users.csv';
+            a.download = 'users.csv'; // Ce nom sera suggéré, mais l'utilisateur peut choisir où enregistrer
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -40,6 +40,7 @@ export default function () {
             console.error('❌ Erreur lors du téléchargement du CSV :', error);
         }
     };
+    
     
 
     return { 

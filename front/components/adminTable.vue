@@ -2,7 +2,6 @@
     const whitelist = inject('whitelist')
     const popup = inject('popup')
     const profil = inject('profil')
-    const iban = inject('iban')
     const searchBar = inject('searchBar')
     const shopifyApi = inject('shopifyApi')
     const myProfil = ref(null)
