@@ -17,7 +17,8 @@ prisma.user.generateResetToken = function() {
 };
 
 export const register = async (req, res) => {
-    const { email, password, firstName, lastName, phoneNumber, promoCode, address,  walletId } = req.body;
+    // const { email, password, firstName, lastName, phoneNumber, promoCode, address,  walletId } = req.body;
+    const { email, password, firstName, lastName, phoneNumber, promoCode, address } = req.body;
     if (!firstName || !lastName || !email || !password || !phoneNumber || !address) {
         return res.status(400).json({ error: 'Tous les champs doivent être remplis.' });
     }
@@ -63,7 +64,7 @@ export const register = async (req, res) => {
                 data: {
                 userId: user.id,
                 promoCode: promoCode,
-                walletId : walletId,
+                // walletId : walletId,
                 
                 },
             });

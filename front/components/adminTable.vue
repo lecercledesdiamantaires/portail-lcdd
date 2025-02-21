@@ -8,7 +8,7 @@
     const wallet = inject('wallet');
 
     const deleteUser = (user) => {
-        wallet.deleteWalletCard(user.userId)
+        // wallet.deleteWalletCard(user.userId)
         shopifyApi.deletePromoCode(user.promoCode)
         whitelist.deleteVendor(user.userId)
         whitelist.deleteEmail(user.email, user.userId)

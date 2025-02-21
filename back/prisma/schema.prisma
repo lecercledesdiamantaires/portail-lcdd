@@ -45,7 +45,7 @@ model Whitelist {
 model Vendor {
   id        Int     @id @default(autoincrement())
   promoCode String  @unique
-  walletId  String  @unique
+  // walletId  String  @unique
   iban      String? @default("")
 
   user      User?   @relation(fields: [userId], references: [id])

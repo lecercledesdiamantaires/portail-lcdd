@@ -47,10 +47,10 @@
                 <Logo color="white" height="h-full" width="w-full" class="h-12 w-12"/>
             </div>
         </div>
-        <div class="md:hidden xs:flex gap-2 w-full flex-col items-center justify-center">
+        <!-- <div class="md:hidden xs:flex gap-2 w-full flex-col items-center justify-center">
             <addWallet logo="Google" :user="user"/>
             <addWallet logo="Apple" :user="user"/>
-        </div>
+        </div> -->
         
     </div>
 </template>
