@@ -32,6 +32,8 @@
   provide('admin', admin);
   const email = useEmail();
   provide('email', email);
+  const wallet = useWallet();
+  provide('wallet', wallet);
 </script>
 
 

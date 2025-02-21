@@ -14,7 +14,6 @@ import ButtonPrimary from '~/components/buttonPrimary.vue';
    if (process.client){
       promoCode.value = localStorage.getItem('promoCode');
       user.value = JSON.parse(localStorage.getItem('user'));
-      console.log(sales.getSales(promoCode.value));
       setTimeout(() => {
          canShowCardValue.value = true
       }, 800)

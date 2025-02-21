@@ -19,11 +19,14 @@
     <div class="flex flex-1 flex-col gap-4 p-2 sm:p-8">
         <div class="flex items-center justify-between sm:mb-6">
             <HelloText />   
-            <ButtonDanger @click="auth.logout()">
-                Déconnexion
-            </ButtonDanger>
+            <div>
+                <ButtonDanger @click="auth.logout()">
+                    Déconnexion
+                </ButtonDanger>
+            </div>
         </div>
         <WithdrawPendingAlert />
+        <CardSentPendingAlert />
         <InputWhitelist />
         <div>
             <SearchBar />

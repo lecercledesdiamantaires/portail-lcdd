@@ -42,16 +42,22 @@
 
 <template>
     <div class="flex flex-col gap-4 sm:p-6 w-full h-screen overflow-y-auto xs:px-2 xs:py-6 bg-gray-100">
-        <NuxtLink to="/admin" class="text-primary underline">Retour</NuxtLink>
-        
+        <NuxtLink to="/admin" class="text-primary underline">Retour</NuxtLink>        
         <div class="flex items-center justify-between gap-4">
           <h1 class="text-3xl font-bold">Vue de <span class="capitalize">{{user?.firstName}} {{user?.lastName}}</span></h1>
           <ProfilePicture :userId="userId" />
         </div>
-        <div>
+        <div v-if="!user?.cardSent" class="px-4 py-3 rounded-xl border border-redLight-300 bg-redLight-100 text-center">
+          <p>La carte n'a pas encore été envoyée</p>
+        </div>
+        <div class="flex flex-col gap-6">
           <div class="flex lg:flex-row md:flex-col xs:flex-col gap-6 justify-between">
             <AdminInfo label="Email" :info="user?.email" />
             <AdminInfo label="Iban" :info="user?.vendorIban" />
+            <AdminInfo label="Total retiré" :info="user?.totalWithdraw" />
+          </div>
+          <div class="flex lg:flex-row md:flex-col xs:flex-col gap-6 justify-between">
+            <AdminInfo label="Adresse" :info="user?.address" />
             <AdminInfo label="Promocode" :info="user?.promoCode" />
           </div>
           <AdminWithdraws :user="user" />

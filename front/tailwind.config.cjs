@@ -27,7 +27,7 @@ export default {
     },
     colors: {
       // Primary Colors
-      primary: '#006D5C', // Main Green
+      primary: '#013320', // Main Green
       primaryLight: '#003D34', // Main Green
       offWhite: '#F9F9F9', // Off White
       white: '#FFFFFF',
