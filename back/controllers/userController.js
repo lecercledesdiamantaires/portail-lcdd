@@ -60,10 +60,7 @@ export const deleteUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
     const { id } = req.params;
-    const { email, password, phoneNumber, firstName, lastName } = req.body;
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
+    const { email, phoneNumber, firstName, lastName, address } = req.body;
 
     if (!id) {
         return res.status(400).json({ error: 'ID requis.' });
@@ -77,7 +74,7 @@ export const updateUser = async (req, res) => {
                 lastName,
                 email,
                 phoneNumber,
-                password : hashedPassword,
+                address,
             },
         });
 
