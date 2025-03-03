@@ -38,7 +38,7 @@
             <h2 class="text-xl font-semibold">5. Confidentialité et protection des données</h2>
             <p>
                 Les informations partagées sur le portail peuvent inclure des données sensibles et confidentielles.
-                Nous nous engageons à protéger les données personnelles des partenaires conformément aux réglementations en vigueur ([RGPD, Loi Informatique et Libertés, etc.]).
+                Nous nous engageons à protéger les données personnelles des partenaires conformément aux réglementations en vigueur (RGPD, Loi Informatique et Libertés, etc).
             </p>
 
             <h2 class="text-xl font-semibold">6. Responsabilité</h2>
