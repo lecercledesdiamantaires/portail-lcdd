@@ -1,7 +1,7 @@
 <script setup>
 import { inject } from "vue";
 
-    const { getWalletId } = inject('wallet');
+    // const { getWalletId } = inject('wallet');
     const props = defineProps({
         logo :{
             type:String,
@@ -16,9 +16,9 @@ import { inject } from "vue";
 
     const image = computed(() => new URL(`../assets/icons/${props.logo}-wallet.png`, import.meta.url).href);
 
-    const walletCard = await getWalletId(props.user.id);
+    // const walletCard = await getWalletId(props.user.id);
 
-    const linkWalletCard = `https://app.addtowallet.co/card/${walletCard.walletId}`;
+    // const linkWalletCard = `https://app.addtowallet.co/card/${walletCard.walletId}`;
 
     
 </script>
