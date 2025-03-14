@@ -303,9 +303,9 @@ const onSubmit = handleSubmit(async(values) => {
             />
             <label for="acceptTerms" class="text-sm">
               J'accepte les 
-              <a href="#" class="text-primary">
+              <NuxtLink to="/termeCondition" class="text-primary">
                 termes et conditions
-              </a>
+              </NuxtLink>
             </label>
           </div>
           <p v-if="acceptTermsError" class="text-sm text-danger mt-1">{{ acceptTermsError }}</p>
