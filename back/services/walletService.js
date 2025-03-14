@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client';
 dotenv.config();
 
 const prisma = new PrismaClient();
-
+console.log(process.env.WALLET_API_KEY)
 export const createWalletCard = async (cardJson) => {
     try {
         const response = await axios.post(
