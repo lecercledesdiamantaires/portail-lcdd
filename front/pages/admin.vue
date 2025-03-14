@@ -12,6 +12,16 @@
         }
     })
   }
+
+
+  onMounted(() => {
+    if (localStorage.getItem('firstLoad') === null) {
+        localStorage.setItem('firstLoad', 'true');
+        location.reload();
+    } else {
+        localStorage.removeItem('firstLoad');
+    }
+});
 </script>
 
 
