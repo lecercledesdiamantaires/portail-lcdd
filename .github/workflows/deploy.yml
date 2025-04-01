@@ -12,7 +12,8 @@ jobs:
     steps:
       - name: Checkout du repo
         uses: actions/checkout@v4
-
+      - name: Debug SSH Key
+        run: echo "${{ secrets.VPS_SSH_KEY }}" | awk '{print substr($0,1,30) "…"}'
       - name: Déployer via SSH
         uses: appleboy/ssh-action@v0.1.10
         with:
